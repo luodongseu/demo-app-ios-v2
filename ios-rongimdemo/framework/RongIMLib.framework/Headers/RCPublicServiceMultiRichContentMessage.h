@@ -1,22 +1,29 @@
-//
+/**
+ * Copyright (c) 2014-2015, RongCloud.
+ * All rights reserved.
+ *
+ * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
+ * Unless otherwise credited. http://rongcloud.cn
+ *
+ */
+
 //  RCPublicServiceMultiRichContentMessage.h
-//  RongIMLib
-//
 //  Created by litao on 15/4/13.
-//  Copyright (c) 2015年 RongCloud. All rights reserved.
-//
 
 #import "RCMessageContent.h"
-#define RCPublicServiceRichContentTypeIdentifier             @"RC:PSMultiImgTxtMsg"
+#define RCPublicServiceRichContentTypeIdentifier @"RC:PSMultiImgTxtMsg"
 
+/**
+ * 公众服务账号多图文消息
+ */
 @interface RCPublicServiceMultiRichContentMessage : RCMessageContent
 /**
- *  消息内容 
- *  类型是RCRichContentMessage
+ *  消息内容
+ *  类型是RCRichContentItem
  */
-@property (nonatomic, strong)NSMutableArray *richConents; //array of RCRichContentMessage
+@property(nonatomic, strong) NSMutableArray *richConents;
 /**
  *  附加信息
  */
-@property(nonatomic, strong) NSString* extra;
+@property(nonatomic, strong) NSString *extra;
 @end

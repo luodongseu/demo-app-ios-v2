@@ -6,6 +6,8 @@
 //  Copyright (c) 2015年 胡利武. All rights reserved.
 //
 
+#define HEXCOLOR(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 #import "RCDChatListCell.h"
 
 @implementation RCDChatListCell
@@ -27,16 +29,17 @@
         
         _ivAva = [UIImageView new];
         _ivAva.clipsToBounds = YES;
-        _ivAva.layer.cornerRadius = 8.0f;
+        _ivAva.layer.cornerRadius = 6.0f;
         [_ivAva setBackgroundColor:[UIColor blackColor]];
         
         _lblDetail = [UILabel new];
-        [_lblDetail setFont:[UIFont fontWithName:@"Heiti SC" size:14.f]];
-        [_lblDetail setTextColor:[UIColor colorWithRed:170/255 green:170/255 blue:170/255 alpha:1]];
-        _lblDetail.text = [NSString stringWithFormat:@"来自\"%@\"的好友请求",_userName];
+        [_lblDetail setFont:[UIFont systemFontOfSize:14.f]];
+        [_lblDetail setTextColor:HEXCOLOR(0x8c8c8c)];
+        _lblDetail.text = [NSString stringWithFormat:@"来自%@的好友请求",_userName];
         
         _lblName = [UILabel new];
-        [_lblName setFont:[UIFont fontWithName:@"Heiti SC-Bold" size:16.f]];
+        [_lblName setFont:[UIFont boldSystemFontOfSize:16.f]];
+        [_lblName setTextColor:HEXCOLOR(0x252525)];
         _lblName.text = @"好友消息";
         
         [self addSubview:_ivAva];
@@ -49,9 +52,9 @@
         
         NSDictionary *_bindingViews = NSDictionaryOfVariableBindings(_ivAva,_lblName,_lblDetail);
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-9-[_ivAva(56)]-11-|" options:kNilOptions metrics:nil views:_bindingViews]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[_ivAva(56)]-8-[_lblDetail]-10-|" options:kNilOptions metrics:nil views:_bindingViews]];
-        //[self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_ivAva(46)]" options:kNilOptions metrics:nil views:_bindingViews]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-11-[_ivAva(46)]-8-[_lblDetail]-10-|" options:kNilOptions metrics:nil views:_bindingViews]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lblName(18)]-[_lblDetail(18)]" options:kNilOptions metrics:kNilOptions views:_bindingViews]];
         

@@ -14,11 +14,11 @@
 /**
  *  NSTextCheckingType
  */
-@property (nonatomic, assign) NSTextCheckingType textCheckingType;
+@property(nonatomic, assign) NSTextCheckingType textCheckingType;
 /**
  *  text
  */
-@property (nonatomic, strong) NSString *text;
+@property(nonatomic, strong) NSString *text;
 
 @end
 /**
@@ -32,7 +32,7 @@
  *
  *  @return return NSDictionary
  */
-- (NSDictionary*)attributeDictionaryForTextType:(NSTextCheckingTypes)textType;
+- (NSDictionary *)attributeDictionaryForTextType:(NSTextCheckingTypes)textType;
 /**
  *  highlightedAttributeDictionaryForTextType
  *
@@ -40,25 +40,33 @@
  *
  *  @return NSDictionary
  */
-- (NSDictionary*)highlightedAttributeDictionaryForTextType:(NSTextCheckingType)textType;
+- (NSDictionary *)highlightedAttributeDictionaryForTextType:(NSTextCheckingType)textType;
 
 @end
 /**
  *  RCAttributedLabel
  */
 @interface RCAttributedLabel : UILabel <RCAttributedDataSource>
-/** 可以通过设置attributeDataSource或者attributeDictionary、highlightedAttributeDictionary来自定义不同文本的字体颜色 */
-@property (nonatomic, strong) id<RCAttributedDataSource> attributeDataSource;
+/**
+ * 可以通过设置attributeDataSource或者attributeDictionary、highlightedAttributeDictionary来自定义不同文本的字体颜色
+ */
+@property(nonatomic, strong) id<RCAttributedDataSource> attributeDataSource;
 /**
  *  attributeDictionary
  */
-@property (nonatomic, strong) NSDictionary *attributeDictionary;
+@property(nonatomic, strong) NSDictionary *attributeDictionary;
 /**
  *  highlightedAttributeDictionary
  */
-@property (nonatomic, strong) NSDictionary *highlightedAttributeDictionary;
-/** 设置高亮显示哪些类型的文本 NSTextCheckingTypeLink | NSTextCheckingTypePhoneNumber */
-@property (nonatomic, assign) NSTextCheckingTypes textCheckingTypes;
+@property(nonatomic, strong) NSDictionary *highlightedAttributeDictionary;
+/**
+ *  NSTextCheckingTypes 格式类型
+ */
+@property(nonatomic, assign) NSTextCheckingTypes textCheckingTypes;
+/**
+ *  NSTextCheckingTypes current格式类型
+ */
+@property(nonatomic, readonly, assign) NSTextCheckingType currentTextCheckingType;
 /**
  *  setTextdataDetectorEnabled
  *
@@ -73,7 +81,7 @@
  *
  *  @return RCAttributedLabelClickedTextInfo
  */
-- (RCAttributedLabelClickedTextInfo*)textInfoAtPoint:(CGPoint)point;
+- (RCAttributedLabelClickedTextInfo *)textInfoAtPoint:(CGPoint)point;
 /**
  *  setTextHighlighted
  *

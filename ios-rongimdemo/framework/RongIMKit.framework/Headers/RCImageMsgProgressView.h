@@ -12,21 +12,27 @@
  */
 @interface RCImageMsgProgressView : UIView
 
-//@property (nonatomic,assign) NSInteger progress;
-@property (nonatomic,assign) UILabel *label;
-@property (nonatomic,strong) UIActivityIndicatorView *indicatorView;
+/**
+ *  进度显示Label
+ */
+@property(nonatomic, assign) UILabel *label;
+
+/**
+ *  进度指示
+ */
+@property(nonatomic, strong) UIActivityIndicatorView *indicatorView;
 /**
  *  updateProgress
  *
  *  @param progress persent
  */
--(void)updateProgress:(NSInteger)progress;
+- (void)updateProgress:(NSInteger)progress;
 /**
  *  startActive
  */
--(void)startActive;
+- (void)startActive;
 /**
  *  stopActive
  */
--(void)stopActive;
+- (void)stopActive;
 @end

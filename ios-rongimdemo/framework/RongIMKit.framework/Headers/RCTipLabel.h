@@ -16,12 +16,12 @@
 /**
  *  UIEdgeInsets
  */
-@property (nonatomic, assign) UIEdgeInsets marginInsets;
+@property(nonatomic, assign) UIEdgeInsets marginInsets;
 /**
  *  greyTipLabel
  *
  *  @return return greyTipLabel
  */
-+(instancetype)greyTipLabel;
++ (instancetype)greyTipLabel;
 @end
 #endif

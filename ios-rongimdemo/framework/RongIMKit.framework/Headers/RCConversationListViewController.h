@@ -22,24 +22,30 @@
 /**
  *  conversationListDataSource
  */
-@property (nonatomic,strong) NSMutableArray *conversationListaDataSource;
+@property(nonatomic, strong) NSMutableArray *conversationListDataSource;
 
 /**
  *  conversationListTableView
  */
-@property (nonatomic,strong) UITableView *conversationListTableView;
+@property(nonatomic, strong) UITableView *conversationListTableView;
 /**
  *  show network status view
  */
-@property (nonatomic, strong) RCNetworkIndicatorView *networkIndicatorView;
+@property(nonatomic, strong) RCNetworkIndicatorView *networkIndicatorView;
 /**
  *  displayConversationTypeArray
  */
-@property (nonatomic ,strong) NSArray *displayConversationTypeArray;
+@property(nonatomic, strong) NSArray *displayConversationTypeArray;
 /**
  *  collectionConversationTypeArray
  */
-@property (nonatomic ,strong) NSArray *collectionConversationTypeArray;
+@property(nonatomic, strong) NSArray *collectionConversationTypeArray;
+
+/**
+ *  标记是否进入聚合类型的viewcontroller
+ */
+@property(nonatomic, assign) BOOL isEnteredToCollectionViewController;
+
 /**
  *  init
  *
@@ -48,38 +54,51 @@
  *
  *  @return conversationList
  */
--(id)initWithDisplayConversationTypes:(NSArray*)conversationTypeArray1 collectionConversationType: (NSArray*)conversationTypeArray2;
+- (id)initWithDisplayConversationTypes:(NSArray *)conversationTypeArray1
+            collectionConversationType:(NSArray *)conversationTypeArray2;
 
 /**
  *  设置需要显示的会话类型
  *
  *  @param conversationTypeArray 会话类型，NSNumber类型。
  */
--(void)setDisplayConversationTypes:(NSArray*)conversationTypeArray;
+- (void)setDisplayConversationTypes:(NSArray *)conversationTypeArray;
 /**
  *  设置需要聚合显示的会话类型
  *
  *  @param conversationTypeArray 会话类型，NSNumber类型。
  */
--(void)setCollectionConversationType: (NSArray*)conversationTypeArray;
+- (void)setCollectionConversationType:(NSArray *)conversationTypeArray;
 
 /**
  *  设置头像样式,请在viewDidLoad之前调用
  *
  *  @param avatarStyle avatarStyle
  */
--(void)setConversationAvatarStyle:(RCUserAvatarStyle)avatarStyle;
+- (void)setConversationAvatarStyle:(RCUserAvatarStyle)avatarStyle;
 /**
  *  设置头像大小,请在viewDidLoad之前调用
  *
  *  @param size size
  */
--(void)setConversationPortraitSize:(CGSize)size;
+- (void)setConversationPortraitSize:(CGSize)size;
 
 /**
  *  刷新会话列表
  */
--(void)refreshConversationTableViewIfNeeded;
+- (void)refreshConversationTableViewIfNeeded;
+
+/**
+ *  重新设置空会话列表背景图
+ */
+- (void)resetConversationListBackgroundViewIfNeeded;
+
+/**
+ *  插入自定义会话数据模型到数据源，并且更新tableview
+ *
+ *  @param conversationModel 会话数据对象
+ */
+- (void)refreshConversationTableViewWithConversationModel:(RCConversationModel *)conversationModel;
 
 #pragma mark override
 /**
@@ -89,7 +108,9 @@
  *  @param model                 数据模型
  *  @param indexPath             索引
  */
--(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel*)model atIndexPath:(NSIndexPath *)indexPath;
+- (void)onSelectedTableRow:(RCConversationModelType)conversationModelType
+         conversationModel:(RCConversationModel *)model
+               atIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark override
 /**
@@ -99,7 +120,7 @@
  *
  *  @return 数据源数组，可以添加自己定义的数据源item
  */
--(NSMutableArray*)willReloadTableData:(NSMutableArray*)dataSource;
+- (NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource;
 
 #pragma mark override
 /**
@@ -108,7 +129,7 @@
  *  @param cell      cell
  *  @param indexPath 索引
  */
--(void)willDisplayConversationTableCell:(RCConversationBaseCell*)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)willDisplayConversationTableCell:(RCConversationBaseCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 #pragma mark override
 /**
  *  重写方法，可以实现开发者自己添加数据model后，返回对应的显示的cell
@@ -118,7 +139,8 @@
  *
  *  @return RCConversationBaseTableCell
  */
-- (RCConversationBaseCell *)rcConversationListTableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (RCConversationBaseCell *)rcConversationListTableView:(UITableView *)tableView
+                                  cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark override
 /**
@@ -139,8 +161,9 @@
  *  @param editingStyle 编辑样式
  *  @param indexPath    索引
  */
-- (void)rcConversationListTableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath;
-
+- (void)rcConversationListTableView:(UITableView *)tableView
+                 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+                  forRowAtIndexPath:(NSIndexPath *)indexPath;
 
 #pragma mark override
 /**
@@ -148,15 +171,14 @@
  *
  *  @param userId 用户的ID
  */
-- (void) didTapCellPortrait:(NSString*)userId;
-
+- (void)didTapCellPortrait:(NSString *)userId;
 
 /**
- *  收到新消息
+ *  收到新消息,用于刷新会话列表，如果派生类调用了父类方法，请不要再次调用refreshConversationTableViewIfNeeded，避免多次刷新
  *
  *  @param notification notification
  */
-- (void) didReceiveMessageNotification:(NSNotification*)notification;
+- (void)didReceiveMessageNotification:(NSNotification *)notification;
 
 @end
 #endif

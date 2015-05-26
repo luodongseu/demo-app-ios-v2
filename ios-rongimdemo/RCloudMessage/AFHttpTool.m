@@ -10,7 +10,7 @@
 #import "AFHttpTool.h"
 #import "AFNetworking.h"
 
-#define DEV_FAKE_SERVER @"http://119.254.110.241:8080/" //Beijing SUN-QUAN  测试环境（北京）
+#define DEV_FAKE_SERVER @"http://119.254.110.241/" //Beijing SUN-QUAN  测试环境（北京）
 #define PRO_FAKE_SERVER @"http://119.254.110.79:8080/" //Beijing Liu-Bei    线上环境（北京）、
 #define FAKE_SERVER @"http://webim.demo.rong.io/"//@"http://119.254.110.241:80/" //Login 线下测试
 
@@ -121,6 +121,7 @@
 +(void) getFriendsSuccess:(void (^)(id response))success
                   failure:(void (^)(NSError* err))failure
 {
+    //获取包含自己在内的全部注册用户数据
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"friends"
                            params:nil
@@ -215,6 +216,7 @@
 +(void)getFriendListFromServerSuccess:(void (^)(id))success
                               failure:(void (^)(NSError *))failure
 {
+    //获取除自己之外的好友信息
     [AFHttpTool requestWihtMethod:RequestMethodTypeGet
                               url:@"get_friend"
                            params:nil

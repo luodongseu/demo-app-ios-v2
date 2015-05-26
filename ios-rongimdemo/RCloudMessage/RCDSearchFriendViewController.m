@@ -78,7 +78,7 @@
         RCDUserInfo *user =_searchResult[indexPath.row];
         if(user){
             cell.lblName.text = user.userName;
-            [cell.ivAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_1"]];
+            [cell.ivAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
         }
     }
 

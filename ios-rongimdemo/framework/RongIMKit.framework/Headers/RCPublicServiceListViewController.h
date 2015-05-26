@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  已关注公众服务账号列表
+ */
 @interface RCPublicServiceListViewController : UITableViewController
-@property (nonatomic, strong) NSArray *keys;
-@property (nonatomic, strong) NSMutableDictionary *allFriends;
-@property (nonatomic,strong) NSArray *allKeys;
-@property (nonatomic,assign) BOOL hideSectionHeader;
+
 @end

@@ -15,7 +15,7 @@
 #import "RCDHttpTool.h"
 
 
-@interface RCDDiscussGroupSettingViewController ()
+@interface RCDDiscussGroupSettingViewController ()<UIActionSheetDelegate>
 
 @property (nonatomic, copy) NSString* discussTitle;
 
@@ -31,6 +31,7 @@
     
     //显示顶部视图
     self.headerHidden = NO;
+
     
     //添加当前聊天用户
     if (self.conversationType == ConversationType_PRIVATE) {
@@ -75,7 +76,55 @@
 
         }];
     }
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 45)];
+    
+    UIImage *image =[UIImage imageNamed:@"group_quit"];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 42, 90/2)];
+    
+    [button setBackgroundImage:image forState:UIControlStateNormal];
+    [button setTitle:@"删除并退出" forState:UIControlStateNormal];
+    [button setCenter:CGPointMake(view.bounds.size.width/2, view.bounds.size.height/2)];
+    [button addTarget:self action:@selector(buttonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:button];
+    self.tableView.tableFooterView = view;
+
 }
+
+
+
+-(void)buttonAction:(UIButton*)sender{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"删除并且退出讨论组" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+    
+}
+#pragma mark-UIActionSheetDelegate
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if ([actionSheet isEqual:self.clearMsgHistoryActionSheet]) {
+        [self clearHistoryMessage];
+    }else{
+        if (0 == buttonIndex) {
+            __weak typeof(&*self)  weakSelf = self;
+            [[RCIMClient sharedClient] quitDiscussion:self.targetId completion:^(RCDiscussion *discussion) {
+            NSLog(@"退出讨论组成功");
+            UIViewController *temp = nil;
+            NSArray *viewControllers = weakSelf.navigationController.viewControllers;
+            temp = viewControllers[viewControllers.count -1 -2];
+            if (temp) {
+                //切换主线程
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.navigationController popToViewController:temp animated:YES];
+                });
+                }
+            } error:^(RCErrorCode status) {
+                    NSLog(@"quit discussion status is %ld",(long)status);
+                    
+            }];
+            
+        }
+    }
+}
+
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -186,8 +235,8 @@
             if(addIdList.count != 0){
                 
                 [[RCIMClient sharedClient] addMemberToDiscussion:self.targetId userIdList:addIdList completion:^(RCDiscussion *discussion) {
+                    NSLog(@"成功");
                 } error:^(RCErrorCode status) {
-                    
                 }];
             }
             
@@ -196,23 +245,18 @@
             //create new discussion with the new invoked member.
             NSUInteger _count = [selectedUsers count];
             if (_count > 1) {
+                
                 NSMutableString *discussionTitle = [NSMutableString string];
-                
                 NSMutableArray *userIdList = [NSMutableArray new];
-                
                 for (int i=0; i<_count; i++) {
                     RCUserInfo *_userInfo = (RCUserInfo *)selectedUsers[i];
-                    
-                    if (i == (_count - 1)) {
-                        [discussionTitle appendString:_userInfo.name];
-                    }else{
-                        [discussionTitle appendString:[NSString stringWithFormat:@"%@%@", _userInfo.name,@","]];
-                    }
-                    
+                    [discussionTitle appendString:[NSString stringWithFormat:@"%@%@", _userInfo.name,@","]];
+
                     [userIdList addObject:_userInfo.userId];
                 }
-                
+                [discussionTitle deleteCharactersInRange:NSMakeRange(discussionTitle.length - 1, 1)];
                 self.conversationTitle = discussionTitle;
+                
                 __weak typeof(&*self)  weakSelf = self;
                 [[RCIMClient sharedClient] createDiscussion:discussionTitle userIdList:userIdList completion:^(RCDiscussion *discussion) {
                     
@@ -295,10 +339,16 @@
 - (void)deleteTipButtonClicked:(NSIndexPath*)indexPath
 {
     RCUserInfo* user = self.users[indexPath.row];
-    [[RCIMClient sharedClient] removeMemberFromDiscussion:self.targetId userId:user.userId completion:^(RCDiscussion *discussion) {
+    if ([user.userId isEqualToString:[RCIMClient sharedClient].currentUserInfo.userId]) {
         
+        return;
+    }
+    [[RCIMClient sharedClient] removeMemberFromDiscussion:self.targetId
+                                                   userId:user.userId
+    completion:^(RCDiscussion *discussion) {
+        NSLog(@"踢人成功");
     } error:^(RCErrorCode status) {
-        
+        NSLog(@"踢人失败");
     }];
 }
 

@@ -10,7 +10,10 @@
 
 @class RCConversationSettingTableViewHeader;
 
-@protocol RCConversationSettingTableViewHeaderDelegate<NSObject>
+/**
+ *  RCConversationSettingTableViewHeaderDelegate
+ */
+@protocol RCConversationSettingTableViewHeaderDelegate <NSObject>
 
 @optional
 /**
@@ -18,35 +21,43 @@
  *
  *  @param settingTableViewHeader   settingTableViewHeader description
  *  @param indexPathForSelectedItem indexPathForSelectedItem description
+ *  @param users users description
  */
--(void) settingTableViewHeader:(RCConversationSettingTableViewHeader *)settingTableViewHeader
-       indexPathOfSelectedItem:(NSIndexPath *) indexPathOfSelectedItem
-            allTheSeletedUsers:(NSArray *) users;
+- (void)settingTableViewHeader:(RCConversationSettingTableViewHeader *)settingTableViewHeader
+       indexPathOfSelectedItem:(NSIndexPath *)indexPathOfSelectedItem
+            allTheSeletedUsers:(NSArray *)users;
 
 /**
  *  点击删除的回调
  *
  *  @param indexPath 点击索引
  */
--(void) deleteTipButtonClicked:(NSIndexPath *) indexPath;
+- (void)deleteTipButtonClicked:(NSIndexPath *)indexPath;
 
 @end
 
+/**
+ *  RCConversationSettingTableViewHeader
+ */
+@interface RCConversationSettingTableViewHeader
+    : UICollectionView <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
-@interface RCConversationSettingTableViewHeader : UICollectionView<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+/**
+ *  showDeleteTip
+ */
+@property(nonatomic, assign) BOOL showDeleteTip;
 
-
-@property (nonatomic,assign) BOOL showDeleteTip;
-
-
-@property (nonatomic,assign) BOOL isAllowedDeleteMember;
+/**
+ *  isAllowedDeleteMember
+ */
+@property(nonatomic, assign) BOOL isAllowedDeleteMember;
 
 /**
  *  call back
  */
-@property (weak,nonatomic) id<RCConversationSettingTableViewHeaderDelegate> settingTableViewHeaderDelegate;
+@property(weak, nonatomic) id<RCConversationSettingTableViewHeaderDelegate> settingTableViewHeaderDelegate;
 /**
  *  contains the RCUserInfo
  */
-@property (strong,nonatomic) NSMutableArray *users;
+@property(strong, nonatomic) NSMutableArray *users;
 @end

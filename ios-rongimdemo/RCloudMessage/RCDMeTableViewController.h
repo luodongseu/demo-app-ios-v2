@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RCDMeTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UILabel *versionLb;
 
 @end

@@ -19,11 +19,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.ivAva.clipsToBounds = YES;
-    self.ivAva.layer.cornerRadius = 8.f;
-    
     self.lblName.text = self.targetUserInfo.name;
-    [self.ivAva sd_setImageWithURL:[NSURL URLWithString:self.targetUserInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_1"]];
+    [self.ivAva sd_setImageWithURL:[NSURL URLWithString:self.targetUserInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
 }
 
 - (void)didReceiveMemoryWarning {

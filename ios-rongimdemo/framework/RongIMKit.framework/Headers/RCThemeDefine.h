@@ -22,5 +22,4 @@ typedef NS_ENUM(NSInteger, RCUserAvatarStyle) {
     RCUserAvatarCycle
 };
 
-
 #endif

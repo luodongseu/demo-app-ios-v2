@@ -15,7 +15,7 @@
 - (void)awakeFromNib {
     // Initialization code
     _imvGroupPort.layer.masksToBounds = YES;
-    _imvGroupPort.layer.cornerRadius = 8.f;
+    _imvGroupPort.layer.cornerRadius = 2.f;
     
 
 
@@ -25,10 +25,14 @@
 
 -(void)setIsJoin:(BOOL)isJoin
 {
-    if(isJoin)
+    if(isJoin){
         [_btJoin setImage:[UIImage imageNamed:@"chat"] forState:UIControlStateNormal];
-    else
+        [_btJoin setImage:[UIImage imageNamed:@"chat_hover"] forState:UIControlStateHighlighted];
+    }
+    else{
         [_btJoin setImage:[UIImage imageNamed:@"join"] forState:UIControlStateNormal];
+        [_btJoin setImage:[UIImage imageNamed:@"join_hover"] forState:UIControlStateHighlighted];
+    }
     
     _isJoin = isJoin;
 }

@@ -62,48 +62,67 @@
         
     }];}
 
--(RCUserInfo *) getUserInfoByUserID:(NSString *) userID
+-(void) getUserInfoByUserID:(NSString *) userID
                          completion:(void (^)(RCUserInfo *user)) completion
 {
+    __block NSArray * regDataArray;
+    dispatch_group_t groupQueue = dispatch_group_create();
+    
+    dispatch_group_enter(groupQueue);
+    
     [AFHttpTool getFriendsSuccess:^(id response) {
         if (response) {
             NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
 
             if ([code isEqualToString:@"200"]) {
 
-                NSArray * regDataArray = response[@"result"];
+                regDataArray = response[@"result"];
+               // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
                 
-                for(int i = 0;i < regDataArray.count;i++){
-
-                    NSDictionary *dic = [regDataArray objectAtIndex:i];
-                    if ([userID isEqualToString:[dic objectForKey:@"id"]]) {
-                        RCUserInfo *userInfo = [RCUserInfo new];
-                        NSNumber *idNum = [dic objectForKey:@"id"];
-                        userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                        userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                        userInfo.name = [dic objectForKey:@"username"];
-                        if (completion) {
-                            completion(userInfo);
-                        }
-                    }
-
-
-                }
-                
+                dispatch_group_leave(groupQueue);
                 
             }
             
         }
 
     } failure:^(NSError *err) {
-        
+        NSLog(@"getUserInfoByUserID error");
     }];
-    return nil;
+    
+    dispatch_group_notify(groupQueue, dispatch_get_main_queue(), ^{
+        
+        dispatch_queue_t queue = dispatch_queue_create("handleResponseData.friends", DISPATCH_QUEUE_SERIAL);
+        
+        dispatch_async(queue, ^{
+
+            for(int i = 0;i < regDataArray.count;i++){
+                NSDictionary *dic = [regDataArray objectAtIndex:i];
+                //NSLog(@"userID > %@, id > %@, i > %d", userID, [dic objectForKey:@"id"], i);
+                if ([userID isEqualToString:[dic objectForKey:@"id"]]) {
+                   // NSLog(@"Matched i > %d, dic>%@", i, dic);
+                    RCUserInfo *userInfo = [RCUserInfo new];
+                    NSNumber *idNum = [dic objectForKey:@"id"];
+                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
+                    userInfo.name = [dic objectForKey:@"username"];
+                    if (completion) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(userInfo);
+                        });
+                    }
+                }
+//                }else{
+//                    NSLog(@"no matched userid > %d", i);
+//                }
+            }
+        });
+    });
+    
 }
+
 
 - (void)getAllGroupsWithCompletion:(void (^)(NSMutableArray* result))completion
 {
-
 
     [AFHttpTool getAllGroupsSuccess:^(id response) {
         NSMutableArray *tempArr = [NSMutableArray new];
@@ -269,15 +288,16 @@
     
     [AFHttpTool getFriendListFromServerSuccess:^(id response) {
         NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-        
         if (friendList) {
             if ([code isEqualToString:@"200"]) {
                 [_allFriends removeAllObjects];
                 NSArray * regDataArray = response[@"result"];
-                
+
                 for(int i = 0;i < regDataArray.count;i++){
-                    
                     NSDictionary *dic = [regDataArray objectAtIndex:i];
+                    if([[dic objectForKey:@"status"] intValue] != 1)
+                        continue;
+                    
                     RCDUserInfo*userInfo = [RCDUserInfo new];
                     NSNumber *idNum = [dic objectForKey:@"id"];
                     userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
@@ -313,17 +333,35 @@
         if (friendList) {
             if ([code isEqualToString:@"200"]) {
                 
-                NSArray * regDataArray = response[@"result"];
-                for(int i = 0;i < regDataArray.count;i++){
-                    
-                    NSDictionary *dic = [regDataArray objectAtIndex:i];
+                id result = response[@"result"];
+                if([result respondsToSelector:@selector(intValue)]) return ;
+                if([result respondsToSelector:@selector(objectForKey:)])
+                {
                     RCDUserInfo*userInfo = [RCDUserInfo new];
-                    NSNumber *idNum = [dic objectForKey:@"id"];
+                    NSNumber *idNum = [result objectForKey:@"id"];
                     userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.userName = [dic objectForKey:@"username"];
+                    userInfo.portraitUri = [result objectForKey:@"portrait"];
+                    userInfo.userName = [result objectForKey:@"username"];
                     [list addObject:userInfo];
+                    
                 }
+                else
+                {
+                    NSArray * regDataArray = response[@"result"];
+                    
+                    for(int i = 0;i < regDataArray.count;i++){
+                        
+                        NSDictionary *dic = [regDataArray objectAtIndex:i];
+                        RCDUserInfo*userInfo = [RCDUserInfo new];
+                        NSNumber *idNum = [dic objectForKey:@"id"];
+                        userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                        userInfo.portraitUri = [dic objectForKey:@"portrait"];
+                        userInfo.userName = [dic objectForKey:@"username"];
+                        [list addObject:userInfo];
+                    }
+
+                }
+                
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     friendList(list);
                 });

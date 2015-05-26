@@ -15,23 +15,23 @@
 /**
  *  isDisplayMessageTime
  */
-@property(nonatomic,assign) BOOL isDisplayMessageTime;
+@property(nonatomic, assign) BOOL isDisplayMessageTime;
 /**
  *  isDisplayNickname
  */
-@property(nonatomic,assign) BOOL isDisplayNickname;
+@property(nonatomic, assign) BOOL isDisplayNickname;
 /** 用户信息 */
-@property(nonatomic,strong) RCUserInfo *userInfo;
+@property(nonatomic, strong) RCUserInfo *userInfo;
 /** 会话类型 */
 @property(nonatomic, assign) RCConversationType conversationType;
 /** 目标ID，如讨论组ID, 群ID, 聊天室ID */
-@property(nonatomic, strong) NSString* targetId;
+@property(nonatomic, strong) NSString *targetId;
 /** 消息ID */
 @property(nonatomic, assign) long messageId;
 /** 消息方向 */
 @property(nonatomic, assign) RCMessageDirection messageDirection;
 /** 发送者ID */
-@property(nonatomic, strong) NSString* senderUserId;
+@property(nonatomic, strong) NSString *senderUserId;
 /** 接受状态 */
 @property(nonatomic, assign) RCReceivedStatus receivedStatus;
 /**发送状态 */
@@ -41,11 +41,11 @@
 /**发送时间 */
 @property(nonatomic, assign) long long sentTime;
 /** 消息体名称 */
-@property(nonatomic, strong) NSString* objectName;
+@property(nonatomic, strong) NSString *objectName;
 /** 消息内容 */
-@property(nonatomic, strong) RCMessageContent* content;
+@property(nonatomic, strong) RCMessageContent *content;
 /** 附加字段 */
-@property(nonatomic, strong) NSString* extra;
+@property(nonatomic, strong) NSString *extra;
 /**
  *  initWithMessage
  *
@@ -53,6 +53,6 @@
  *
  *  @return return model
  */
--(instancetype)initWithMessage:(RCMessage*)rcMessage;
+- (instancetype)initWithMessage:(RCMessage *)rcMessage;
 
 @end

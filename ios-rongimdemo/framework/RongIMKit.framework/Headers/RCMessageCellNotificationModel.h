@@ -10,7 +10,7 @@
 #define __RCMessageCellNotificationModel
 #import <UIKit/UIKit.h>
 
-//Status for sending message.
+// Status for sending message.
 UIKIT_EXTERN NSString *const CONVERSATION_CELL_STATUS_SEND_BEGIN;
 UIKIT_EXTERN NSString *const CONVERSATION_CELL_STATUS_SEND_FAILED;
 UIKIT_EXTERN NSString *const CONVERSATION_CELL_STATUS_SEND_SUCCESS;
@@ -30,11 +30,11 @@ UIKIT_EXTERN NSString *const CONVERSATION_CELL_DATA_IMAGE_KEY_UPDATE;
 /**
  *  actionName
  */
-@property(strong,nonatomic) NSString* actionName;
+@property(strong, nonatomic) NSString *actionName;
 /**
  *  nProgress
  */
-@property (nonatomic) NSInteger nProgress;
+@property(nonatomic) NSInteger nProgress;
 
 @end
 #endif

@@ -10,7 +10,7 @@
 
 #import <RongIMLib/RCUserInfo.h>
 
-@interface RCDPersonDetailViewController : UITableViewController
+@interface RCDPersonDetailViewController : UIViewController
 
 //对方ID
 @property (nonatomic,strong) RCUserInfo *userInfo;

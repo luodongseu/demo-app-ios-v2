@@ -1,10 +1,14 @@
-//
+/**
+ * Copyright (c) 2014-2015, RongCloud.
+ * All rights reserved.
+ *
+ * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
+ * Unless otherwise credited. http://rongcloud.cn
+ *
+ */
+
 //  RCUtilities.h
-//  RongCloud
-//
 //  Created by Heq.Shinoda on 14-5-15.
-//  Copyright (c) 2014年 RongCloud. All rights reserved.
-//
 
 #ifndef __RCUtilities
 #define __RCUtilities
@@ -12,8 +16,8 @@
 #import <UIKit/UIKit.h>
 #import "RCMessageContent.h"
 
-#define __BASE64( text )        [CommonFunc base64StringFromText:text]
-#define __TEXT( base64 )        [CommonFunc textFromBase64String:base64]
+#define __BASE64(text) [CommonFunc base64StringFromText:text]
+#define __TEXT(base64) [CommonFunc textFromBase64String:base64]
 
 @class RCMessageContent;
 
@@ -25,7 +29,7 @@ typedef uint32_t CCAlgorithm;
 /**
  *  methodsInClass
  *
- *  @param aClass aClass
+ *  @param aClass 类名
  *
  *  @return  methodArray
  */
@@ -33,7 +37,7 @@ typedef uint32_t CCAlgorithm;
 /**
  *  iVarsInClass
  *
- *  @param aClass aClass
+ *  @param aClass 类名
  *
  *  @return  ivarsArray
  */
@@ -43,53 +47,30 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return currentSystemTime
  */
-+ (NSString*)currentSystemTime;
++ (NSString *)currentSystemTime;
 
+// Base64 Encode & Decode
 
-//Base64 Encode & Decode
-/******************************************************************************
- 函数名称 : + (NSData *)dataWithBase64EncodedString:(NSString *)string
- 函数描述 : base64格式字符串转换为文本数据
- 输入参数 : (NSString *)string
- 输出参数 : N/A
- 返回参数 : (NSData *)
- 备注信息 :
- ******************************************************************************/
 /**
  *  base64格式字符串转换为文本数据
  *
- *  @param  (NSString *)string
+ *  @param  string 要转换的字符串
  *
- *  @return (NSData *)
+ *  @return base64数据
  */
 + (NSData *)dataWithBase64EncodedString:(NSString *)string;
-/******************************************************************************
- 函数名称 : + (NSString *)base64EncodedStringFrom:(NSData *)data
- 函数描述 : 文本数据转换为base64格式字符串
- 输入参数 : (NSData *)data
- 输出参数 : N/A
- 返回参数 : (NSString *)
- 备注信息 :
- ******************************************************************************/
+
 /**
  *  文本数据转换为base64格式字符串
  *
- *  @param data
+ *  @param data 要转换的文本数据
  *
- *  @return string
+ *  @return 转换后的字符串
  */
 + (NSString *)base64EncodedStringFrom:(NSData *)data;
-/******************************************************************************
- 函数名称 : + (NSData *)DESEncrypt:(NSData *)data WithKey:(NSString *)key
- 函数描述 : 文本数据进行DES加密
- 输入参数 : (NSData *)data
- (NSString *)key
- 输出参数 : N/A
- 返回参数 : (NSData *)
- 备注信息 : 此函数不可用于过长文本
- ******************************************************************************/
+
 /**
- *  文本数据进行DES加密
+ *  文本数据进行DES加密。备注：此函数不可用于过长文本。
  *
  *  @param data data
  *  @param key  key
@@ -97,17 +78,9 @@ typedef uint32_t CCAlgorithm;
  *  @return (NSData *)
  */
 + (NSData *)DESEncrypt:(NSData *)data WithKey:(NSString *)key;
-/******************************************************************************
- 函数名称 : + (NSData *)DESEncrypt:(NSData *)data WithKey:(NSString *)key
- 函数描述 : 文本数据进行DES解密
- 输入参数 : (NSData *)data
- (NSString *)key
- 输出参数 : N/A
- 返回参数 : (NSData *)
- 备注信息 : 此函数不可用于过长文本
- ******************************************************************************/
+
 /**
- *  文本数据进行DES解密
+ *  文本数据进行DES解密。备注：此函数不可用于过长文本。
  *
  *  @param data data
  *  @param key  key
@@ -115,14 +88,16 @@ typedef uint32_t CCAlgorithm;
  *  @return (NSData *)
  */
 + (NSData *)DESDecrypt:(NSData *)data WithKey:(NSString *)key;
+
 /**
  *  string to base64String
  *
- *  @param text
+ *  @param text 要转换的文本字符串
  *
  *  @return base64string
  */
 + (NSString *)base64StringFromText:(NSString *)text;
+
 /**
  *  base64stirng to string
  *
@@ -133,6 +108,7 @@ typedef uint32_t CCAlgorithm;
 + (NSString *)textFromBase64String:(NSString *)base64;
 
 //+ (NSString *)obtainLegalUTF8String:(char *)rawstr length:(int)length;
+
 /**
  *  scaleImage
  *
@@ -142,6 +118,7 @@ typedef uint32_t CCAlgorithm;
  *  @return scaled image
  */
 + (UIImage *)scaleImage:(UIImage *)image toScale:(float)scaleSize;
+
 /**
  *  imageByScalingAndCropSize
  *
@@ -151,6 +128,7 @@ typedef uint32_t CCAlgorithm;
  *  @return image
  */
 + (UIImage *)imageByScalingAndCropSize:(UIImage *)image targetSize:(CGSize)targetSize;
+
 /**
  *  compressedImageWithMaxDataLength
  *
@@ -159,17 +137,18 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return nsdate
  */
-+ (NSData *)compressedImageWithMaxDataLength:(UIImage*)image maxDataLength:(CGFloat)maxDataLength;
++ (NSData *)compressedImageWithMaxDataLength:(UIImage *)image maxDataLength:(CGFloat)maxDataLength;
+
 /**
  *  compressedImageAndScalingSize
  *
  *  @param image      image
  *  @param targetSize targetSize
- *  @param maxDataLen maxDataLen 
+ *  @param maxDataLen maxDataLen
  *
  *  @return image nsdata
  */
-+ (NSData *)compressedImageAndScalingSize:(UIImage*)image targetSize:(CGSize)targetSize maxDataLen:(CGFloat)maxDataLen;
++ (NSData *)compressedImageAndScalingSize:(UIImage *)image targetSize:(CGSize)targetSize maxDataLen:(CGFloat)maxDataLen;
 /**
  *  compressedImageAndScalingSize
  *
@@ -179,7 +158,7 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return image nsdata
  */
-+ (NSData *)compressedImageAndScalingSize:(UIImage*)image targetSize:(CGSize)targetSize percent:(CGFloat)percent;
++ (NSData *)compressedImageAndScalingSize:(UIImage *)image targetSize:(CGSize)targetSize percent:(CGFloat)percent;
 /**
  *  excludeBackupKeyForURL
  *
@@ -212,28 +191,28 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return 当前运营商名称
  */
-+ (NSString*) currentCarrier;
++ (NSString *)currentCarrier;
 
 /**
  *  获取当前网络类型
  *
  *  @return 当前网络类型
  */
-+ (NSString *) currentNetWork;
++ (NSString *)currentNetWork;
 
 /**
  *  获取系统版本
  *
  *  @return 系统版本
  */
-+ (NSString *) currentSystemVersion;
++ (NSString *)currentSystemVersion;
 
 /**
  *  获取设备型号
  *
  *  @return 设备型号
  */
-+ (NSString *) currentDeviceModel;
++ (NSString *)currentDeviceModel;
 
 @end
 #endif

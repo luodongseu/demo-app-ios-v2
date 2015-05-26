@@ -27,11 +27,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     //设置默认隐藏
-    [_btnChat setHidden:YES];
     [_lblAgreeTip setHidden:YES];
     _lblUserName.text = _userInfo.userName;
 
-    [_ivAva sd_setImageWithURL:[NSURL URLWithString:_userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"default_portrait"]];
+    [_ivAva sd_setImageWithURL:[NSURL URLWithString:_userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
     //根据userId获取是否好友
 //    [AFHttpTool requestFriend:self.userInfo.userId success:^(id response) {
 //        if (response) {
@@ -48,7 +47,7 @@
             _lblAgreeTip.hidden = NO;
             _btnAgree.hidden = YES;
             _btnDisagree.hidden = YES;
-            _btnChat.hidden = NO;
+
         }
     }];
 

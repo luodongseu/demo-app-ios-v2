@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  查找公众服务账号
+ */
 @interface RCPublicServiceSearchViewController : UITableViewController
 
 @end

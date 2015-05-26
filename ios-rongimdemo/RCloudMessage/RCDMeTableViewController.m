@@ -32,18 +32,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    self.tableView.tableFooterView=[UIView new];
     //设置分割线颜色
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"我";
+    self.tabBarController.navigationItem.titleView = titleView;
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+    self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    _versionLb.text=[NSString stringWithFormat:@"当前版本 %@",version];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"我";
+    
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"我";
+    self.tabBarController.navigationItem.titleView = titleView;
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
-    self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 
 }
 - (void)didReceiveMemoryWarning {

@@ -9,9 +9,19 @@
 #import "RCMessageCell.h"
 #import "RCImageMsgProgressView.h"
 
+/**
+ *  图片消息Cell
+ */
 @interface RCImageMessageCell : RCMessageCell
 
-@property (nonatomic,strong)  UIImageView *pictureView;
-@property (nonatomic,strong)  RCImageMsgProgressView * progressView;
+/**
+ *  发送图片视图
+ */
+@property(nonatomic, strong) UIImageView *pictureView;
+
+/**
+ *  发送进度视图
+ */
+@property(nonatomic, strong) RCImageMsgProgressView *progressView;
 
 @end

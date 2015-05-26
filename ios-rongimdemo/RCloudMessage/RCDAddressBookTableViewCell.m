@@ -13,8 +13,8 @@
 
 - (void)awakeFromNib {
     // Initialization code
-    _imgvAva.layer.masksToBounds = YES;
-    _imgvAva.layer.cornerRadius = 8.f;
+//    _imgvAva.layer.masksToBounds = YES;
+//    _imgvAva.layer.cornerRadius = 8.f;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

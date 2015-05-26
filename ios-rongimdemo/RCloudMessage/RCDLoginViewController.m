@@ -20,7 +20,7 @@
 #import "RCDFindPswViewController.h"
 #import "RCDHttpTool.h"
 
-@interface RCDLoginViewController ()
+@interface RCDLoginViewController ()<UITextFieldDelegate>
 
 @property (retain, nonatomic) IBOutlet RCAnimatedImagesView* animatedImagesView;
 
@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIView* inputBackground;
 @property (nonatomic, strong) UIView* statusBarView;
 @property (nonatomic, strong) UILabel* errorMsgLb;
+@property (nonatomic, strong) UITextField *passwordTextField;
 @end
 
 @implementation RCDLoginViewController
@@ -100,13 +101,14 @@
     _errorMsgLb.text = @"";
     _errorMsgLb.font = [UIFont fontWithName:@"Heiti SC" size:12.0];
     _errorMsgLb.translatesAutoresizingMaskIntoConstraints = NO;
-    _errorMsgLb.textColor = [UIColor redColor];
+    _errorMsgLb.textColor = [UIColor colorWithRed:204.0f/255.0f green:51.0f/255.0f blue:51.0f/255.0f alpha:1];
     [self.view addSubview:_errorMsgLb];
 
     //用户名
     RCUnderlineTextField* userNameTextField = [[RCUnderlineTextField alloc] initWithFrame:CGRectZero];
     userNameTextField.backgroundColor = [UIColor clearColor];
     userNameTextField.tag = UserTextFieldTag;
+    userNameTextField.delegate=self;
     //_account.placeholder=[NSString stringWithFormat:@"Email"];
     UIColor* color = [UIColor whiteColor];
     userNameTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"用户名" attributes:@{ NSForegroundColorAttributeName : color }];
@@ -127,6 +129,7 @@
     passwordTextField.textColor = [UIColor whiteColor];
     passwordTextField.returnKeyType = UIReturnKeyDone;
     passwordTextField.secureTextEntry = YES;
+    passwordTextField.delegate=self;
     //passwordTextField.delegate = self;
     passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
 
@@ -134,12 +137,13 @@
     //passwordTextField.text = [self getDefaultUserPwd];
     [_inputBackground addSubview:passwordTextField];
     passwordTextField.text = [self getDefaultUserPwd];
-
+    self.passwordTextField = passwordTextField;
+    
     //UIEdgeInsets buttonEdgeInsets = UIEdgeInsetsMake(0, 7.f, 0, 7.f);
     UIButton* loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [loginButton addTarget:self action:@selector(actionLogin:) forControlEvents:UIControlEventTouchUpInside];
     [loginButton setBackgroundImage:[UIImage imageNamed:@"login_button"] forState:UIControlStateNormal];
-    loginButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    loginButton.imageView.contentMode = UIViewContentModeCenter;
     loginButton.translatesAutoresizingMaskIntoConstraints = NO;
     [_inputBackground addSubview:loginButton];
     UIButton* userProtocolButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -154,7 +158,7 @@
 
     //底部按钮区
     UIView* bottomBackground = [[UIView alloc] initWithFrame:CGRectZero];
-    UIButton* registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 50)];
+    UIButton* registerButton = [[UIButton alloc] initWithFrame:CGRectMake(0, -20, 80, 50)];
     [registerButton setTitle:@"找回密码" forState:UIControlStateNormal];
     [registerButton setTitleColor:[[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5] forState:UIControlStateNormal];
     [registerButton.titleLabel setFont:[UIFont fontWithName:@"Heiti SC" size:14.0]];
@@ -162,7 +166,7 @@
 
     [bottomBackground addSubview:registerButton];
 
-    UIButton* forgetPswButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 100, 0, 80, 50)];
+    UIButton* forgetPswButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.bounds.size.width - 100, -20, 80, 50)];
     [forgetPswButton setTitle:@"新用户" forState:UIControlStateNormal];
     [forgetPswButton setTitleColor:[[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5] forState:UIControlStateNormal];
     [forgetPswButton.titleLabel setFont:[UIFont fontWithName:@"Heiti SC" size:14.0]];
@@ -182,47 +186,23 @@
 
     NSDictionary* views = NSDictionaryOfVariableBindings(_errorMsgLb, _rongLogo, _inputBackground, userProtocolButton, bottomBackground);
 
-    NSArray* viewConstraints = [[[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-41-[_inputBackground]-41-|"
-                                                                           options:0
-                                                                           metrics:nil
-                                                                             views:views]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_rongLogo]-60-|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-70-[_rongLogo(60)]-10-[_errorMsgLb(5)]-20-[_inputBackground(220)]-1-[userProtocolButton(20)]-20-[bottomBackground(50)]|"
-                                                                                                                                          options:0
-                                                                                                                                          metrics:nil
-                                                                                                                                            views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[bottomBackground]-10-|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]]
-        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_errorMsgLb]-10-|"
-                                                                              options:0
-                                                                              metrics:nil
-                                                                                views:views]];
+    NSArray* viewConstraints = [[[[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-41-[_inputBackground]-41-|" options:0 metrics:nil views:views]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-14-[_rongLogo]-60-|" options:0 metrics:nil views:views]]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-80-[_rongLogo(==60)]-10-[_errorMsgLb(==5)]-20-[_inputBackground(180)]-20-[userProtocolButton(==20)]" options:0 metrics:nil views:views]]
+         arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bottomBackground(==50)]" options:0 metrics:nil views:views]]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[bottomBackground]-10-|" options:0 metrics:nil views:views]]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-40-[_errorMsgLb]-10-|" options:0 metrics:nil views:views]];
 
     [self.view addConstraints:viewConstraints];
 
-    NSLayoutConstraint* userProtocolLabelConstraint = [NSLayoutConstraint constraintWithItem:userProtocolButton
-                                                                                   attribute:NSLayoutAttributeCenterX
-                                                                                   relatedBy:NSLayoutRelationEqual
-                                                                                      toItem:self.view
-                                                                                   attribute:NSLayoutAttributeCenterX
+    NSLayoutConstraint* userProtocolLabelConstraint = [NSLayoutConstraint constraintWithItem:userProtocolButton attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX
                                                                                   multiplier:1.f
                                                                                     constant:0];
     [self.view addConstraint:userProtocolLabelConstraint];
     NSDictionary* inputViews = NSDictionaryOfVariableBindings(userNameTextField, passwordTextField, loginButton);
 
-    NSArray* inputViewConstraints = [[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[userNameTextField]|"
-                                                                               options:0
-                                                                               metrics:nil
-                                                                                 views:inputViews] arrayByAddingObjectsFromArray:
-                                                                                                       [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[passwordTextField]|"
-                                                                                                                                               options:0
-                                                                                                                                               metrics:nil
-                                                                                                                                                 views:inputViews]] arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[userNameTextField(60)]-[passwordTextField(60)]-[loginButton(50)]-|" options:0 metrics:nil views:inputViews]] arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[loginButton]|" options:0 metrics:nil views:inputViews]];
+    NSArray* inputViewConstraints = [[[[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[userNameTextField]|" options:0 metrics:nil views:inputViews]
+        arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[passwordTextField]|" options:0 metrics:nil views:inputViews]] arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[userNameTextField(60)]-[passwordTextField(60)]-[loginButton(50)]" options:0 metrics:nil views:inputViews]] arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[loginButton]|" options:0 metrics:nil views:inputViews]];
 
     [_inputBackground addConstraints:inputViewConstraints];
 
@@ -234,7 +214,7 @@
                                                  name:UIKeyboardWillHideNotification
                                                object:self.view.window];
     _statusBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 20)];
-    _statusBarView.backgroundColor = [UIColor blackColor];
+    _statusBarView.backgroundColor = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.2];
     [self.view addSubview:_statusBarView];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.view setNeedsLayout];
@@ -254,6 +234,26 @@
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
     [self.view endEditing:YES];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSLog(@"textFieldShouldReturn");
+    [textField resignFirstResponder];
+    return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    switch (textField.tag) {
+        case UserTextFieldTag:
+            [DEFAULTS removeObjectForKey:@"userName"];
+            self.passwordTextField.text = nil;
+        case PassWordFieldTag:
+            [DEFAULTS removeObjectForKey:@"userPwd"];
+            break;
+        default:
+            break;
+    }
+    return YES;
 }
 
 //键盘升起时动画
@@ -398,10 +398,11 @@
  */
 - (void)login:(NSString *)userName password:(NSString *)password
 {
-    //NSString* userName = self.emailTextField.text;
-    //NSString* userPwd = self.pwdTextField.text;
+    RCNetworkStatus stauts=[[RCIMClient sharedClient]getCurrentNetworkStatus];
     
-   
+    if (RC_NotReachable == stauts) {
+        _errorMsgLb.text=@"当前网络不可用，请检查！";
+    }
 
     if ([self validateUserName:userName userPwd:password]) {
         MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

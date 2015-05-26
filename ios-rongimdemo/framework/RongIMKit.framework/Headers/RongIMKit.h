@@ -14,9 +14,8 @@ FOUNDATION_EXPORT double RongIMKitVersionNumber;
 //! Project version string for RongIMKit.
 FOUNDATION_EXPORT const unsigned char RongIMKitVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <RongIMKit/PublicHeader.h>
-
-
+// In this header, you should import all the public headers of your framework
+// using statements like #import <RongIMKit/PublicHeader.h>
 
 #import <RongIMKit/RCIM.h>
 
@@ -54,12 +53,5 @@ FOUNDATION_EXPORT const unsigned char RongIMKitVersionString[];
 #import <RongIMKit/RCSettingViewController.h>
 #import <RongIMKit/RCConversationSettingTableViewHeader.h>
 #import <RongIMKit/RCPublicServiceSearchViewController.h>
-#import <RongIMKit/RCPublicServiceConversationViewController.h>
 #import <RongIMKit/RCPublicServiceListViewController.h>
-
-
-
-
-
-
-
+#import <RongIMKit/RCImagePreviewController.h>

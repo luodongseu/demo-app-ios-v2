@@ -14,12 +14,12 @@
 /**
  *  eventBlock
  */
-@property (nonatomic,copy) void(^eventBlock)(CGRect frame);
+@property(nonatomic, copy) void (^eventBlock)(CGRect frame);
 /**
  *  registerFrameChangedEvent
  *
  *  @param event event
  */
--(void)registerFrameChangedEvent:(void(^)(CGRect frame))event;
+- (void)registerFrameChangedEvent:(void (^)(CGRect frame))event;
 
 @end

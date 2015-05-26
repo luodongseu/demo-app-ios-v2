@@ -13,7 +13,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.defaultCells.count - 1 ;
+    return self.defaultCells.count - 2 ;
 }
 
 @end

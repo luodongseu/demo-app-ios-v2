@@ -21,7 +21,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lblAgreeTip;
 @property (weak, nonatomic) IBOutlet UIButton *btnAgree;
-@property (weak, nonatomic) IBOutlet UIButton *btnChat;
 @property (weak, nonatomic) IBOutlet UIButton *btnDisagree;
 @property (weak, nonatomic) IBOutlet UILabel *lblExtra;
 @property (weak, nonatomic) IBOutlet UIImageView *ivAva;

@@ -88,15 +88,15 @@
         [alertView show];
         return NO;
     }
-    if (password.length < 6) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"密码不足六位！"
-                                                           delegate:nil
-                                                  cancelButtonTitle:@"确定"
-                                                  otherButtonTitles:nil, nil];
-        [alertView show];
-        return NO;
-    }
+//    if (password.length < 6) {
+//        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
+//                                                            message:@"密码不足六位！"
+//                                                           delegate:nil
+//                                                  cancelButtonTitle:@"确定"
+//                                                  otherButtonTitles:nil, nil];
+//        [alertView show];
+//        return NO;
+//    }
     
     return YES;
 }

@@ -23,6 +23,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.automaticallyAdjustsScrollViewInsets = false;
+    self.tableView.contentInset=UIEdgeInsetsMake(-24, 0, 0, 0);
+    self.tableView.tableFooterView=[UIView new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -106,10 +109,12 @@
 -(void)logout
 {
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
-    [DEFAULTS removeObjectForKey:@"userName"];
-    [DEFAULTS removeObjectForKey:@"userPwd"];
-    [DEFAULTS removeObjectForKey:@"userToken"];
-    [DEFAULTS removeObjectForKey:@"userCookie"];
+//    [DEFAULTS removeObjectForKey:@"userName"];
+//    [DEFAULTS removeObjectForKey:@"userPwd"];
+//    [DEFAULTS removeObjectForKey:@"userToken"];
+//    [DEFAULTS removeObjectForKey:@"userCookie"];
+    [DEFAULTS removeObjectForKey:@"isLogin"];
+    
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     RCDLoginViewController *loginVC = [storyboard instantiateViewControllerWithIdentifier:@"loginVC"];

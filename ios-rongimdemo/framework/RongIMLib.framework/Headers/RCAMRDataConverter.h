@@ -1,10 +1,14 @@
-//
+/**
+ * Copyright (c) 2014-2015, RongCloud.
+ * All rights reserved.
+ *
+ * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
+ * Unless otherwise credited. http://rongcloud.cn
+ *
+ */
+
 //  RCAmrDataConverter.h
-//  RongIM
-//
 //  Created by Heq.Shinoda on 14-6-17.
-//  Copyright (c) 2014年 Heq.Shinoda. All rights reserved.
-//
 
 #ifndef __RCAmrDataConverter
 #define __RCAmrDataConverter
@@ -16,7 +20,6 @@
 #include "interf_dec.h"
 #include "interf_enc.h"
 
-
 /**
  *  AMR和WAV转换类
  */
@@ -27,7 +30,7 @@
  *
  *  @return instance
  */
-+(RCAMRDataConverter*)shareAmrDataConverter;
++ (RCAMRDataConverter *)shareAmrDataConverter;
 /**
  *  AMR转换成WAVE格式的音频.
  *
@@ -35,17 +38,17 @@
  *
  *  @return WAVE格式数据
  */
--(NSData*) DecodeAMRToWAVE:(NSData*) data;
+- (NSData *)DecodeAMRToWAVE:(NSData *)data;
 /**
  *  WAVE转换成AMR格式音频
  *
- *  @param data           WAVE格式数据 注意声音的采样率  AVNumberOfChannelsKey =1 AVLinearPCMBitDepthKey=16
+ *  @param data           WAVE格式数据 注意声音的采样率  AVNumberOfChannelsKey=1 AVLinearPCMBitDepthKey=16
  *  @param nChannels      默认传入1。
  *  @param nBitsPerSample 默认传入16。
  *
  *  @return AMR格式数据
  */
--(NSData*) EncodeWAVEToAMR:(NSData*) data channel:(int)nChannels  nBitsPerSample:(int)nBitsPerSample;
+- (NSData *)EncodeWAVEToAMR:(NSData *)data channel:(int)nChannels nBitsPerSample:(int)nBitsPerSample;
 @end
 
 #endif

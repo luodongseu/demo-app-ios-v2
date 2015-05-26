@@ -1,14 +1,18 @@
-//
+/**
+ * Copyright (c) 2014-2015, RongCloud.
+ * All rights reserved.
+ *
+ * All the contents are the copyright of RongCloud Network Technology Co.Ltd.
+ * Unless otherwise credited. http://rongcloud.cn
+ *
+ */
+
 //  RCInformationNotificationMessage.h
-//  iOS-IMLib
-//
 //  Created by xugang on 14/12/4.
-//  Copyright (c) 2014年 RongCloud. All rights reserved.
-//
 
 #import "RCMessageContent.h"
 
-#define RCInformationNotificationMessageIdentifier  @"RC:InfoNtf"
+#define RCInformationNotificationMessageIdentifier @"RC:InfoNtf"
 /**
  *  系统消息类
  */
@@ -17,11 +21,11 @@
 /**
  *  消息内容
  */
-@property(nonatomic, strong) NSString *message; // // 消息内容。 "用户<span userId=\"2123123">哇哈哈</span>邀请你为好友，<a href=\"rong:dslkfjsldjfl/ksdfhkjh\">同意</a>"
+@property(nonatomic, strong) NSString *message;
 /**
  *  附加信息。
  */
-@property(nonatomic, strong) NSString *extra; // // 附加信息。
+@property(nonatomic, strong) NSString *extra;
 /**
  *  构造方法
  *
@@ -30,7 +34,6 @@
  *
  *  @return 类实例
  */
-+(instancetype)notificationWithMessage:(NSString*)message
-                                 extra:(NSString*)extra;
++ (instancetype)notificationWithMessage:(NSString *)message extra:(NSString *)extra;
 
 @end

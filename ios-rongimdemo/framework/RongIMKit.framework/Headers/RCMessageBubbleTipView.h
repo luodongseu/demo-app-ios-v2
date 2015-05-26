@@ -8,17 +8,47 @@
 
 #import <UIKit/UIKit.h>
 
+/**
+ *  Bubble tip 位置
+ */
 typedef NS_ENUM(NSInteger, RCMessageBubbleTipViewAlignment) {
+    /**
+     *  左上
+     */
     RCMessageBubbleTipViewAlignmentTopLeft,
+    /**
+     *  右上
+     */
     RCMessageBubbleTipViewAlignmentTopRight,
+    /**
+     *  中上
+     */
     RCMessageBubbleTipViewAlignmentTopCenter,
+    /**
+     *  左中
+     */
     RCMessageBubbleTipViewAlignmentCenterLeft,
+    /**
+     *  右中
+     */
     RCMessageBubbleTipViewAlignmentCenterRight,
+    /**
+     *  左下
+     */
     RCMessageBubbleTipViewAlignmentBottomLeft,
+    /**
+     *  右下
+     */
     RCMessageBubbleTipViewAlignmentBottomRight,
+    /**
+     *  中下
+     */
     RCMessageBubbleTipViewAlignmentBottomCenter,
+    /**
+     *  中
+     */
     RCMessageBubbleTipViewAlignmentCenter
-} ;
+};
 
 /**
  *  RCMessageBubbleTipView
@@ -27,45 +57,45 @@ typedef NS_ENUM(NSInteger, RCMessageBubbleTipViewAlignment) {
 /**
  *  bubbleTipText
  */
-@property (nonatomic, copy) NSString *bubbleTipText;
+@property(nonatomic, copy) NSString *bubbleTipText;
 
 #pragma mark - Customization
 /**
  *  RCMessageBubbleTipViewAlignment
  */
-@property (nonatomic, assign) RCMessageBubbleTipViewAlignment bubbleTipAlignment;
+@property(nonatomic, assign) RCMessageBubbleTipViewAlignment bubbleTipAlignment;
 /**
  *  bubbleTipTextColor
  */
-@property (nonatomic, strong) UIColor *bubbleTipTextColor;
+@property(nonatomic, strong) UIColor *bubbleTipTextColor;
 /**
  *  bubbleTipTextShadowOffset
  */
-@property (nonatomic, assign) CGSize bubbleTipTextShadowOffset;
+@property(nonatomic, assign) CGSize bubbleTipTextShadowOffset;
 /**
  *  bubbleTipTextShadowColor
  */
-@property (nonatomic, strong) UIColor *bubbleTipTextShadowColor;
+@property(nonatomic, strong) UIColor *bubbleTipTextShadowColor;
 /**
  *  bubbleTipTextFont
  */
-@property (nonatomic, strong) UIFont *bubbleTipTextFont;
+@property(nonatomic, strong) UIFont *bubbleTipTextFont;
 /**
  *  bubbleTipBackgroundColor
  */
-@property (nonatomic, strong) UIColor *bubbleTipBackgroundColor;
+@property(nonatomic, strong) UIColor *bubbleTipBackgroundColor;
 /**
  *  bubbleTipBackgroundColor
  */
-@property (nonatomic, strong) UIColor *bubbleTipOverlayColor;
+@property(nonatomic, strong) UIColor *bubbleTipOverlayColor;
 /**
  *  bubbleTipPositionAdjustment
  */
-@property (nonatomic, assign) CGPoint bubbleTipPositionAdjustment;
+@property(nonatomic, assign) CGPoint bubbleTipPositionAdjustment;
 /**
  *  frameToPositionInRelationWith
  */
-@property (nonatomic, assign) CGRect frameToPositionInRelationWith;
+@property(nonatomic, assign) CGRect frameToPositionInRelationWith;
 /**
  *  initWithParentView
  *

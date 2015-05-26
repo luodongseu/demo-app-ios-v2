@@ -9,25 +9,47 @@
 #import <UIKit/UIKit.h>
 #import "RCConversationSettingTableViewController.h"
 
-typedef void(^clearHistory)(BOOL isSuccess);
+/**
+ *  定义block
+ *
+ *  @param isSuccess isSuccess description
+ */
+typedef void (^clearHistory)(BOOL isSuccess);
 
-@interface RCSettingViewController : RCConversationSettingTableViewController<UIActionSheetDelegate>
+/**
+ *  RCSettingViewController
+ */
+@interface RCSettingViewController : RCConversationSettingTableViewController
 
-//会话id
-@property (nonatomic,copy) NSString *targetId;
+/**
+ *  targetId
+ */
+@property(nonatomic, copy) NSString *targetId;
 
-//会话类型
-@property (nonatomic,assign) RCConversationType conversationType;
+/**
+ *  conversationType
+ */
+@property(nonatomic, assign) RCConversationType conversationType;
 
-
-//清除历史消息后，会话界面调用roload data
-@property (nonatomic,copy) clearHistory clearHistoryCompletion;
+/**
+ *  清除历史消息后，会话界面调用roload data
+ */
+@property(nonatomic, copy) clearHistory clearHistoryCompletion;
 
 /**
  *  默认实现的三个cell
  */
-@property (nonatomic,readonly, strong) NSArray *defaultCells;
+@property(nonatomic, readonly, strong) NSArray *defaultCells;
 
+/**
+ *  UIActionSheet
+ */
+@property(nonatomic, readonly, strong) UIActionSheet *clearMsgHistoryActionSheet;
+
+/**
+ *  clearHistoryMessage
+ */
+- (void)clearHistoryMessage;
 
 /**
  *  override 如果显示headerView时，最后一个+号点击事件
@@ -36,14 +58,15 @@ typedef void(^clearHistory)(BOOL isSuccess);
  *  @param indexPathOfSelectedItem indexPathOfSelectedItem description
  *  @param users                   所有在headerView中的user
  */
--(void)settingTableViewHeader:(RCConversationSettingTableViewHeader *)settingTableViewHeader indexPathOfSelectedItem:(NSIndexPath *)indexPathOfSelectedItem
-           allTheSeletedUsers:(NSArray *)users;
+- (void)settingTableViewHeader:(RCConversationSettingTableViewHeader *)settingTableViewHeader
+       indexPathOfSelectedItem:(NSIndexPath *)indexPathOfSelectedItem
+            allTheSeletedUsers:(NSArray *)users;
 
 /**
  *  override 如果显示headerView时，所点击的-号事件
  *
  *  @param indexPath 所点击左上角-号的索引
  */
--(void)deleteTipButtonClicked:(NSIndexPath *)indexPath;
+- (void)deleteTipButtonClicked:(NSIndexPath *)indexPath;
 
 @end

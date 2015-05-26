@@ -27,7 +27,7 @@
                   completion:(void(^)(BOOL isFriend)) completion;
 
 //获取个人信息
--(RCUserInfo *) getUserInfoByUserID:(NSString *) userID
+-(void) getUserInfoByUserID:(NSString *) userID
                          completion:(void (^)(RCUserInfo *user)) completion;
 
 //获取我的群组

@@ -30,7 +30,7 @@
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_ivAva(56)]" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_ivAva)]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lblName(13)]" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_lblName)]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lblName(20)]" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_lblName)]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_lblName attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-15-[_ivAva(56)]-8-[_lblName]-16-|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_ivAva,_lblName)]];

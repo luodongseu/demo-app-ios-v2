@@ -18,35 +18,76 @@
 #define PORTRAIT_HEIGHT 45
 
 @class RCloudImageView;
+
+/**
+ *  MessageBaseCell子类，用于创建基本的Cell内容
+ */
 @interface RCMessageCell : RCMessageBaseCell
 
-@property (nonatomic, weak) id<RCMessageCellDelegate> delegate;
+/**
+ *  消息回调
+ */
+@property(nonatomic, weak) id<RCMessageCellDelegate> delegate;
 
-//User header image view.
-@property (nonatomic, strong) RCloudImageView *portraitImageView;
-//User name label.
-@property (nonatomic, strong) UILabel                 *nicknameLabel;
+/**
+ *  用户头像
+ */
+@property(nonatomic, strong) RCloudImageView *portraitImageView;
 
-@property (nonatomic, strong) RCContentView *messageContentView;
-@property (nonatomic ,strong) UIView *statusContentView;
+/**
+ *  用户昵称
+ */
+@property(nonatomic, strong) UILabel *nicknameLabel;
 
-@property (nonatomic, strong) UIButton                *msgFailedStatusView;
-@property (nonatomic, strong) UIActivityIndicatorView *msgActivityIndicatorView;
+/**
+ *  消息内容视图
+ */
+@property(nonatomic, strong) RCContentView *messageContentView;
 
-@property (nonatomic,readonly) CGFloat messageContentViewWidth;
+/**
+ *  消息状态视图
+ */
+@property(nonatomic, strong) UIView *statusContentView;
 
-@property (nonatomic, assign, setter = setPortraitStyle:) RCUserAvatarStyle portraitStyle;
+/**
+ *  消息发送失败状态视图
+ */
+@property(nonatomic, strong) UIButton *msgFailedStatusView;
 
-//Display nick name for receiver, and hidden for sender.
-@property (nonatomic,readonly) BOOL isDisplayNickName;
+/**
+ *  消息发送指示视图
+ */
+@property(nonatomic, strong) UIActivityIndicatorView *msgActivityIndicatorView;
 
-- (void) setDataModel:(RCMessageModel *)model;
+/**
+ *  消息内容视图宽度
+ */
+@property(nonatomic, readonly) CGFloat messageContentViewWidth;
 
-- (void) updateStatusContentView:(RCMessageModel*)model;
+/**
+ *  用户头像样式
+ */
+@property(nonatomic, assign, setter=setPortraitStyle:) RCUserAvatarStyle portraitStyle;
 
+/**
+ *  是否显示用户昵称
+ */
+@property(nonatomic, readonly) BOOL isDisplayNickName;
+
+/**
+ *  设置数据模型
+ *
+ *  @param model 消息数据模型
+ */
+- (void)setDataModel:(RCMessageModel *)model;
+
+/**
+ *  更新消息发送状态视图
+ *
+ *  @param model 消息数据模型
+ */
+- (void)updateStatusContentView:(RCMessageModel *)model;
 
 @end
-
-
 
 #endif

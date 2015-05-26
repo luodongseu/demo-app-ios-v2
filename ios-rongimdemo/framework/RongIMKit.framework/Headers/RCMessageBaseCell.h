@@ -14,7 +14,9 @@
 #import "RCMessageModel.h"
 #import "RCMessageCellNotificationModel.h"
 
-//
+/**
+ *  消息发送状态通知回调Key
+ */
 UIKIT_EXTERN NSString *const KNotificationMessageBaseCellUpdateSendingStatus;
 
 #define TIME_LABEL_HEIGHT 20
@@ -22,25 +24,58 @@ UIKIT_EXTERN NSString *const KNotificationMessageBaseCellUpdateSendingStatus;
 @class RCCollectionCellAttributes;
 @class RCTipLabel;
 
+/**
+ *  消息Cell基类
+ */
 @interface RCMessageBaseCell : UICollectionViewCell
 
 /**
  *   显示时间的Label
  */
-@property (strong ,nonatomic) RCTipLabel         *msgtimeLabel;
-@property (strong ,nonatomic) RCMessageModel     *model;
-@property (strong ,nonatomic) UIView *baseContentView;
-@property (nonatomic) RCMessageDirection messageDirection;
-@property (nonatomic,readonly) BOOL               isDisplayMessageTime;
+@property(strong, nonatomic) RCTipLabel *msgtimeLabel;
 
+/**
+ *  消息数据模型
+ */
+@property(strong, nonatomic) RCMessageModel *model;
 
+/**
+ *  父视图区域
+ */
+@property(strong, nonatomic) UIView *baseContentView;
 
+/**
+ *  消息方向
+ */
+@property(nonatomic) RCMessageDirection messageDirection;
 
+/**
+ *  是否显示消息时间
+ */
+@property(nonatomic, readonly) BOOL isDisplayMessageTime;
+
+/**
+ *  类初始化方法
+ *
+ *  @param frame cellFrame
+ *
+ *  @return 当前对象实例
+ */
 - (instancetype)initWithFrame:(CGRect)frame;
 
+/**
+ *  设置消息数据模型
+ *
+ *  @param model 消息数据模型
+ */
 - (void)setDataModel:(RCMessageModel *)model;
 
-- (void) messageCellUpdateSendingStatusEvent:(NSNotification*)notification;
+/**
+ *  消息发送状态通知
+ *
+ *  @param notification 通知对象
+ */
+- (void)messageCellUpdateSendingStatusEvent:(NSNotification *)notification;
 @end
 
 #endif

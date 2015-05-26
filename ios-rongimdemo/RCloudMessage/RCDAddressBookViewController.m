@@ -115,7 +115,7 @@
     RCDUserInfo *user = arrayForKey[indexPath.row];
     if(user){
         cell.lblName.text = user.userName;
-        [cell.imgvAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_1"]];
+        [cell.imgvAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"contact"]];
     }
     
     return cell;
@@ -138,7 +138,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 72.f;
+    return 65.f;
 }
 
 //pinyin index
@@ -223,10 +223,12 @@
                 [_tempOtherArr addObject:user];
             }
         }
+        if(![tempArr count]) continue;
         [returnDic setObject:tempArr forKey:key];
         
     }
-    [returnDic setObject:_tempOtherArr forKey:@"#"];
+    if([_tempOtherArr count])
+        [returnDic setObject:_tempOtherArr forKey:@"#"];
     
     
     _allKeys = [[returnDic allKeys] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {

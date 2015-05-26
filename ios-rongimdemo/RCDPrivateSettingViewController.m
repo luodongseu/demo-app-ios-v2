@@ -32,6 +32,10 @@
 {
     return self.defaultCells[indexPath.row];
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //覆盖父类实现，什么也不做
+}
 /*
 #pragma mark - Navigation
 

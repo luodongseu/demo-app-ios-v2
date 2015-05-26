@@ -47,7 +47,7 @@
     //设置tableView样式
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     self.tableView.tableFooterView = [UIView new];
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 12)];
+    //self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 12)];
     
 
 //    __weak RCDGroupViewController *weakSelf = self;
@@ -64,7 +64,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"群组";
+    
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"群组";
+    self.tabBarController.navigationItem.titleView = titleView;
+
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     
     __weak RCDGroupViewController *weakSelf = self;

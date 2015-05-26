@@ -52,7 +52,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.tabBarController.navigationItem.title = @"客服";
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"客服";
+    self.tabBarController.navigationItem.titleView = titleView;
+   // self.tabBarController.navigationItem.title = @"客服";
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
 
 }

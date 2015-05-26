@@ -8,10 +8,21 @@
 
 #import "RCMessageBaseCell.h"
 
+/**
+ *  TipMessageCell
+ */
 @interface RCTipMessageCell : RCMessageBaseCell
 
-@property (strong ,nonatomic) RCTipLabel *tipMessageLabel;
+/**
+ *  tipMessage显示Label
+ */
+@property(strong, nonatomic) RCTipLabel *tipMessageLabel;
 
+/**
+ *  设置消息数据模型
+ *
+ *  @param model 消息数据模型
+ */
 - (void)setDataModel:(RCMessageModel *)model;
 
 @end

@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-
 /**
  *  此类为解决UIMenuController的显示问题
  */
@@ -17,6 +16,6 @@
 /**
  *  blockActionMenu为No时只显示当前响应对象的动作菜单，为YES时，则不显示任何菜单
  */
-@property (nonatomic,assign) BOOL blockActionMenu;
+@property(nonatomic, assign) BOOL blockActionMenu;
 
 @end

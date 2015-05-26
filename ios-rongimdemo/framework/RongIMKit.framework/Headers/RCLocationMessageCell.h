@@ -9,9 +9,19 @@
 #import "RCMessageCell.h"
 #import "RCImageMsgProgressView.h"
 
+/**
+ *  位置消息Cell
+ */
 @interface RCLocationMessageCell : RCMessageCell
 
-@property (nonatomic, strong)  UIImageView *pictureView;
-@property (nonatomic, strong) UILabel *locationNameLabel;
+/**
+ *  位置图片
+ */
+@property(nonatomic, strong) UIImageView *pictureView;
+
+/**
+ *  位置内容Label
+ */
+@property(nonatomic, strong) UILabel *locationNameLabel;
 
 @end

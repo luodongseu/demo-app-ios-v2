@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <RongIMLib/RCUserInfo.h>
 
-@interface RCDAddFriendViewController : UITableViewController
+@interface RCDAddFriendViewController : UIViewController
 
 @property (nonatomic,strong) RCUserInfo *targetUserInfo;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;

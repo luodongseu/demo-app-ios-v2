@@ -24,12 +24,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(rightBarButtonItemClicked:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"config"] style:UIBarButtonItemStylePlain target:self action:@selector(rightBarButtonItemClicked:)];
+
 
     self.lblName.text = self.userInfo.name;
-    self.ivAva.clipsToBounds = YES;
-    self.ivAva.layer.cornerRadius = 8.f;
-    [self.ivAva sd_setImageWithURL:[NSURL URLWithString:self.userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_1"]];
+//    self.ivAva.clipsToBounds = YES;
+//    self.ivAva.layer.cornerRadius = 4.f;
+    [self.ivAva sd_setImageWithURL:[NSURL URLWithString:self.userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
 
 
     

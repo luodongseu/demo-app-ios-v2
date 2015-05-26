@@ -7,10 +7,11 @@
 //
 
 #import "RCDMessageNotifySettingTableViewController.h"
+#import "MBProgressHUD.h"
+#import <RongIMKit/RongIMKit.h>
 
 @interface RCDMessageNotifySettingTableViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *lblNotify;
-
+@property (weak, nonatomic) IBOutlet UISwitch *notifySwitch;
 @end
 
 @implementation RCDMessageNotifySettingTableViewController
@@ -19,12 +20,59 @@
     [super viewDidLoad];
     
     //通知开启状态
-    UIUserNotificationType userNotiType = [[UIApplication sharedApplication] currentUserNotificationSettings].types;
-    if (userNotiType != UIUserNotificationTypeNone) {
-        self.lblNotify.text = @"已开启";
-    }else{
-        self.lblNotify.text = @"未开启";
+//    UIUserNotificationType userNotiType = [[UIApplication sharedApplication] currentUserNotificationSettings].types;
+//    if (userNotiType != UIUserNotificationTypeNone) {
+//        [self.notifySwitch setEnabled:YES];
+//    }else{
+//        [self.notifySwitch setEnabled:NO];
+//    }
+    [[RCIMClient sharedClient] getConversationNotificationQuietHours:^(NSString *startTime, int spansMin) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (spansMin > 0) {
+                self.notifySwitch.on = NO;
+            } else {
+                self.notifySwitch.on = YES;
+            }
+        });
+    } errorCompletion:^(RCErrorCode status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.notifySwitch.on = YES;
+        });
+    }];
+}
+- (IBAction)onSwitch:(id)sender {
+    MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"设置中...";
+    if (!self.notifySwitch.on) {
+        [[RCIMClient sharedClient] setConversationNotificationQuietHours:@"00:00:00" spanMins:1339 SuccessCompletion:^{
+            NSLog(@"setConversationNotificationQuietHours succeed");
+            [[RCIM sharedKit] setMessageNotDisturb:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+            });
+        } errorCompletion:^(RCErrorCode status) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设置失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+                [alert show];
+                self.notifySwitch.on = YES;
+                [hud hide:YES];
+            });
+        }];
+    } else {
+        [[RCIMClient sharedClient] removeConversationNotificationQuietHours:^{
+            [[RCIM sharedKit] setMessageNotDisturb:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [hud hide:YES];
+            });
+        } errorCompletion:^(RCErrorCode status) {
 
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"取消失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
+                [alert show];
+                self.notifySwitch.on = NO;
+                [hud hide:YES];
+            });
+        }];
     }
 }
 

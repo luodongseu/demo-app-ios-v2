@@ -86,21 +86,21 @@
 - (void)getGroupInfoWithGroupId:(NSString*)groupId completion:(void (^)(RCGroup*))completion
 {
     if ([groupId length] == 0)
-        return completion(nil);
+        return;
     
     //开发者调自己的服务器接口根据userID异步请求数据
     [RCDHTTPTOOL getGroupByID:groupId
-            successCompletion:^(RCGroup *group) {
+            successCompletion:^(RCGroup *group)
+    {
                 completion(group);
     }];
-    return completion(nil);
 }
 
 #pragma mark - RCIMUserInfoFetcherDelegagte
 - (void)getUserInfoWithUserId:(NSString*)userId completion:(void (^)(RCUserInfo*))completion
 {
     if ([userId length] == 0)
-        return completion(nil);
+        return;
     
     //开发者调自己的服务器接口根据groupID异步请求数据
     [RCDHTTPTOOL getUserInfoByUserID:userId
@@ -109,8 +109,6 @@
             completion(user);
         }
     }];
-    
-    return completion(nil);
 }
 
 
