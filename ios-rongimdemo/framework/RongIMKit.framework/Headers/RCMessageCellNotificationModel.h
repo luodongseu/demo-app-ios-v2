@@ -32,9 +32,9 @@ UIKIT_EXTERN NSString *const CONVERSATION_CELL_DATA_IMAGE_KEY_UPDATE;
  */
 @property(strong, nonatomic) NSString *actionName;
 /**
- *  nProgress
+ *  progress
  */
-@property(nonatomic) NSInteger nProgress;
+@property(nonatomic) NSInteger progress;
 
 @end
 #endif

@@ -530,7 +530,7 @@
   if (![self checkContent])
     return;
 
-  RCNetworkStatus stauts = [[RCIMClient sharedClient] getCurrentNetworkStatus];
+  RCNetworkStatus stauts = [[RCIMClient sharedRCIMClient] getCurrentNetworkStatus];
 
   if (RC_NotReachable == stauts) {
     _errorMsgLb.text = @"当前网络不可用，请检查！";

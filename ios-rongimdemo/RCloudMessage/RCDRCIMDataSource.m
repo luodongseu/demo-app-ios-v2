@@ -13,7 +13,7 @@
 #import "RCDGroupInfo.h"
 #import "RCDUserInfo.h"
 #import "RCDHttpTool.h"
-
+#import "DBHelper.h"
 
 @interface RCDRCIMDataSource ()
 
@@ -26,11 +26,12 @@
     self = [super init];
     if (self) {
         //设置信息提供者
-        [[RCIM sharedKit] setUserInfoFetcherDelegate:self];
-        [[RCIM sharedKit] setGroupInfoFetcherDelegate:self];
+        [[RCIM sharedRCIM] setUserInfoDataSource:self];
+        [[RCIM sharedRCIM] setGroupInfoDataSource:self];
         
         //同步群组
         [self syncGroups];
+        [self CreateUserTable];
     }
     return self;
 }
@@ -50,16 +51,19 @@
                      userToken:(NSString *) userToken
 {
     //初始化RongCloud SDK
-    [[RCIM sharedKit] initWithAppKey:appKey deviceToken:nil];
+    [[RCIM sharedRCIM] initWithAppKey:appKey deviceToken:nil];
     
     //登陆RongCloud Server
-    [[RCIM sharedKit] connectWithToken:userToken
+    [[RCIM sharedRCIM] connectWithToken:userToken
     
        success:^(NSString *userId) {
            NSAssert(userId, @"connect success!");
       } error:^(RCConnectErrorCode status) {
         
-    }];
+    }
+     tokenIncorrect:^{
+         
+     }];
 }
 
 
@@ -70,8 +74,8 @@
     [RCDHTTPTOOL getMyGroupsWithBlock:^(NSMutableArray *result) {
         if ([result count]) {
             //同步群组
-            [[RCIMClient sharedClient] syncGroups:result
-                                         completion:^{
+            [[RCIMClient sharedRCIMClient] syncGroups:result
+                                         success:^{
                 //DebugLog(@"同步成功!");
             } error:^(RCErrorCode status) {
                 //DebugLog(@"同步失败!  %ld",(long)status);
@@ -96,23 +100,72 @@
     }];
 }
 
-#pragma mark - RCIMUserInfoFetcherDelegagte
+#pragma mark - RCIMUserInfoDataSource
 - (void)getUserInfoWithUserId:(NSString*)userId completion:(void (^)(RCUserInfo*))completion
 {
     if ([userId length] == 0)
         return;
+    RCUserInfo *userInfo=[self getUserByUserId:userId];
+    if (userInfo==nil) {
+        //开发者调自己的服务器接口根据groupID异步请求数据
+        [RCDHTTPTOOL getUserInfoByUserID:userId
+                              completion:^(RCUserInfo *user) {
+                                  if (user) {
+                                      [self insertUserToDB:user];
+                                      completion(user);
+                                  }
+                              }];
+    }else
+    {
+        completion(userInfo);
+    }
     
-    //开发者调自己的服务器接口根据groupID异步请求数据
-    [RCDHTTPTOOL getUserInfoByUserID:userId
-                          completion:^(RCUserInfo *user) {
-        if (user) {
-            completion(user);
+}
+static NSString * const userTableName = @"USERTABLE";
+
+//创建用户存储表
+-(void)CreateUserTable
+{
+    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    [queue inDatabase:^(FMDatabase *db) {
+        if (![DBHelper isTableOK: userTableName withDB:db]) {
+            NSString *createTableSQL = @"CREATE TABLE USERTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
+            [db executeUpdate:createTableSQL];
+            NSString *createIndexSQL=@"CREATE INDEX idx_userid ON USERTABLE(userid);";
+            [db executeUpdate:createIndexSQL];
         }
+        
     }];
+    
 }
 
-
-
+//存储用户信息
+-(void)insertUserToDB:(RCUserInfo*)user
+{
+    NSString *insertSql = @"REPLACE INTO USERTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
+    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    [queue inDatabase:^(FMDatabase *db) {
+        [db executeUpdate:insertSql,user.userId,user.name,user.portraitUri];
+    }];
+    
+}
+//从表中获取用户信息
+-(RCUserInfo*) getUserByUserId:(NSString*)userId
+{
+    __block RCUserInfo *model = nil;
+    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    [queue inDatabase:^(FMDatabase *db) {
+        FMResultSet *rs = [db executeQuery:@"SELECT * FROM USERTABLE where userid = ?",userId];
+        while ([rs next]) {
+            model = [[RCUserInfo alloc] init];
+            model.userId = [rs stringForColumn:@"userid"];
+            model.name = [rs stringForColumn:@"name"];
+            model.portraitUri = [rs stringForColumn:@"portraitUri"];
+        }
+        [rs close];
+    }];
+    return model;
+}
 
 
 

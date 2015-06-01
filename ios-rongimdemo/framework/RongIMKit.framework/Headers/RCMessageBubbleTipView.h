@@ -15,39 +15,39 @@ typedef NS_ENUM(NSInteger, RCMessageBubbleTipViewAlignment) {
     /**
      *  左上
      */
-    RCMessageBubbleTipViewAlignmentTopLeft,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_TOP_LEFT,
     /**
      *  右上
      */
-    RCMessageBubbleTipViewAlignmentTopRight,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_TOP_RIGHT,
     /**
      *  中上
      */
-    RCMessageBubbleTipViewAlignmentTopCenter,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_TOP_CENTER,
     /**
      *  左中
      */
-    RCMessageBubbleTipViewAlignmentCenterLeft,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_CENTER_LEFT,
     /**
      *  右中
      */
-    RCMessageBubbleTipViewAlignmentCenterRight,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_CENTER_RIGHT,
     /**
      *  左下
      */
-    RCMessageBubbleTipViewAlignmentBottomLeft,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_BOTTOM_LEFT,
     /**
      *  右下
      */
-    RCMessageBubbleTipViewAlignmentBottomRight,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_BOTTOM_RIGHT,
     /**
      *  中下
      */
-    RCMessageBubbleTipViewAlignmentBottomCenter,
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_BOTTOM_CENTER,
     /**
-     *  中
+     *  正中
      */
-    RCMessageBubbleTipViewAlignmentCenter
+    RC_MESSAGE_BUBBLE_TIP_VIEW_ALIGNMENT_CENTER
 };
 
 /**

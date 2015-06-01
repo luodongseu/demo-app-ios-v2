@@ -7,7 +7,7 @@
 //
 
 #import "RCMessageCell.h"
-#import "RCImageMsgProgressView.h"
+#import "RCImageMessageProgressView.h"
 
 /**
  *  图片消息Cell
@@ -22,6 +22,6 @@
 /**
  *  发送进度视图
  */
-@property(nonatomic, strong) RCImageMsgProgressView *progressView;
+@property(nonatomic, strong) RCImageMessageProgressView *progressView;
 
 @end

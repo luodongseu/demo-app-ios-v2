@@ -35,7 +35,7 @@
     self.tableView.tableFooterView=[UIView new];
     //设置分割线颜色
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
-    self.currentUserNameLabel.text = [RCIMClient sharedClient].currentUserInfo.name;
+    self.currentUserNameLabel.text = [RCIMClient sharedRCIMClient].currentUserInfo.name;
     UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
     titleView.backgroundColor = [UIColor clearColor];
     titleView.font = [UIFont boldSystemFontOfSize:19];
@@ -73,10 +73,10 @@
     if (indexPath.section == 2 && indexPath.row == 0) {
 #define SERVICE_ID @"kefu114"
         RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-        chatService.targetName = @"客服";
+        chatService.userName = @"客服";
         chatService.targetId = SERVICE_ID;
         chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-        chatService.title = chatService.targetName;
+        chatService.title = chatService.userName;
         [self.navigationController pushViewController:chatService animated:YES];
     }
 }

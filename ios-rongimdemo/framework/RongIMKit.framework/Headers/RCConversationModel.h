@@ -16,21 +16,21 @@
  */
 typedef NS_ENUM(NSUInteger, RCConversationModelType) {
     /**
-     *  ConversationModelType_Normal
+     *  RC_CONVERSATION_MODEL_TYPE_NORMAL
      */
-    ConversationModelType_Normal = 1,
+    RC_CONVERSATION_MODEL_TYPE_NORMAL = 1,
     /**
-     *  ConversationModelType_Collection
+     *  RC_CONVERSATION_MODEL_TYPE_COLLECTION
      */
-    ConversationModelType_Collection = 2,
+    RC_CONVERSATION_MODEL_TYPE_COLLECTION = 2,
     /**
-     *  ConversationModelType_UserCustom
+     *  RC_CONVERSATION_MODEL_TYPE_CUSTOMIZATION
      */
-    ConversationModelType_UserCustom = 3,
+    RC_CONVERSATION_MODEL_TYPE_CUSTOMIZATION = 3,
     /**
-     *  ConversationModelType_PublicService
+     *  RC_CONVERSATION_MODEL_TYPE_PUBLIC_SERVICE
      */
-    ConversationModelType_PublicService = 4,
+    RC_CONVERSATION_MODEL_TYPE_PUBLIC_SERVICE = 4,
 
 };
 

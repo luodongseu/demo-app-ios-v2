@@ -361,7 +361,7 @@
 //            NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"userToken"];
 //            if (token.length != 0) {
 //                //连接融云SDK
-//                [[RCIM sharedKit] connectWithToken:token
+//                [[RCIM sharedRCIM] connectWithToken:token
 //                            success:^(NSString* userId) {
 //                                //
 //                                //同步群组
@@ -398,7 +398,8 @@
  */
 - (void)login:(NSString *)userName password:(NSString *)password
 {
-    RCNetworkStatus stauts=[[RCIMClient sharedClient]getCurrentNetworkStatus];
+
+    RCNetworkStatus stauts=[[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
     
     if (RC_NotReachable == stauts) {
         _errorMsgLb.text=@"当前网络不可用，请检查！";
@@ -410,7 +411,7 @@
 
         [AFHttpTool loginWithEmail:userName password:password
             success:^(id response) {
-                               
+                
                                if ([response[@"code"] intValue] == 200) {
                                    RCDLoginInfo *loginInfo = [RCDLoginInfo shareLoginInfo];
                                    loginInfo = [loginInfo initWithDictionary:response[@"result"] error:NULL];
@@ -419,7 +420,7 @@
 
                                        NSString *token = response[@"result"][@"token"];
                                        //登陆融云服务器
-                                       [[RCIM sharedKit] connectWithToken:token success:^(NSString *userId) {
+                                       [[RCIM sharedRCIM] connectWithToken:token success:^(NSString *userId) {
                                            //保存默认用户
                                                    [DEFAULTS setObject:userName forKey:@"userName"];
                                                    [DEFAULTS setObject:password forKey:@"userPwd"];
@@ -429,7 +430,7 @@
                                            
                                            //设置当前的用户信息
                                            RCUserInfo *_currentUserInfo = [[RCUserInfo alloc]initWithUserId:userId name:userName portrait:nil];
-                                           [RCIMClient sharedClient].currentUserInfo = _currentUserInfo;
+                                           [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
                                            
                                            //同步群组
                                            [RCDDataSource syncGroups];
@@ -445,6 +446,8 @@
                                        } error:^(RCConnectErrorCode status) {
                                            // [hud setHidden:YES];
                                            NSLog(@"RCConnectErrorCode is %ld",(long)status);
+                                       } tokenIncorrect:^{
+                                           NSLog(@"IncorrectToken");
                                        }];
                                        
 

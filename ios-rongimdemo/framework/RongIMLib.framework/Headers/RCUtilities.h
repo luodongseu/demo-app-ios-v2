@@ -77,7 +77,7 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return (NSData *)
  */
-+ (NSData *)DESEncrypt:(NSData *)data WithKey:(NSString *)key;
++ (NSData *)desEncrypt:(NSData *)data WithKey:(NSString *)key;
 
 /**
  *  文本数据进行DES解密。备注：此函数不可用于过长文本。
@@ -87,7 +87,7 @@ typedef uint32_t CCAlgorithm;
  *
  *  @return (NSData *)
  */
-+ (NSData *)DESDecrypt:(NSData *)data WithKey:(NSString *)key;
++ (NSData *)desDecrypt:(NSData *)data WithKey:(NSString *)key;
 
 /**
  *  string to base64String

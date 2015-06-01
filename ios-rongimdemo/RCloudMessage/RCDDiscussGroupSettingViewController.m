@@ -48,10 +48,10 @@
     if (self.conversationType == ConversationType_DISCUSSION) {
 
         __weak RCSettingViewController* weakSelf = self;
-        [[RCIMClient sharedClient] getDiscussion:self.targetId completion:^(RCDiscussion* discussion) {
+        [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion* discussion) {
             if (discussion) {
                 
-                if([[RCIMClient sharedClient].currentUserInfo.userId isEqualToString:discussion.creatorId])
+                if([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:discussion.creatorId])
                 {
                     [self disableDeleteMemberEvent:NO];
                     
@@ -105,7 +105,7 @@
     }else{
         if (0 == buttonIndex) {
             __weak typeof(&*self)  weakSelf = self;
-            [[RCIMClient sharedClient] quitDiscussion:self.targetId completion:^(RCDiscussion *discussion) {
+            [[RCIMClient sharedRCIMClient] quitDiscussion:self.targetId success:^(RCDiscussion *discussion) {
             NSLog(@"退出讨论组成功");
             UIViewController *temp = nil;
             NSArray *viewControllers = weakSelf.navigationController.viewControllers;
@@ -153,7 +153,7 @@
         {
             RCDDiscussSettingSwitchCell *switchCell = [[RCDDiscussSettingSwitchCell alloc] initWithFrame:CGRectZero];
             switchCell.label.text = @"开放成员邀请";
-            [[RCIMClient sharedClient] getDiscussion:self.targetId completion:^(RCDiscussion *discussion) {
+            [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion *discussion) {
                 if (discussion.inviteStatus == 0) {
                     switchCell.swich.on = YES;
                 }
@@ -196,7 +196,7 @@
             
             if (selectedUsers && selectedUsers.count) {
                 
-                NSString *_currentTargetId = [RCIMClient sharedClient].currentUserInfo.userId;
+                NSString *_currentTargetId = [RCIMClient sharedRCIMClient].currentUserInfo.userId;
                 
                                 [RCDHTTPTOOL getUserInfoByUserID:_currentTargetId completion:^(RCUserInfo *user) {
                                     RCUserInfo *userInfo =  user;
@@ -234,7 +234,7 @@
             //加入讨论组
             if(addIdList.count != 0){
                 
-                [[RCIMClient sharedClient] addMemberToDiscussion:self.targetId userIdList:addIdList completion:^(RCDiscussion *discussion) {
+                [[RCIMClient sharedRCIMClient] addMemberToDiscussion:self.targetId userIdList:addIdList success:^(RCDiscussion *discussion) {
                     NSLog(@"成功");
                 } error:^(RCErrorCode status) {
                 }];
@@ -258,12 +258,12 @@
                 self.conversationTitle = discussionTitle;
                 
                 __weak typeof(&*self)  weakSelf = self;
-                [[RCIMClient sharedClient] createDiscussion:discussionTitle userIdList:userIdList completion:^(RCDiscussion *discussion) {
+                [[RCIMClient sharedRCIMClient] createDiscussion:discussionTitle userIdList:userIdList success:^(RCDiscussion *discussion) {
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
                         RCDChatViewController *chat =[[RCDChatViewController alloc]init];
                         chat.targetId                      = discussion.discussionId;
-                        chat.targetName                    = discussion.discussionName;
+                        chat.userName                    = discussion.discussionName;
                         chat.conversationType              = ConversationType_DISCUSSION;
                         chat.title                         = discussionTitle;//[NSString stringWithFormat:@"讨论组(%lu)", (unsigned long)_count];
                         
@@ -285,7 +285,7 @@
     //设置成员邀请权限
 
 
-    [[RCIMClient sharedClient] setDiscussionInviteStatus:self.targetId isOpen:swch.on completion:^{
+    [[RCIMClient sharedRCIMClient] setDiscussionInviteStatus:self.targetId isOpen:swch.on success:^{
 //        DebugLog(@"设置成功");
     } error:^(RCErrorCode status) {
         
@@ -339,13 +339,13 @@
 - (void)deleteTipButtonClicked:(NSIndexPath*)indexPath
 {
     RCUserInfo* user = self.users[indexPath.row];
-    if ([user.userId isEqualToString:[RCIMClient sharedClient].currentUserInfo.userId]) {
+    if ([user.userId isEqualToString:[RCIMClient sharedRCIMClient].currentUserInfo.userId]) {
         
         return;
     }
-    [[RCIMClient sharedClient] removeMemberFromDiscussion:self.targetId
+    [[RCIMClient sharedRCIMClient] removeMemberFromDiscussion:self.targetId
                                                    userId:user.userId
-    completion:^(RCDiscussion *discussion) {
+    success:^(RCDiscussion *discussion) {
         NSLog(@"踢人成功");
     } error:^(RCErrorCode status) {
         NSLog(@"踢人失败");

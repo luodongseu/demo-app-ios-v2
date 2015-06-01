@@ -24,10 +24,10 @@
 
 #define SERVICE_ID @"kefu114"
     RCDChatViewController *chatService = [[RCDChatViewController alloc] init];
-    chatService.targetName = @"客服";
+    chatService.userName = @"客服";
     chatService.targetId = SERVICE_ID;
     chatService.conversationType = ConversationType_CUSTOMERSERVICE;
-    chatService.title = chatService.targetName;
+    chatService.title = chatService.userName;
 
 //    RCHandShakeMessage* textMsg = [[RCHandShakeMessage alloc] init];
 //    [[RongUIKit sharedKit] sendMessage:ConversationType_CUSTOMERSERVICE targetId:SERVICE_ID content:textMsg delegate:nil];

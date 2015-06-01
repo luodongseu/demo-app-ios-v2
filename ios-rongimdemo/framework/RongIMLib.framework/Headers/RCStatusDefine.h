@@ -417,4 +417,34 @@ typedef NS_ENUM(NSUInteger, RCCurrentConnectionStatus) {
     RC_CONNECTING = 2
 };
 
+/**
+ *  查询方式
+ */
+typedef NS_ENUM(NSUInteger, RCSearchType) {
+    /**
+     *  精确查询
+     */
+    RC_SEARCH_TYPE_EXACT = 0,
+    /**
+     *  模糊查询
+     */
+    RC_SEARCH_TYPE_FUZZY = 1,
+
+};
+
+/**
+ *  公众服务号类型
+ */
+typedef NS_ENUM(NSUInteger, RCPublicServiceType) {
+    /**
+     *  App服务号
+     */
+    RC_APP_PUBLIC_SERVICE = 7,
+    /**
+     *  公众服务号
+     */
+    RC_PUBLIC_SERVICE = 8,
+    
+};
+
 #endif

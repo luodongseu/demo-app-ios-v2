@@ -51,7 +51,7 @@
     }
     
     //保存设置
-    [[RCIMClient sharedClient] setDiscussionName:self.targetId name:self.tfName.text completion:^{
+    [[RCIMClient sharedRCIMClient] setDiscussionName:self.targetId name:self.tfName.text success:^{
         
     } error:^(RCErrorCode status) {
         

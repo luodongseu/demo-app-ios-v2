@@ -30,7 +30,7 @@
  *
  *  @return instance
  */
-+ (RCAMRDataConverter *)shareAmrDataConverter;
++ (RCAMRDataConverter *)sharedAMRDataConverter;
 /**
  *  AMR转换成WAVE格式的音频.
  *
@@ -38,7 +38,7 @@
  *
  *  @return WAVE格式数据
  */
-- (NSData *)DecodeAMRToWAVE:(NSData *)data;
+- (NSData *)dcodeAMRToWAVE:(NSData *)data;
 /**
  *  WAVE转换成AMR格式音频
  *
@@ -48,7 +48,7 @@
  *
  *  @return AMR格式数据
  */
-- (NSData *)EncodeWAVEToAMR:(NSData *)data channel:(int)nChannels nBitsPerSample:(int)nBitsPerSample;
+- (NSData *)ecodeWAVEToAMR:(NSData *)data channel:(int)nChannels nBitsPerSample:(int)nBitsPerSample;
 @end
 
 #endif

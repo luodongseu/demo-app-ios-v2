@@ -18,41 +18,41 @@
  */
 typedef NS_ENUM(NSInteger, RCChatSessionInputBarControlStyle) {
     /**
-     *  switch-input-extend
+     *  切换-输入框-扩展
      */
-    RCChatSessionInputBarControlStyle1 = 0,
+    RC_CHAT_INPUT_BAR_STYLE_SWITCH_CONTAINER_EXTENTION = 0,
     /**
-     *  extend-input-switch
+     *  扩展-输入框-切换
      */
-    RCChatSessionInputBarControlStyle2 = 1,
+    RC_CHAT_INPUT_BAR_STYLE_EXTENTION_CONTAINER_SWITCH = 1,
     /**
-     *  input-switch-extend
+     *  输入框-切换-扩展
      */
-    RCChatSessionInputBarControlStyle3 = 2,
+    RC_CHAT_INPUT_BAR_STYLE_CONTAINER_SWITCH_EXTENTION = 2,
     /**
-     *  input-extend-switch
+     *  输入框-扩展-切换
      */
-    RCChatSessionInputBarControlStyle4 = 3,
+    RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION_SWITCH = 3,
     /**
-     *  switch-input
+     *  切换-输入框
      */
-    RCChatSessionInputBarControlStyle5 = 4,
+    RC_CHAT_INPUT_BAR_STYLE_SWITCH_CONTAINER = 4,
     /**
-     *  input-switch
+     *  输入框-切换
      */
-    RCChatSessionInputBarControlStyle6 = 5,
+    RC_CHAT_INPUT_BAR_STYLE_CONTAINER_SWITCH = 5,
     /**
-     *  extend-input
+     *  扩展-输入框
      */
-    RCChatSessionInputBarControlStyle7 = 6,
+    RC_CHAT_INPUT_BAR_STYLE_EXTENTION_CONTAINER = 6,
     /**
-     *  input-extend
+     *  输入框-扩展
      */
-    RCChatSessionInputBarControlStyle8 = 7,
+    RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION = 7,
     /**
-     *  input
+     *  输入框
      */
-    RCChatSessionInputBarControlStyle9 = 8,
+    RC_CHAT_INPUT_BAR_STYLE_CONTAINER = 8,
 };
 
 /**

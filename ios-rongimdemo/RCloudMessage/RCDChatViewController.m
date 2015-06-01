@@ -21,55 +21,47 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+    self.enableSaveNewPhotoToLocalSystem = YES;
 
-  NSString *__string = @"返回";
+    self.isNeedToShowCustomMessage = YES;
 
-  int unreadMsgCount = [[RCIMClient sharedClient] getUnreadCount:@[
-    @(ConversationType_PRIVATE),
-    @(ConversationType_DISCUSSION),
-    @(ConversationType_APPSERVICE),
-    @(ConversationType_PUBLICSERVICE),
-    @(ConversationType_GROUP),
-    @(ConversationType_SYSTEM)
-  ]];
-  if (0 < unreadMsgCount) {
-    __string = [NSString stringWithFormat:@"返回(%d)", unreadMsgCount];
-  }
-
-  //添加rightBarButtonItem事件
-  //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-  //    initWithTitle:@"设置"
-  //                                                                              style:UIBarButtonItemStylePlain
-  //                                                                             target:self
-  //                                                                             action:@selector(rightBarButtonItemClicked:)];
   self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
       initWithImage:[UIImage imageNamed:@"Setting"]
               style:UIBarButtonItemStylePlain
              target:self
              action:@selector(rightBarButtonItemClicked:)];
-  //添加leftBarButtonItem点击事件
-//  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-//      initWithTitle:__string
-//              style:UIBarButtonItemStylePlain
-//             target:self
-//             action:@selector(leftBarButtonItemPressed:)];
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 6, 42, 23);
-    UIImageView *backImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"]];
-    backImg.frame = CGRectMake(-10, 0, 22, 22);
-    [backBtn addSubview:backImg];
-    UILabel *backText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 40, 22)];
-    backText.text = NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
-    backText.font = [UIFont systemFontOfSize:15];
-    [backText setBackgroundColor:[UIColor clearColor]];
-    [backText setTextColor:[UIColor whiteColor]];
-    [backBtn addSubview:backText];
-    [backBtn addTarget:self action:@selector(leftBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    [self.navigationItem setLeftBarButtonItem:leftButton];
-  //删除不需要的plugin item
-  //[self.pluginBoardView removeItemAtIndex:0];
+
+    [self notifyUpdateUnreadMessageCount];
+/***********如何自定义面板功能***********************
+ 自定义面板功能首先要继承RCConversationViewController，如现在所在的这个文件。
+ 然后在viewDidLoad函数的super函数之后去编辑按钮：
+ 插入到指定位置的方法如下：
+ [self.pluginBoardView insertItemWithImage:imagePic
+                                     title:title
+                                   atIndex:0
+                                       tag:101];
+ 或添加到最后的：
+ [self.pluginBoardView insertItemWithImage:imagePic
+                                     title:title
+                                       tag:101];
+ 删除指定位置的方法：
+ [self.pluginBoardView removeItemAtIndex:0];
+ 删除指定标签的方法：
+ [self.pluginBoardView removeItemWithTag:101];
+ 删除所有：
+ [self.pluginBoardView removeAllItems];
+ 更换现有扩展项的图标和标题:
+ [self.pluginBoardView updateItemAtIndex:0 image:newImage title:newTitle];
+ 或者根据tag来更换
+ [self.pluginBoardView updateItemWithTag:101 image:newImage title:newTitle];
+ 以上所有的接口都在RCPluginBoardView.h可以查到。
+ 
+ 当编辑完扩展功能后，下一步就是要实现对扩展功能事件的处理，放开被注掉的函数
+ pluginBoardView:clickedItemWithTag:
+ 在super之后加上自己的处理。
+ 
+ */
+
 }
 
 - (void)leftBarButtonItemPressed:(id)sender {
@@ -90,7 +82,7 @@
         [[RCDPrivateSettingViewController alloc] init];
     settingVC.conversationType = self.conversationType;
     settingVC.targetId = self.targetId;
-    settingVC.conversationTitle = self.targetName;
+    settingVC.conversationTitle = self.userName;
     //设置讨论组标题时，改变当前聊天界面的标题
     settingVC.setDiscussTitleCompletion = ^(NSString *discussTitle) {
       self.title = discussTitle;
@@ -114,7 +106,7 @@
         [[RCDDiscussGroupSettingViewController alloc] init];
     settingVC.conversationType = self.conversationType;
     settingVC.targetId = self.targetId;
-    settingVC.conversationTitle = self.targetName;
+    settingVC.conversationTitle = self.userName;
     //设置讨论组标题时，改变当前聊天界面的标题
     settingVC.setDiscussTitleCompletion = ^(NSString *discussTitle) {
       self.title = discussTitle;
@@ -202,9 +194,9 @@
 /**
  *  更新左上角未读消息数
  */
-- (void)notifyUpdateUnReadMessageCount {
+- (void)notifyUpdateUnreadMessageCount {
   __weak typeof(&*self) __weakself = self;
-  int count = [[RCIMClient sharedClient] getUnreadCount:@[
+  int count = [[RCIMClient sharedRCIMClient] getUnreadCount:@[
     @(ConversationType_PRIVATE),
     @(ConversationType_DISCUSSION),
     @(ConversationType_APPSERVICE),
@@ -212,13 +204,50 @@
     @(ConversationType_GROUP)
   ]];
   dispatch_async(dispatch_get_main_queue(), ^{
-    if (count > 0) {
-      [__weakself.navigationItem.leftBarButtonItem
-          setTitle:[NSString stringWithFormat:@"返回(%d)", count]];
+      NSString *backString = nil;
+    if (count > 0 && count < 1000) {
+      backString = [NSString stringWithFormat:@"返回(%d)", count];
+    } else if (count >= 1000) {
+      backString = @"返回(...)";
     } else {
-      [__weakself.navigationItem.leftBarButtonItem setTitle:@"返回"];
+      backString = @"返回";
     }
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 6, 67, 23);
+    UIImageView *backImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"navigator_btn_back"]];
+    backImg.frame = CGRectMake(-10, 0, 22, 22);
+    [backBtn addSubview:backImg];
+    UILabel *backText = [[UILabel alloc] initWithFrame:CGRectMake(12, 0, 65, 22)];
+    backText.text = backString;//NSLocalizedStringFromTable(@"Back", @"RongCloudKit", nil);
+    backText.font = [UIFont systemFontOfSize:15];
+    [backText setBackgroundColor:[UIColor clearColor]];
+    [backText setTextColor:[UIColor whiteColor]];
+    [backBtn addSubview:backText];
+    [backBtn addTarget:__weakself action:@selector(leftBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    [__weakself.navigationItem setLeftBarButtonItem:leftButton];
   });
 }
+
+- (void)saveNewPhotoToLocalSystemAfterSendingSuccess:(UIImage *)newImage
+{
+    //保存图片
+    UIImage *image = newImage;
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+}
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
+}
+
+//- (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemWithTag:(NSInteger)tag{
+//    [super pluginBoardView:pluginBoardView clickedItemWithTag:tag];
+//    switch (tag) {
+//        case 101: {
+//            //这里加你自己的事件处理
+//        } break;
+//        default:
+//            break;
+//    }
+//}
 
 @end

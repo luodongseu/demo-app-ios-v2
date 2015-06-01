@@ -18,6 +18,12 @@
 @class RCMessageBaseCell;
 @class RCMessageModel;
 
+#define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
+#define PLUGIN_BOARD_ITEM_CAMERA_TAG   1002
+#define PLUGIN_BOARD_ITEM_LOCATION_TAG 1003
+#define PLUGIN_BOARD_ITEM_VOIP_TAG     1004
+
+
 /**
  *  RCConversationViewController
  */
@@ -29,15 +35,11 @@
 /**
  *  targetName
  */
-@property(nonatomic, strong) NSString *targetName;
+@property(nonatomic, strong) NSString *userName;
 /**
  *  conversationType
  */
 @property(nonatomic) RCConversationType conversationType;
-/**
- *  sendingCount
- */
-@property(nonatomic, readonly) NSInteger sendingCount;
 /**
  *  conversationMessageCollectionView
  */
@@ -62,6 +64,16 @@
  *  emoji
  */
 @property(nonatomic, strong) RCEmojiBoardView *emojiBoardView;
+
+/**
+ * 是否允许保存新拍照片到本地系统
+ */
+@property(nonatomic, assign) BOOL enableSaveNewPhotoToLocalSystem;
+
+/**
+ * 是否显示自定义消息, 默认NO
+ */
+@property(nonatomic, assign) BOOL isNeedToShowCustomMessage;
 
 /**
  *  init method
@@ -220,6 +232,14 @@
 
 #pragma mark override
 /**
+ *  发送新拍照的图片成功之后，如果需要保存到本地系统，则重写该方法
+ *
+ *  @param newImage 待保存的图片
+ */
+- (void)saveNewPhotoToLocalSystemAfterSendingSuccess:(UIImage *)newImage;
+
+#pragma mark override
+/**
  语音消息开始录音
  */
 - (void)onBeginRecordEvent;
@@ -234,15 +254,15 @@
 /**
  *  点击pluginBoardView上item响应事件
  *
- *  @param pluginBoardView pluginBoardView
- *  @param index           index
+ *  @param pluginBoardView 功能模板
+ *  @param tag             标记
  */
-- (void)pluginBoardView:(RCPluginBoardView *)pluginBoardView clickedItemAtIndex:(NSInteger)index;
+-(void)pluginBoardView:(RCPluginBoardView*)pluginBoardView clickedItemWithTag:(NSInteger)tag;
 #pragma mark override
 /**
  *  重写方法，通知更新未读消息数目，用于导航显示未读消息，当收到别的会话消息的时候，会触发一次。
  */
-- (void)notifyUpdateUnReadMessageCount;
+- (void)notifyUpdateUnreadMessageCount;
 #pragma mark override
 /**
  *  重写方法，输入框监控方法

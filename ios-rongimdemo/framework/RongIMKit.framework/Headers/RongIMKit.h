@@ -26,7 +26,7 @@ FOUNDATION_EXPORT const unsigned char RongIMKitVersionString[];
 #import <RongIMKit/RCConversationBaseCell.h>
 #import <RongIMKit/RCMessageBaseCell.h>
 
-#import <RongIMKit/RCImageMsgProgressView.h>
+#import <RongIMKit/RCImageMessageProgressView.h>
 #import <RongIMKit/RCConversationCell.h>
 #import <RongIMKit/RCMessageCell.h>
 #import <RongIMKit/RCTextView.h>

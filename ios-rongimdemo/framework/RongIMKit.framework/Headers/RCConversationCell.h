@@ -41,7 +41,7 @@
 /**
  *  会话title
  */
-@property(strong, nonatomic) UILabel *convesationTitle;
+@property(strong, nonatomic) UILabel *conversationTitle;
 
 /**
  *  会话内容label
@@ -71,7 +71,7 @@
 /**
  *  是否通知状态
  */
-@property(nonatomic) BOOL isNotify;
+@property(nonatomic) BOOL enableNotification;
 
 /**
  *  设置用户头像样式

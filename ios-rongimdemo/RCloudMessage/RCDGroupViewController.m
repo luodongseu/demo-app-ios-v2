@@ -175,7 +175,7 @@
         RCDChatViewController *temp = [[RCDChatViewController alloc]init];
         temp.targetId = groupInfo.groupId;
         temp.conversationType = ConversationType_GROUP;
-        temp.targetName = groupInfo.groupName;
+        temp.userName = groupInfo.groupName;
         temp.title = groupInfo.groupName;
         [self.navigationController pushViewController:temp animated:YES];
     }

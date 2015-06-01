@@ -52,12 +52,12 @@
 /**
  *  消息发送失败状态视图
  */
-@property(nonatomic, strong) UIButton *msgFailedStatusView;
+@property(nonatomic, strong) UIButton *messageFailedStatusView;
 
 /**
  *  消息发送指示视图
  */
-@property(nonatomic, strong) UIActivityIndicatorView *msgActivityIndicatorView;
+@property(nonatomic, strong) UIActivityIndicatorView *messageActivityIndicatorView;
 
 /**
  *  消息内容视图宽度
@@ -72,7 +72,7 @@
 /**
  *  是否显示用户昵称
  */
-@property(nonatomic, readonly) BOOL isDisplayNickName;
+@property(nonatomic, readonly) BOOL isDisplayNickname;
 
 /**
  *  设置数据模型

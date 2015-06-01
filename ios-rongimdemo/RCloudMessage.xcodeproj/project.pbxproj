@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46E17CBB1B0EC294001AC57A /* DBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CBA1B0EC294001AC57A /* DBHelper.m */; };
+		46E17CC71B0EC32A001AC57A /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CBD1B0EC32A001AC57A /* FMDatabase.m */; };
+		46E17CC81B0EC32A001AC57A /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CBF1B0EC32A001AC57A /* FMDatabaseAdditions.m */; };
+		46E17CC91B0EC32A001AC57A /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CC11B0EC32A001AC57A /* FMDatabasePool.m */; };
+		46E17CCA1B0EC32A001AC57A /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CC31B0EC32A001AC57A /* FMDatabaseQueue.m */; };
+		46E17CCC1B0EC32A001AC57A /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E17CC61B0EC32A001AC57A /* FMResultSet.m */; };
 		510624851AD63A9E00348452 /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510624831AD63A9E00348452 /* RongCloudKit.strings */; };
 		5111B07B1AE6A11A00317E71 /* RongIMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5111B0781AE6A11A00317E71 /* RongIMKit.framework */; };
 		5111B07C1AE6A11A00317E71 /* RongIMLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5111B0791AE6A11A00317E71 /* RongIMLib.framework */; };
@@ -130,6 +136,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46E17CB91B0EC294001AC57A /* DBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DBHelper.h; path = DB/DBHelper.h; sourceTree = "<group>"; };
+		46E17CBA1B0EC294001AC57A /* DBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DBHelper.m; path = DB/DBHelper.m; sourceTree = "<group>"; };
+		46E17CBC1B0EC32A001AC57A /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = DB/FMDatabase.h; sourceTree = "<group>"; };
+		46E17CBD1B0EC32A001AC57A /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = DB/FMDatabase.m; sourceTree = "<group>"; };
+		46E17CBE1B0EC32A001AC57A /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = DB/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		46E17CBF1B0EC32A001AC57A /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = DB/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		46E17CC01B0EC32A001AC57A /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = DB/FMDatabasePool.h; sourceTree = "<group>"; };
+		46E17CC11B0EC32A001AC57A /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = DB/FMDatabasePool.m; sourceTree = "<group>"; };
+		46E17CC21B0EC32A001AC57A /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = DB/FMDatabaseQueue.h; sourceTree = "<group>"; };
+		46E17CC31B0EC32A001AC57A /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = DB/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		46E17CC51B0EC32A001AC57A /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = DB/FMResultSet.h; sourceTree = "<group>"; };
+		46E17CC61B0EC32A001AC57A /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = DB/FMResultSet.m; sourceTree = "<group>"; };
+		46E17CCD1B0EDF49001AC57A /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = DB/FMDB.h; sourceTree = "<group>"; };
 		510624841AD63A9E00348452 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = framework/en.lproj/RongCloudKit.strings; sourceTree = SOURCE_ROOT; };
 		510624861AD63AA500348452 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "framework/zh-Hans.lproj/RongCloudKit.strings"; sourceTree = SOURCE_ROOT; };
 		5111B0781AE6A11A00317E71 /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMKit.framework; path = framework/RongIMKit.framework; sourceTree = SOURCE_ROOT; };
@@ -400,6 +419,26 @@
 			name = FindPsw;
 			sourceTree = "<group>";
 		};
+		46E17CB81B0EC275001AC57A /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				46E17CCD1B0EDF49001AC57A /* FMDB.h */,
+				46E17CBC1B0EC32A001AC57A /* FMDatabase.h */,
+				46E17CBD1B0EC32A001AC57A /* FMDatabase.m */,
+				46E17CBE1B0EC32A001AC57A /* FMDatabaseAdditions.h */,
+				46E17CBF1B0EC32A001AC57A /* FMDatabaseAdditions.m */,
+				46E17CC01B0EC32A001AC57A /* FMDatabasePool.h */,
+				46E17CC11B0EC32A001AC57A /* FMDatabasePool.m */,
+				46E17CC21B0EC32A001AC57A /* FMDatabaseQueue.h */,
+				46E17CC31B0EC32A001AC57A /* FMDatabaseQueue.m */,
+				46E17CC51B0EC32A001AC57A /* FMResultSet.h */,
+				46E17CC61B0EC32A001AC57A /* FMResultSet.m */,
+				46E17CB91B0EC294001AC57A /* DBHelper.h */,
+				46E17CBA1B0EC294001AC57A /* DBHelper.m */,
+			);
+			name = DB;
+			sourceTree = "<group>";
+		};
 		E411721B1A1D9D120025EE4E /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -666,6 +705,7 @@
 		E4E938CB1AD65A95001E0AC6 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				46E17CB81B0EC275001AC57A /* DB */,
 				E4E938CC1AD65A95001E0AC6 /* AFNetworking */,
 				E4E938F21AD65A95001E0AC6 /* JSONModel */,
 				E4E9390C1AD65A95001E0AC6 /* KxMenu */,
@@ -978,11 +1018,13 @@
 				E4E939591AD65A95001E0AC6 /* JSONHTTPClient.m in Sources */,
 				E4E9396A1AD65A95001E0AC6 /* SDWebImageManager.m in Sources */,
 				E4E9394D1AD65A95001E0AC6 /* UIAlertView+AFNetworking.m in Sources */,
+				46E17CCA1B0EC32A001AC57A /* FMDatabaseQueue.m in Sources */,
 				E4E9396B1AD65A95001E0AC6 /* SDWebImagePrefetcher.m in Sources */,
 				E4E9394A1AD65A95001E0AC6 /* AFURLSessionManager.m in Sources */,
 				E4E939601AD65A95001E0AC6 /* RCDNavigationBar.m in Sources */,
 				E4E939461AD65A95001E0AC6 /* AFSecurityPolicy.m in Sources */,
 				E412BD241ADE6BFB000DCA7A /* RCDHttpTool.m in Sources */,
+				46E17CC91B0EC32A001AC57A /* FMDatabasePool.m in Sources */,
 				E475A3371AE6981B009C31D7 /* RCDPrivateSettingViewController.m in Sources */,
 				E4E9396E1AD65A95001E0AC6 /* UIImage+MultiFormat.m in Sources */,
 				E4E939941AD65BF4001E0AC6 /* RCDUserInfo.m in Sources */,
@@ -998,12 +1040,14 @@
 				E4E939541AD65A95001E0AC6 /* JSONModelArray.m in Sources */,
 				E4BFAE211A1217C0007165B1 /* AppDelegate.m in Sources */,
 				E4E939761AD65AC7001E0AC6 /* RCDAddressBookTableViewCell.m in Sources */,
+				46E17CC81B0EC32A001AC57A /* FMDatabaseAdditions.m in Sources */,
 				E4E939CC1AD65E1E001E0AC6 /* UITextFiled+Shake.m in Sources */,
 				E4E9399A1AD65C3B001E0AC6 /* RCDFindPswViewController.m in Sources */,
 				E4E9394F1AD65A95001E0AC6 /* UIImageView+AFNetworking.m in Sources */,
 				E4E939791AD65AEB001E0AC6 /* RCDChatRoomInfo.m in Sources */,
 				E4E939421AD65A95001E0AC6 /* AFHTTPRequestOperation.m in Sources */,
 				E4E9394B1AD65A95001E0AC6 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				46E17CBB1B0EC294001AC57A /* DBHelper.m in Sources */,
 				E4BFAE681A1219FC007165B1 /* RCDChatListViewController.m in Sources */,
 				E4E939691AD65A95001E0AC6 /* SDWebImageDownloaderOperation.m in Sources */,
 				E4E939571AD65A95001E0AC6 /* NSArray+JSONModel.m in Sources */,
@@ -1032,6 +1076,7 @@
 				E4E9395B1AD65A95001E0AC6 /* JSONKeyMapper.m in Sources */,
 				A662A0E11AEE50D400847EEB /* RCDAboutRongCloudTableViewController.m in Sources */,
 				E4E939911AD65BD4001E0AC6 /* RCDUpdateNameViewController.m in Sources */,
+				46E17CC71B0EC32A001AC57A /* FMDatabase.m in Sources */,
 				E4E939B11AD65CD6001E0AC6 /* RCDSelectPersonTableViewCell.m in Sources */,
 				E4E939491AD65A95001E0AC6 /* AFURLResponseSerialization.m in Sources */,
 				E4E939A61AD65CA3001E0AC6 /* RCDRegisterViewController.m in Sources */,
@@ -1063,6 +1108,7 @@
 				E4E9398A1AD65B7A001E0AC6 /* RCDSettingsTableViewController.m in Sources */,
 				E4E9395D1AD65A95001E0AC6 /* KxMenu.m in Sources */,
 				E4E9399D1AD65C61001E0AC6 /* RCDRoomSettingViewController.m in Sources */,
+				46E17CCC1B0EC32A001AC57A /* FMResultSet.m in Sources */,
 				E4E939531AD65A95001E0AC6 /* JSONModel.m in Sources */,
 				E4E939971AD65C15001E0AC6 /* RCDGroupInfo.m in Sources */,
 				E4E939431AD65A95001E0AC6 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1137,7 +1183,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -1177,7 +1223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
@@ -1196,7 +1242,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/framework";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
@@ -1213,7 +1259,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_NAME = RCloudMessage;
-				PROVISIONING_PROFILE = "c6ed2b03-cecd-44a7-8b9c-d8fd88b1b8f8";
+				PROVISIONING_PROFILE = "e2a17020-806c-405f-b730-1548b90e8a71";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -1225,7 +1271,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/framework";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;

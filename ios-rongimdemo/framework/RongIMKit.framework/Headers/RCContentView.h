@@ -18,8 +18,8 @@
 /**
  *  registerFrameChangedEvent
  *
- *  @param event event
+ *  @param eventBlock event block
  */
-- (void)registerFrameChangedEvent:(void (^)(CGRect frame))event;
+- (void)registerFrameChangedEvent:(void (^)(CGRect frame))eventBlock;
 
 @end

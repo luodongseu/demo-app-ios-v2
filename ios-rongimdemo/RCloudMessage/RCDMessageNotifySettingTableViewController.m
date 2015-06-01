@@ -26,7 +26,7 @@
 //    }else{
 //        [self.notifySwitch setEnabled:NO];
 //    }
-    [[RCIMClient sharedClient] getConversationNotificationQuietHours:^(NSString *startTime, int spansMin) {
+    [[RCIMClient sharedRCIMClient] getNotificationQuietHours:^(NSString *startTime, int spansMin) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (spansMin > 0) {
                 self.notifySwitch.on = NO;
@@ -34,7 +34,7 @@
                 self.notifySwitch.on = YES;
             }
         });
-    } errorCompletion:^(RCErrorCode status) {
+    } error:^(RCErrorCode status) {
         dispatch_async(dispatch_get_main_queue(), ^{
             self.notifySwitch.on = YES;
         });
@@ -44,13 +44,13 @@
     MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"设置中...";
     if (!self.notifySwitch.on) {
-        [[RCIMClient sharedClient] setConversationNotificationQuietHours:@"00:00:00" spanMins:1339 SuccessCompletion:^{
+        [[RCIMClient sharedRCIMClient] setConversationNotificationQuietHours:@"00:00:00" spanMins:1339 success:^{
             NSLog(@"setConversationNotificationQuietHours succeed");
-            [[RCIM sharedKit] setMessageNotDisturb:YES];
+            [[RCIM sharedRCIM] setDisableMessageNotificaiton:YES];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hide:YES];
             });
-        } errorCompletion:^(RCErrorCode status) {
+        } error:^(RCErrorCode status) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"设置失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];
                 [alert show];
@@ -59,12 +59,12 @@
             });
         }];
     } else {
-        [[RCIMClient sharedClient] removeConversationNotificationQuietHours:^{
-            [[RCIM sharedKit] setMessageNotDisturb:NO];
+        [[RCIMClient sharedRCIMClient] removeConversationNotificationQuietHours:^{
+            [[RCIM sharedRCIM] setDisableMessageNotificaiton:NO];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [hud hide:YES];
             });
-        } errorCompletion:^(RCErrorCode status) {
+        } error:^(RCErrorCode status) {
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"取消失败" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:nil, nil];

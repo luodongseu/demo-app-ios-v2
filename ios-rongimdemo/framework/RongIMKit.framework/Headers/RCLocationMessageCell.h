@@ -7,7 +7,7 @@
 //
 
 #import "RCMessageCell.h"
-#import "RCImageMsgProgressView.h"
+#import "RCImageMessageProgressView.h"
 
 /**
  *  位置消息Cell

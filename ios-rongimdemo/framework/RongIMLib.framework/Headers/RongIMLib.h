@@ -28,7 +28,7 @@ FOUNDATION_EXPORT const unsigned char RongIMLibVersionString[];
 //#import <RongIMLib/RCNotificationMessage.h>
 #import <RongIMLib/interf_dec.h>
 #import <RongIMLib/RCUserInfo.h>
-#import <RongIMLib/RCPublicServiceInfo.h>
+#import <RongIMLib/RCPublicServiceProfile.h>
 #import <RongIMLib/RCImageMessage.h>
 #import <RongIMLib/RCVoiceMessage.h>
 #import <RongIMLib/RCStatusDefine.h>

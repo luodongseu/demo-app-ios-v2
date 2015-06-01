@@ -25,10 +25,10 @@
 /**
  *  didSendButtonEvent
  *
- *  @param emojiView emojiView
- *  @param sendBtn   sendBtn
+ *  @param emojiView  emojiView
+ *  @param sendButton send button
  */
-- (void)didSendButtonEvent:(RCEmojiBoardView *)emojiView sendBtn:(UIButton *)sendBtn;
+- (void)didSendButtonEvent:(RCEmojiBoardView *)emojiView sendButton:(UIButton *)sendButton;
 @end
 /**
  *  RCEmojiBoardView
@@ -44,9 +44,9 @@
     NSInteger currentIndex;
 }
 /**
- *  emojiBgView
+ *  emojiBackgroundView
  */
-@property(nonatomic, strong) UIScrollView *emojiBgView;
+@property(nonatomic, strong) UIScrollView *emojiBackgroundView;
 /**
  *  emojiLabel
  */

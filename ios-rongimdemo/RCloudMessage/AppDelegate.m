@@ -44,18 +44,18 @@
     NSString *_deviceTokenCache = [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken];
     
     //初始化融云SDK
-    [[RCIM sharedKit] initWithAppKey:RONGCLOUD_IM_APPKEY deviceToken:_deviceTokenCache];
+    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY deviceToken:_deviceTokenCache];
     //设置会话列表头像和会话界面头像
     
-    [[RCIM sharedKit] setConnectionChangedDelegate:self];
+    [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
     if (iPhone6Plus) {
-        [RCIM sharedKit].globalConversationPortraitSize = CGSizeMake(56, 56);
+        [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(56, 56);
     }else{
         NSLog(@"iPhone6 %d", iPhone6);
-        [RCIM sharedKit].globalConversationPortraitSize = CGSizeMake(46, 46);
+        [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(46, 46);
     }
     
-//    [RCIM sharedKit].globalMessagePortraitSize = CGSizeMake(46, 46);
+//    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(46, 46);
     
     //登录
     RCDLoginViewController *loginVC = [[RCDLoginViewController alloc] init];
@@ -108,7 +108,7 @@
     [[NSUserDefaults standardUserDefaults] setObject:token forKey:kDeviceToken];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[RCIMClient sharedClient] setDeviceToken:token];
+    [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }
 
 - (void)umengTrack {
@@ -159,7 +159,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    int unreadMsgCount = [[RCIMClient sharedClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
+    int unreadMsgCount = [[RCIMClient sharedRCIMClient]getUnreadCount: @[@(ConversationType_PRIVATE),@(ConversationType_DISCUSSION), @(ConversationType_PUBLICSERVICE), @(ConversationType_PUBLICSERVICE),@(ConversationType_GROUP)]];
     application.applicationIconBadgeNumber = unreadMsgCount;
 }
 
@@ -203,7 +203,7 @@
  *
  *  @param status 网络状态。
  */
-- (void)onKitConnectionStatusChanged:(RCConnectionStatus)status
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status
 {
     if (status == ConnectionStatus_KICKED_OFFLINE_BY_OTHER_CLIENT) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的帐号在别的设备上登录，您被迫下线！" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];

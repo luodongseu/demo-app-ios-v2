@@ -99,7 +99,7 @@
 {
     __weak typeof(self) __weakSelf = self;
     dispatch_async(dispatch_get_main_queue(), ^{
-        int count = [[RCIMClient sharedClient]getUnreadCount:self.displayConversationTypeArray];
+        int count = [[RCIMClient sharedRCIMClient]getUnreadCount:self.displayConversationTypeArray];
         if (count>0) {
             __weakSelf.tabBarItem.badgeValue = [[NSString alloc]initWithFormat:@"%d",count];
         }else
@@ -119,11 +119,11 @@
  */
 -(void)onSelectedTableRow:(RCConversationModelType)conversationModelType conversationModel:(RCConversationModel *)model atIndexPath:(NSIndexPath *)indexPath
 {
-    if (conversationModelType == ConversationModelType_Normal) {
+    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_NORMAL) {
         RCDChatViewController *_conversationVC = [[RCDChatViewController alloc]init];
         _conversationVC.conversationType = model.conversationType;
         _conversationVC.targetId = model.targetId;
-        _conversationVC.targetName = model.conversationTitle;
+        _conversationVC.userName = model.conversationTitle;
         _conversationVC.title = model.conversationTitle;
         _conversationVC.conversation = model;
         
@@ -131,7 +131,7 @@
     }
     
     //聚合会话类型，此处自定设置。
-    if (conversationModelType == ConversationModelType_Collection) {
+    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_COLLECTION) {
         
         RCDChatListViewController *temp = [[RCDChatListViewController alloc] init];
         NSArray *array = [NSArray arrayWithObject:[NSNumber numberWithInt:model.conversationType]];
@@ -142,7 +142,7 @@
     }
     
     //自定义会话类型
-    if (conversationModelType == ConversationModelType_UserCustom) {
+    if (conversationModelType == RC_CONVERSATION_MODEL_TYPE_CUSTOMIZATION) {
         RCConversationModel *model = self.conversationListDataSource[indexPath.row];
         RCContactNotificationMessage *_contactNotificationMsg = (RCContactNotificationMessage *)model.lastestMessage;
         RCDUserInfo *userinfo = [RCDUserInfo new];
@@ -223,7 +223,7 @@
             RCUserInfo *user = selectedUsers[0];
             RCDChatViewController *chat =[[RCDChatViewController alloc]init];
             chat.targetId                      = user.userId;
-            chat.targetName                    = user.name;
+            chat.userName                    = user.name;
             chat.conversationType              = ConversationType_PRIVATE;
             chat.title                         = user.name;
             
@@ -247,12 +247,12 @@
             }
             [discussionTitle deleteCharactersInRange:NSMakeRange(discussionTitle.length - 1, 1)];
 
-            [[RCIMClient sharedClient] createDiscussion:discussionTitle userIdList:userIdList completion:^(RCDiscussion *discussion) {
+            [[RCIMClient sharedRCIMClient] createDiscussion:discussionTitle userIdList:userIdList success:^(RCDiscussion *discussion) {
                 NSLog(@"create discussion ssucceed!");
                 dispatch_async(dispatch_get_main_queue(), ^{
                     RCDChatViewController *chat =[[RCDChatViewController alloc]init];
                     chat.targetId                      = discussion.discussionId;
-                    chat.targetName                    = discussion.discussionName;
+                    chat.userName                    = discussion.discussionName;
                     chat.conversationType              = ConversationType_DISCUSSION;
                     chat.title                         = @"讨论组";
                     
@@ -404,7 +404,7 @@
                                   rcduserinfo_.portraitUri = user.portraitUri;
                                   
             RCConversationModel *customModel = [RCConversationModel new];
-            customModel.conversationModelType = ConversationModelType_UserCustom;
+            customModel.conversationModelType = RC_CONVERSATION_MODEL_TYPE_CUSTOMIZATION;
             customModel.extend = rcduserinfo_;
             customModel.senderUserId = message.senderUserId;
             customModel.lastestMessage = _contactNotificationMsg;

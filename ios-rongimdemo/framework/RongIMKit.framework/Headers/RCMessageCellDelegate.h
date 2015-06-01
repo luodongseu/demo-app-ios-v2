@@ -43,7 +43,7 @@
  *
  *  @param model 消息数据模型
  */
-- (void)didTapmsgFailedStatusViewForResend:(RCMessageModel *)model;
+- (void)didTapmessageFailedStatusViewForResend:(RCMessageModel *)model;
 @end
 
 #endif

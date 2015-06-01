@@ -32,7 +32,7 @@ UIKIT_EXTERN NSString *const KNotificationMessageBaseCellUpdateSendingStatus;
 /**
  *   显示时间的Label
  */
-@property(strong, nonatomic) RCTipLabel *msgtimeLabel;
+@property(strong, nonatomic) RCTipLabel *messageTimeLabel;
 
 /**
  *  消息数据模型

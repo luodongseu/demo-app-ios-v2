@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RCBaseViewController.h"
 
-@class RCImageMsgProgressView;
+@class RCImageMessageProgressView;
 @class RCMessageModel;
 
 /**
@@ -30,7 +30,7 @@
 /**
  *  message 图片进图视图
  */
-@property(nonatomic, strong) RCImageMsgProgressView *rcImageProressView;
+@property(nonatomic, strong) RCImageMessageProgressView *rcImageProressView;
 
 /**
  *  如果自定义导航按钮或者自定义按钮，请自定义该方法

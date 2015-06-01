@@ -13,13 +13,14 @@
  */
 typedef NS_ENUM(NSInteger, RCUserAvatarStyle) {
     /**
-     *  RCUserAvatarRectangle
+     *  矩形边角
      */
-    RCUserAvatarRectangle = 0,
+    RC_USER_AVATAR_RECTANGLE = 0,
     /**
-     *  RCUserAvatarRectangle
+     *  圆形边角
      */
-    RCUserAvatarCycle
+    RC_USER_AVATAR_CYCLE
+
 };
 
 #endif
