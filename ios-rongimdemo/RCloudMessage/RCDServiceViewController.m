@@ -31,7 +31,8 @@
 
 //    RCHandShakeMessage* textMsg = [[RCHandShakeMessage alloc] init];
 //    [[RongUIKit sharedKit] sendMessage:ConversationType_CUSTOMERSERVICE targetId:SERVICE_ID content:textMsg delegate:nil];
-    [self.navigationController showViewController:chatService sender:nil];
+//   
+    [self.navigationController pushViewController :chatService animated:YES];
 
     
 

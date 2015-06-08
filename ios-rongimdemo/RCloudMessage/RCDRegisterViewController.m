@@ -150,7 +150,7 @@
   userNameMsgLb.translatesAutoresizingMaskIntoConstraints = NO;
   userNameMsgLb.textColor =
       [[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5];
-  [userNameTextField addSubview:userNameMsgLb];
+  [_inputBackground addSubview:userNameMsgLb];
   userNameTextField.delegate = self;
 
   RCUnderlineTextField *passwordTextField =

@@ -398,7 +398,6 @@
  */
 - (void)login:(NSString *)userName password:(NSString *)password
 {
-
     RCNetworkStatus stauts=[[RCIMClient sharedRCIMClient]getCurrentNetworkStatus];
     
     if (RC_NotReachable == stauts) {
@@ -411,7 +410,7 @@
 
         [AFHttpTool loginWithEmail:userName password:password
             success:^(id response) {
-                
+                               
                                if ([response[@"code"] intValue] == 200) {
                                    RCDLoginInfo *loginInfo = [RCDLoginInfo shareLoginInfo];
                                    loginInfo = [loginInfo initWithDictionary:response[@"result"] error:NULL];
@@ -434,6 +433,14 @@
                                            
                                            //同步群组
                                            [RCDDataSource syncGroups];
+                                           
+                                           BOOL notFirstTimeLogin = [DEFAULTS boolForKey:@"notFirstTimeLogin"];
+                                           if (!notFirstTimeLogin) {
+                                               [RCDDataSource cacheAllData:^{ //auto saved after completion.
+//                                                   [DEFAULTS setBool:YES forKey:@"notFirstTimeLogin"];
+//                                                   [DEFAULTS synchronize];
+                                               }];
+                                           }
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];

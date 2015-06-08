@@ -23,6 +23,7 @@
 "release_to_send_title"="松开发送";
 "slide_up_to_cancel_title"="手指上滑 取消发送";
 "release_to_cancel_title"="手指松开 取消发送";
+"message_too_short"="消息时间太短";
 "whiteSpaceMessage"="不能发送空白消息";
 "OK"="确定";
 "Cancel"="取消";
@@ -42,6 +43,7 @@
 "Photo"="照相";
 "Location"="位置";
 "Audio"="语音通话";
+"Albums"="相册列表";
 "unknown_message_cell_tip"="当前版本暂不支持查看此消息";
 "Copy"="复制";
 "Delete"="删除";
@@ -86,3 +88,6 @@
 "Yesterday"="昨天";
 "SearchPublicService"="查找服务号";
 "PublicService"="服务号";
+"NOT_IN_DISCUSSION"="您当前不在此讨论组";
+"NOT_IN_GROUP"="您当前不在此群组";
+"NOT_IN_CHATROOM"="您当前不在此聊天室";

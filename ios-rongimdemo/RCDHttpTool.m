@@ -11,6 +11,7 @@
 #import "RCDGroupInfo.h"
 #import "RCDUserInfo.h"
 #import "RCDRCIMDataSource.h"
+#import "RCDataBaseManager.h"
 
 @implementation RCDHttpTool
 
@@ -65,21 +66,27 @@
 -(void) getUserInfoByUserID:(NSString *) userID
                          completion:(void (^)(RCUserInfo *user)) completion
 {
-    __block NSArray * regDataArray;
-    dispatch_group_t groupQueue = dispatch_group_create();
-    
-    dispatch_group_enter(groupQueue);
-    
-    [AFHttpTool getFriendsSuccess:^(id response) {
+    [AFHttpTool getUserById:userID success:^(id response) {
         if (response) {
             NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-
+            
             if ([code isEqualToString:@"200"]) {
-
-                regDataArray = response[@"result"];
-               // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
                 
-                dispatch_group_leave(groupQueue);
+                NSDictionary *dic = response[@"result"];
+                // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
+                RCUserInfo *userInfo = [RCUserInfo new];
+                NSNumber *idNum = [dic objectForKey:@"id"];
+                userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                userInfo.portraitUri = [dic objectForKey:@"portrait"];
+                userInfo.name = [dic objectForKey:@"username"];
+                [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+                
+                if (completion) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(userInfo);
+                    });
+                }
+
                 
             }
             
@@ -89,35 +96,58 @@
         NSLog(@"getUserInfoByUserID error");
     }];
     
-    dispatch_group_notify(groupQueue, dispatch_get_main_queue(), ^{
-        
-        dispatch_queue_t queue = dispatch_queue_create("handleResponseData.friends", DISPATCH_QUEUE_SERIAL);
-        
-        dispatch_async(queue, ^{
-
-            for(int i = 0;i < regDataArray.count;i++){
-                NSDictionary *dic = [regDataArray objectAtIndex:i];
-                //NSLog(@"userID > %@, id > %@, i > %d", userID, [dic objectForKey:@"id"], i);
-                if ([userID isEqualToString:[dic objectForKey:@"id"]]) {
-                   // NSLog(@"Matched i > %d, dic>%@", i, dic);
-                    RCUserInfo *userInfo = [RCUserInfo new];
-                    NSNumber *idNum = [dic objectForKey:@"id"];
-                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.name = [dic objectForKey:@"username"];
-                    if (completion) {
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            completion(userInfo);
-                        });
-                    }
-                }
-//                }else{
-//                    NSLog(@"no matched userid > %d", i);
+//    __block NSArray * regDataArray;
+//    [AFHttpTool getFriendsSuccess:^(id response) {
+//        if (response) {
+//            NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
+//
+//            if ([code isEqualToString:@"200"]) {
+//
+//                regDataArray = response[@"result"];
+//               // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
+//                
+//                dispatch_group_leave(groupQueue);
+//                
+//            }
+//            
+//        }
+//
+//    } failure:^(NSError *err) {
+//        NSLog(@"getUserInfoByUserID error");
+//    }];
+//    
+//    dispatch_group_notify(groupQueue, dispatch_get_main_queue(), ^{
+//        
+//        dispatch_queue_t queue = dispatch_queue_create("handleResponseData.friends", DISPATCH_QUEUE_SERIAL);
+//        
+//        dispatch_async(queue, ^{
+//
+//            for(int i = 0;i < regDataArray.count;i++){
+//                NSDictionary *dic = [regDataArray objectAtIndex:i];
+//                //NSLog(@"userID > %@, id > %@, i > %d", userID, [dic objectForKey:@"id"], i);
+//                if ([userID isEqualToString:[dic objectForKey:@"id"]]) {
+//                   // NSLog(@"Matched i > %d, dic>%@", i, dic);
+//                    RCUserInfo *userInfo = [RCUserInfo new];
+//                    NSNumber *idNum = [dic objectForKey:@"id"];
+//                    userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+//                    userInfo.portraitUri = [dic objectForKey:@"portrait"];
+//                    userInfo.name = [dic objectForKey:@"username"];
+//                    [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+//                    
+//                    if (completion) {
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                            completion(userInfo);
+//                        });
+//                    }
+//                    
 //                }
-            }
-        });
-    });
-    
+////                }else{
+////                    NSLog(@"no matched userid > %d", i);
+////                }
+//            }
+//        });
+//    });
+//    
 }
 
 

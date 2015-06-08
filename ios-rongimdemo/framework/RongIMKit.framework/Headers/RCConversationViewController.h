@@ -21,8 +21,9 @@
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
 #define PLUGIN_BOARD_ITEM_CAMERA_TAG   1002
 #define PLUGIN_BOARD_ITEM_LOCATION_TAG 1003
+#if RC_VOIP_ENABLE
 #define PLUGIN_BOARD_ITEM_VOIP_TAG     1004
-
+#endif
 
 /**
  *  RCConversationViewController
@@ -69,11 +70,6 @@
  * 是否允许保存新拍照片到本地系统
  */
 @property(nonatomic, assign) BOOL enableSaveNewPhotoToLocalSystem;
-
-/**
- * 是否显示自定义消息, 默认NO
- */
-@property(nonatomic, assign) BOOL isNeedToShowCustomMessage;
 
 /**
  *  init method
@@ -174,8 +170,9 @@
  *  长按消息内容
  *
  *  @param model 数据
+ *  @param view 长按视图区域
  */
-- (void)didLongTouchMessageCell:(RCMessageModel *)model;
+- (void)didLongTouchMessageCell:(RCMessageModel *)model inView:(UIView *)view;
 
 #pragma mark override
 /**

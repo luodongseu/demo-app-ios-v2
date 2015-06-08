@@ -14,6 +14,8 @@
 #import "RCDUserInfo.h"
 #import "RCDHttpTool.h"
 #import "DBHelper.h"
+#import "RCDataBaseManager.h"
+#import "RCDCommonDefine.h"
 
 @interface RCDRCIMDataSource ()
 
@@ -31,7 +33,6 @@
         
         //同步群组
         [self syncGroups];
-        [self CreateUserTable];
     }
     return self;
 }
@@ -105,13 +106,13 @@
 {
     if ([userId length] == 0)
         return;
-    RCUserInfo *userInfo=[self getUserByUserId:userId];
+    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
     if (userInfo==nil) {
         //开发者调自己的服务器接口根据groupID异步请求数据
         [RCDHTTPTOOL getUserInfoByUserID:userId
                               completion:^(RCUserInfo *user) {
                                   if (user) {
-                                      [self insertUserToDB:user];
+                                      [[RCDataBaseManager shareInstance] insertUserToDB:user];
                                       completion(user);
                                   }
                               }];
@@ -121,52 +122,106 @@
     }
     
 }
-static NSString * const userTableName = @"USERTABLE";
-
-//创建用户存储表
--(void)CreateUserTable
+- (void)cacheAllUserInfo:(void (^)())completion
 {
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        if (![DBHelper isTableOK: userTableName withDB:db]) {
-            NSString *createTableSQL = @"CREATE TABLE USERTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
-            [db executeUpdate:createTableSQL];
-            NSString *createIndexSQL=@"CREATE INDEX idx_userid ON USERTABLE(userid);";
-            [db executeUpdate:createIndexSQL];
+    __block NSArray * regDataArray;
+    
+    [AFHttpTool getFriendsSuccess:^(id response) {
+        if (response) {
+            NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+                if ([code isEqualToString:@"200"]) {
+                    regDataArray = response[@"result"];
+                    for(int i = 0;i < regDataArray.count;i++){
+                        NSDictionary *dic = [regDataArray objectAtIndex:i];
+                        
+                        RCUserInfo *userInfo = [RCUserInfo new];
+                        NSNumber *idNum = [dic objectForKey:@"id"];
+                        userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                        userInfo.portraitUri = [dic objectForKey:@"portrait"];
+                        userInfo.name = [dic objectForKey:@"username"];
+                        [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
+                    }
+                    completion();
+                }
+            });
         }
         
+    } failure:^(NSError *err) {
+        NSLog(@"getUserInfoByUserID error");
     }];
-    
 }
-
-//存储用户信息
--(void)insertUserToDB:(RCUserInfo*)user
+- (void)cacheAllGroup:(void (^)())completion
 {
-    NSString *insertSql = @"REPLACE INTO USERTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:insertSql,user.userId,user.name,user.portraitUri];
+    [RCDHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            for(int i = 0;i < result.count;i++){
+                RCGroup *userInfo =[result objectAtIndex:i];
+                [[RCDataBaseManager shareInstance] insertGroupToDB:userInfo];
+            }
+            completion();
+        });
     }];
-    
 }
-//从表中获取用户信息
--(RCUserInfo*) getUserByUserId:(NSString*)userId
+
+- (void)cacheAllFriends:(void (^)())completion
 {
-    __block RCUserInfo *model = nil;
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM USERTABLE where userid = ?",userId];
-        while ([rs next]) {
-            model = [[RCUserInfo alloc] init];
-            model.userId = [rs stringForColumn:@"userid"];
-            model.name = [rs stringForColumn:@"name"];
-            model.portraitUri = [rs stringForColumn:@"portraitUri"];
-        }
-        [rs close];
+    [RCDHTTPTOOL getFriends:^(NSMutableArray *result) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [result enumerateObjectsUsingBlock:^(RCDUserInfo *userInfo, NSUInteger idx, BOOL *stop) {
+                RCUserInfo *friend = [[RCUserInfo alloc] initWithUserId:userInfo.userId name:userInfo.userName portrait:userInfo.portraitUri];
+                [[RCDataBaseManager shareInstance] insertFriendToDB:friend];
+            }];
+            completion();
+        });
     }];
-    return model;
+}
+- (void)cacheAllData:(void (^)())completion
+{
+    __weak RCDRCIMDataSource *weakSelf = self;
+    [self cacheAllUserInfo:^{
+        [weakSelf cacheAllGroup:^{
+            [weakSelf cacheAllFriends:^{
+                [DEFAULTS setBool:YES forKey:@"notFirstTimeLogin"];
+                [DEFAULTS synchronize];
+                completion();
+            }];
+        }];
+    }];
 }
 
+- (NSArray *)getAllUserInfo:(void (^)())completion
+{
+    NSArray *allUserInfo = [[RCDataBaseManager shareInstance] getAllUserInfo];
+    if (!allUserInfo.count) {
+       [self cacheAllUserInfo:^{
+           completion();
+       }];
+    }
+    return allUserInfo;
+}
+/*
+ * 获取所有群组信息
+ */
+- (NSArray *)getAllGroupInfo:(void (^)())completion
+{
+    NSArray *allUserInfo = [[RCDataBaseManager shareInstance] getAllGroup];
+    if (!allUserInfo.count) {
+        [self cacheAllGroup:^{
+            completion();
+        }];
+    }
+    return allUserInfo;
+}
 
-
+- (NSArray *)getAllFriends:(void (^)())completion
+{
+    NSArray *allUserInfo = [[RCDataBaseManager shareInstance] getAllFriends];
+    if (!allUserInfo.count) {
+        [self cacheAllFriends:^{
+            completion();
+        }];
+    }
+    return allUserInfo;
+}
 @end

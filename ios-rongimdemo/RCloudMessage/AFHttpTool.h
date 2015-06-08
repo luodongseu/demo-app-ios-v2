@@ -108,5 +108,10 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 +(void)deleteFriend:(NSString*) userId
             success:(void (^)(id response))success
             failure:(void (^)(NSError* err))failure;
+
+//获取好友信息
++(void)getUserById:(NSString*) userId
+            success:(void (^)(id response))success
+            failure:(void (^)(NSError* err))failure;
 @end
 

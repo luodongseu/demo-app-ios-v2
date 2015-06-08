@@ -24,7 +24,7 @@
 /**
  *  好友消息类。
  */
-@interface RCContactNotificationMessage : RCMessageContent
+@interface RCContactNotificationMessage : RCMessageContent <NSCoding>
 /**
  *  操作名，对应 ContactOperationXxxx，或自己传任何字符串。
  */

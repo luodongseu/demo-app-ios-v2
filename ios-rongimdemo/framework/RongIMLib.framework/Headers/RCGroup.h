@@ -15,7 +15,7 @@
 /**
  *  群信息
  */
-@interface RCGroup : NSObject
+@interface RCGroup : NSObject <NSCoding>
 /** 群ID */
 @property(nonatomic, strong) NSString *groupId;
 /** 群名称 */

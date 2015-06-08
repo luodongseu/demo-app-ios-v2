@@ -21,6 +21,7 @@
 "conversation_systemMessage_collection_title" = "System Messages";
 "hold_to_talk_title"="Hold to talk";
 "release_to_send_title"="Release to send";
+"message_too_short"="message too short";
 "slide_up_to_cancel_title"="Slide up to cancel";
 "release_to_cancel_title"="Release to cancel ";
 "whiteSpaceMessage"="Can't send white space message";
@@ -44,6 +45,7 @@
 "Photo"="Photo";
 "Location"="Location";
 "Audio"="Audio";
+"Albums"="Albums";
 "unknown_message_cell_tip"="The current version is not available for viewing this message";
 "Copy"="Copy";
 "Delete"="Delete";
@@ -88,3 +90,6 @@
 "Yesterday"="Yesterday";
 "SearchPublicService"="Search Public Service";
 "PublicService"="Public Service";
+"NOT_IN_DISCUSSION"="You are not in current discussion";
+"NOT_IN_GROUP"="You are not in current group";
+"NOT_IN_CHATROOM"="You are not in current chat room";

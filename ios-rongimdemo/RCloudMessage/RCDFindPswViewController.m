@@ -151,7 +151,7 @@
 
   sendCodeButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-  [userNameTextField addSubview:sendCodeButton];
+  [_inputBackground addSubview:sendCodeButton];
   RCUnderlineTextField *verificationCodeField =
       [[RCUnderlineTextField alloc] initWithFrame:CGRectZero];
 
@@ -179,14 +179,14 @@
   [reSendCodeButton setEnabled:false];
   reSendCodeButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-  [verificationCodeField addSubview:reSendCodeButton];
+  [_inputBackground addSubview:reSendCodeButton];
   UILabel *vCodeTimerLb = [[UILabel alloc] initWithFrame:CGRectZero];
   vCodeTimerLb.text = @"(60)";
   vCodeTimerLb.font = [UIFont fontWithName:@"Heiti SC" size:14.0];
   vCodeTimerLb.translatesAutoresizingMaskIntoConstraints = NO;
   vCodeTimerLb.textColor =
       [[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5];
-  [verificationCodeField addSubview:vCodeTimerLb];
+  [_inputBackground addSubview:vCodeTimerLb];
   RCUnderlineTextField *passwordTextField =
       [[RCUnderlineTextField alloc] initWithFrame:CGRectZero];
   passwordTextField.tag = PassWordFieldTag;
@@ -340,7 +340,7 @@
                                     views:views]]
       arrayByAddingObjectsFromArray:
           [NSLayoutConstraint constraintsWithVisualFormat:
-                                  @"V:|-70-[_licenseLb(==5)]-20-[_rongLogo(=="
+                                  @"V:|-70-[_licenseLb(==10)]-20-[_rongLogo(=="
                                   @"60)]-[_errorMsgLb(==5)]-[_inputBackground("
                                   @"==235)]" options:0
                                                   metrics:nil

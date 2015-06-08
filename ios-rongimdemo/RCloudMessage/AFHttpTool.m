@@ -282,5 +282,14 @@
                           failure:failure];
 }
 
-
++(void)getUserById:(NSString*) userId
+           success:(void (^)(id response))success
+           failure:(void (^)(NSError* err))failure
+{
+    [AFHttpTool requestWihtMethod:RequestMethodTypeGet
+                              url:@"profile"
+                           params:@{@"id":userId}
+                          success:success
+                          failure:failure];
+}
 @end

@@ -23,13 +23,15 @@
   [super viewDidLoad];
     self.enableSaveNewPhotoToLocalSystem = YES;
 
-    self.isNeedToShowCustomMessage = YES;
-
-  self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
-      initWithImage:[UIImage imageNamed:@"Setting"]
-              style:UIBarButtonItemStylePlain
-             target:self
-             action:@selector(rightBarButtonItemClicked:)];
+    if (self.conversationType != ConversationType_CHATROOM) {
+      self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]
+          initWithImage:[UIImage imageNamed:@"Setting"]
+                  style:UIBarButtonItemStylePlain
+                 target:self
+                 action:@selector(rightBarButtonItemClicked:)];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
 
     [self notifyUpdateUnreadMessageCount];
 /***********如何自定义面板功能***********************
@@ -82,11 +84,11 @@
         [[RCDPrivateSettingViewController alloc] init];
     settingVC.conversationType = self.conversationType;
     settingVC.targetId = self.targetId;
-    settingVC.conversationTitle = self.userName;
-    //设置讨论组标题时，改变当前聊天界面的标题
-    settingVC.setDiscussTitleCompletion = ^(NSString *discussTitle) {
-      self.title = discussTitle;
-    };
+//    settingVC.conversationTitle = self.userName;
+//    //设置讨论组标题时，改变当前聊天界面的标题
+//    settingVC.setDiscussTitleCompletion = ^(NSString *discussTitle) {
+//      self.title = discussTitle;
+//    };
     //清除聊天记录之后reload data
     __weak RCDChatViewController *weakSelf = self;
     settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
@@ -188,8 +190,11 @@
   [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (void)didLongTouchMessageCell:(RCMessageModel *)model {
+- (void)didLongTouchMessageCell:(RCMessageModel *)model inView:(UIView *)view {
+    [super didLongTouchMessageCell:model inView:view];
+    NSLog(@"%s", __FUNCTION__);
 }
+
 
 /**
  *  更新左上角未读消息数

@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, RCDiscussionNotificationType) {
 /**
  *  讨论组通知类定义
  */
-@interface RCDiscussionNotificationMessage : RCMessageContent
+@interface RCDiscussionNotificationMessage : RCMessageContent <NSCoding>
 /** 通知类型 */
 @property(nonatomic, assign) RCDiscussionNotificationType type;
 /** 操作者ID */

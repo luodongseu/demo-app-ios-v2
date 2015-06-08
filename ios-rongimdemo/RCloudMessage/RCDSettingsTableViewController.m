@@ -8,6 +8,7 @@
 
 #import "RCDSettingsTableViewController.h"
 #import "RCDLoginViewController.h"
+#import <RongIMLib/RongIMLib.h>
 
 @interface RCDSettingsTableViewController ()<UIAlertViewDelegate>
 
@@ -111,8 +112,8 @@
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
 //    [DEFAULTS removeObjectForKey:@"userName"];
 //    [DEFAULTS removeObjectForKey:@"userPwd"];
-//    [DEFAULTS removeObjectForKey:@"userToken"];
-//    [DEFAULTS removeObjectForKey:@"userCookie"];
+    [DEFAULTS removeObjectForKey:@"userToken"];
+    [DEFAULTS removeObjectForKey:@"userCookie"];
     [DEFAULTS removeObjectForKey:@"isLogin"];
     
     
@@ -120,6 +121,8 @@
     RCDLoginViewController *loginVC = [storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.view.window.rootViewController = navi;
+    
+    [[RCIMClient sharedRCIMClient]disconnect:NO];
 }
 
 @end

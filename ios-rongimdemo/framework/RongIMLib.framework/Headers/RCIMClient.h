@@ -20,6 +20,7 @@
 #import "RCUserInfo.h"
 #import "RCPublicServiceProfile.h"
 #import "RCUserData.h"
+#import "RCWKStatusDelegate.h"
 
 @class RCConversation;
 @class RCDiscussion;
@@ -113,6 +114,10 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  */
 @property(nonatomic, assign, readonly) RCSDKRunningMode sdkRunningMode;
 
+/**
+ *  WatchKit 的状态代理
+ */
+@property(nonatomic, strong)id<RCWKStatusDelegate> wkStatusDelegate;
 /**
  *  获取通讯能力库的核心类单例。
  *

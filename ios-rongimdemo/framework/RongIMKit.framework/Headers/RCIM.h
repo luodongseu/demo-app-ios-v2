@@ -15,7 +15,8 @@
 // dispatch message notification name
 FOUNDATION_EXPORT NSString *const RCKitDispatchMessageNotification;
 
-FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotification;
+FOUNDATION_EXPORT NSString
+    *const RCKitDispatchConnectionStatusChangedNotification;
 /**
  *  获取用户信息。
  */
@@ -27,7 +28,8 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotificati
  *  @param userId     用户 Id。
  *  @param completion 用户信息
  */
-- (void)getUserInfoWithUserId:(NSString *)userId completion:(void (^)(RCUserInfo *userInfo))completion;
+- (void)getUserInfoWithUserId:(NSString *)userId
+                   completion:(void (^)(RCUserInfo *userInfo))completion;
 @end
 /**
  *  获取群主信息。
@@ -41,7 +43,8 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotificati
  *  @param completion 获取完成调用的BLOCK.
  */
 
-- (void)getGroupInfoWithGroupId:(NSString *)groupId completion:(void (^)(RCGroup *groupInfo))completion;
+- (void)getGroupInfoWithGroupId:(NSString *)groupId
+                     completion:(void (^)(RCGroup *groupInfo))completion;
 
 @end
 
@@ -112,11 +115,13 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotificati
 /**
  * 接收消息的监听器。如果使用IMKit，使用此方法，不再使用RongIMLib的同名方法。
  */
-@property(nonatomic, weak) id<RCIMReceiveMessageDelegate> receiveMessageDelegate;
+@property(nonatomic, weak)
+    id<RCIMReceiveMessageDelegate> receiveMessageDelegate;
 /**
  *  状态监听
  */
-@property(nonatomic, weak) id<RCIMConnectionStatusDelegate> connectionStatusDelegate;
+@property(nonatomic, weak)
+    id<RCIMConnectionStatusDelegate> connectionStatusDelegate;
 /**
  *  消息免通知，默认是NO
  */
@@ -144,7 +149,8 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotificati
 /**
  *  注册消息类型，如果使用IMKit，使用此方法，不再使用RongIMLib的同名方法。如果对消息类型进行扩展，可以忽略此方法。
  *
- *  @param messageClass   消息类型名称，对应的继承自 RCMessageContent 的消息类型。
+ *  @param messageClass   消息类型名称，对应的继承自 RCMessageContent
+ *的消息类型。
  */
 
 - (void)registerMessageType:(Class)messageClass;
@@ -184,6 +190,22 @@ FOUNDATION_EXPORT NSString *const RCKitDispatchConnectionStatusChangedNotificati
  *  @param targetId 对方userId
  */
 - (void)startVoIPCallWithTargetId:(NSString *)targetId;
+
+/**
+ * 本地用户信息改变，调用此方法更新kit层用户缓存信息
+ * @param userInfo 要更新的用户实体
+ * @param userId  要更新的用户Id
+ */
+- (void)refreshUserInfoCache:(RCUserInfo *)userInfo
+                 withUserId:(NSString *)userId;
+
+/**
+ * 本地群组信息改变，调用此方法更新kit层群组缓存信息
+ * @param groupInfo 要更新的群组实体
+ * @param groupId  要更新的群组Id
+ */
+- (void)refreshGroupInfoCache:(RCGroup *)groupInfo
+                 withGroupId:(NSString *)groupId;
 
 @end
 
