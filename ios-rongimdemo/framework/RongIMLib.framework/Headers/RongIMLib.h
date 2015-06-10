@@ -63,3 +63,4 @@ FOUNDATION_EXPORT const unsigned char RongIMLibVersionString[];
 #import <RongIMLib/RCContactInfo.h>
 #import <RongIMLib/RCClientInfo.h>
 #import <RongIMLib/RCUserData.h>
+#import <RongIMLib/RCWatchKitStatusDelegate.h>
