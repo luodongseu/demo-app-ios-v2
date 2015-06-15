@@ -25,6 +25,7 @@
         //设置为不用默认渲染方式
         self.tabBarItem.image = [[UIImage imageNamed:@"icon_me"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = [[UIImage imageNamed:@"icon_me_hover"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
     }
     return self;
 }
@@ -36,13 +37,7 @@
     //设置分割线颜色
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     self.currentUserNameLabel.text = [RCIMClient sharedRCIMClient].currentUserInfo.name;
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.font = [UIFont boldSystemFontOfSize:19];
-    titleView.textColor = [UIColor whiteColor];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.text = @"我";
-    self.tabBarController.navigationItem.titleView = titleView;
+    
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
@@ -53,7 +48,7 @@
 {
     [super viewWillAppear:animated];
     
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     titleView.backgroundColor = [UIColor clearColor];
     titleView.font = [UIFont boldSystemFontOfSize:19];
     titleView.textColor = [UIColor whiteColor];

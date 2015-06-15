@@ -247,6 +247,19 @@
     NSString *imageUrl =
         [self getQueryParameter:WK_APP_COMMUNICATE_PARAMETER_IMAGE_URL];
 
+      if ([self isLocalPath:imageUrl]) {
+          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+              //当imageUrl是本地路径时，由于沙盒路径经常会变动，直接使用会无法找到文件，生成一个image message对象，设置路径然后再取出，就能取出当前正确的路径。
+              RCImageMessage *imageMsg = [[RCImageMessage alloc] init];
+              imageMsg.imageUrl = imageUrl;
+              NSString *toPath = @"loadedImage.tmp";
+              if ([self copyForShare:imageMsg.imageUrl to:toPath maxWidth:140]) {
+                  [self replyWKApp:toPath];
+              } else {
+                  [self replyWKApp:nil];
+              }
+          });
+      } else {
       [[RCIMClient sharedRCIMClient] downloadMediaFile:[conversationType intValue]
                                               targetId:targetId
                                              mediaType:MediaType_IMAGE
@@ -272,6 +285,7 @@
                                                      [self replyWKApp:nil];
                                                      
                                                  }];
+      }
       
   } else {
     return NO;
@@ -340,5 +354,11 @@
 
   UIImage *image = [UIImage imageWithContentsOfFile:fromPath];
   return [self copyImage:image to:to maxWidth:maxWidth round:NO];
+}
+- (BOOL)isLocalPath:(NSString *)path {
+    if ([path length] && ([path characterAtIndex:0] == '/' || [path characterAtIndex:0] == '~')) {
+        return YES;
+    }
+    return NO;
 }
 @end

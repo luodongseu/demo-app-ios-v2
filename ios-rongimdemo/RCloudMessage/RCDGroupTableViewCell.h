@@ -31,8 +31,8 @@
 
 @required
 
-- (void)joinGroupCallback:(BOOL *) result withGroupId:(NSString*)groupId;
+- (void)joinGroupCallback:(BOOL ) result withGroupId:(NSString*)groupId;
 
--(void) quitGroupCallback:(BOOL *) result withGroupId:(NSString*)groupId;
+-(void) quitGroupCallback:(BOOL ) result withGroupId:(NSString*)groupId;
 -(void) launchGroupChatPageByGroupId:(NSString*)groupId;
 @end

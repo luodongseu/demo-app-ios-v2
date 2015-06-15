@@ -17,6 +17,7 @@
 		510624851AD63A9E00348452 /* RongCloudKit.strings in Resources */ = {isa = PBXBuildFile; fileRef = 510624831AD63A9E00348452 /* RongCloudKit.strings */; };
 		5111B07B1AE6A11A00317E71 /* RongIMKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5111B0781AE6A11A00317E71 /* RongIMKit.framework */; };
 		5111B07D1AE6A11A00317E71 /* RongCloud.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5111B07A1AE6A11A00317E71 /* RongCloud.bundle */; };
+		8C55EB511B2A8CE5004285F4 /* Emoji.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C55EB501B2A8CE5004285F4 /* Emoji.plist */; };
 		8CCBC9871AEDDF8600BA1135 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CCBC9861AEDDF8600BA1135 /* AssetsLibrary.framework */; };
 		A6447A0C1B1DBE6500EA2CEE /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A0B1B1DBE6500EA2CEE /* InterfaceController.m */; };
 		A6447A0F1B1DBE6500EA2CEE /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A0E1B1DBE6500EA2CEE /* NotificationController.m */; };
@@ -24,6 +25,7 @@
 		A6447A151B1DBE6500EA2CEE /* 融云 Demo WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = A6447A141B1DBE6500EA2CEE /* 融云 Demo WatchKit App.app */; };
 		A6447A1D1B1DBE6500EA2CEE /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A6447A1B1B1DBE6500EA2CEE /* Interface.storyboard */; };
 		A6447A1F1B1DBE6500EA2CEE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6447A1E1B1DBE6500EA2CEE /* Images.xcassets */; };
+		A6447A221B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A6447A051B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		A6447A3E1B1DC12500EA2CEE /* RCWKRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A3B1B1DC12500EA2CEE /* RCWKRequestHandler.m */; };
 		A6447A3F1B1DC12500EA2CEE /* RCWKSharedUserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A3D1B1DC12500EA2CEE /* RCWKSharedUserDefault.m */; };
 		A6447A851B1DC14A00EA2CEE /* ConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = A6447A431B1DC14A00EA2CEE /* ConversationController.m */; };
@@ -191,9 +193,27 @@
 			remoteGlobalIDString = A6447A131B1DBE6500EA2CEE;
 			remoteInfo = "融云 Demo WatchKit App";
 		};
+		A6447A201B1DBE6500EA2CEE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E4D40F201A031F460045097C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6447A041B1DBE6500EA2CEE;
+			remoteInfo = "融云 Demo WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A6447A291B1DBE6500EA2CEE /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				A6447A221B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A6B1D9021B204E0600AD32EC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -226,6 +246,7 @@
 		510624861AD63AA500348452 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "framework/zh-Hans.lproj/RongCloudKit.strings"; sourceTree = SOURCE_ROOT; };
 		5111B0781AE6A11A00317E71 /* RongIMKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RongIMKit.framework; path = framework/RongIMKit.framework; sourceTree = SOURCE_ROOT; };
 		5111B07A1AE6A11A00317E71 /* RongCloud.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RongCloud.bundle; path = framework/RongCloud.bundle; sourceTree = SOURCE_ROOT; };
+		8C55EB501B2A8CE5004285F4 /* Emoji.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Emoji.plist; path = framework/Emoji.plist; sourceTree = SOURCE_ROOT; };
 		8CCBC9861AEDDF8600BA1135 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		A6447A051B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "融云 Demo WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6447A081B1DBE6500EA2CEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -953,6 +974,7 @@
 		E4C4E7E71A0A309100140067 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C55EB501B2A8CE5004285F4 /* Emoji.plist */,
 				A6BD04171B1EEA6B00ACAF17 /* RongIMLib.framework */,
 				8CCBC9861AEDDF8600BA1135 /* AssetsLibrary.framework */,
 				5111B0781AE6A11A00317E71 /* RongIMKit.framework */,
@@ -1325,10 +1347,12 @@
 				E4D40F241A031F460045097C /* Sources */,
 				E4D40F251A031F460045097C /* Frameworks */,
 				E4D40F261A031F460045097C /* Resources */,
+				A6447A291B1DBE6500EA2CEE /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A6447A211B1DBE6500EA2CEE /* PBXTargetDependency */,
 			);
 			name = RCloudMessage;
 			productName = RongCloud;
@@ -1415,6 +1439,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C55EB511B2A8CE5004285F4 /* Emoji.plist in Resources */,
 				E42A2E5A1AAEE76800F4C3AB /* Main.storyboard in Resources */,
 				5111B07D1AE6A11A00317E71 /* RongCloud.bundle in Resources */,
 				E4BFAE251A121839007165B1 /* Images.xcassets in Resources */,
@@ -1585,6 +1610,11 @@
 			target = A6447A131B1DBE6500EA2CEE /* 融云 Demo WatchKit App */;
 			targetProxy = A6447A161B1DBE6500EA2CEE /* PBXContainerItemProxy */;
 		};
+		A6447A211B1DBE6500EA2CEE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6447A041B1DBE6500EA2CEE /* 融云 Demo WatchKit Extension */;
+			targetProxy = A6447A201B1DBE6500EA2CEE /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1621,8 +1651,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "融云 Demo WatchKit Extension/融云 Demo WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1639,7 +1669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "8234d697-e30f-40e8-86a6-159b53554a72";
+				PROVISIONING_PROFILE = "c14d949d-96b6-40e2-9ac5-30647206d205";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1664,7 +1694,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "8234d697-e30f-40e8-86a6-159b53554a72";
+				PROVISIONING_PROFILE = "c321013f-58a3-4688-a239-1bb9b6fb375e";
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1674,8 +1704,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1686,7 +1716,7 @@
 				INFOPLIST_FILE = "融云 Demo WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b207ece9-7356-4c38-b6ee-ca121311b56f";
+				PROVISIONING_PROFILE = "6024b7a5-571d-40b4-8d9c-f5cb42b78975";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -1731,8 +1761,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

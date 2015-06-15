@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) NSArray* members;
 
+@property (nonatomic)BOOL isOwner;
 @end
 
 @implementation RCDDiscussGroupSettingViewController
@@ -54,9 +55,14 @@
                 if([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:discussion.creatorId])
                 {
                     [self disableDeleteMemberEvent:NO];
+                    self.isOwner = YES;
                     
                 }else{
                     [self disableDeleteMemberEvent:YES];
+                    self.isOwner = NO;
+                    if (discussion.inviteStatus == 1) {
+                        [self disableInviteMemberEvent:YES];
+                    }
                 }
                 
                 NSMutableArray *users = [NSMutableArray new];
@@ -128,7 +134,11 @@
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.defaultCells.count + 2;
+    if (self.isOwner) {
+        return self.defaultCells.count + 2;
+    } else {
+        return self.defaultCells.count + 1;
+    }
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath
@@ -139,6 +149,10 @@
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath
 {
     UITableViewCell* cell = nil;
+    int offset = 2;
+    if (!self.isOwner) {
+        offset = 1;
+    }
     switch (indexPath.row) {
         case 0:
         {
@@ -151,28 +165,33 @@
             break;
         case 1:
         {
-            RCDDiscussSettingSwitchCell *switchCell = [[RCDDiscussSettingSwitchCell alloc] initWithFrame:CGRectZero];
-            switchCell.label.text = @"开放成员邀请";
-            [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion *discussion) {
-                if (discussion.inviteStatus == 0) {
-                    switchCell.swich.on = YES;
-                }
-        } error:^(RCErrorCode status){
+            if (self.isOwner) {
+                RCDDiscussSettingSwitchCell *switchCell = [[RCDDiscussSettingSwitchCell alloc] initWithFrame:CGRectZero];
+                switchCell.label.text = @"开放成员邀请";
+                [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion *discussion) {
+                    if (discussion.inviteStatus == 0) {
+                        switchCell.swich.on = YES;
+                    }
+                } error:^(RCErrorCode status){
+                    
+                }];
+                [switchCell.swich addTarget:self action:@selector(openMemberInv:) forControlEvents:UIControlEventTouchUpInside];
+                cell = switchCell;
+            } else {
+                cell = self.defaultCells[0];
+            }
 
-        }];
-        [switchCell.swich addTarget:self action:@selector(openMemberInv:) forControlEvents:UIControlEventTouchUpInside];
-        cell = switchCell;
 
     } break;
     case 2: {
-        cell = self.defaultCells[0];
+        cell = self.defaultCells[indexPath.row - offset];
     } break;
     case 3: {
-        cell = self.defaultCells[1];
+        cell = self.defaultCells[indexPath.row - offset];
 
     } break;
     case 4: {
-        cell = self.defaultCells[2];
+        cell = self.defaultCells[indexPath.row - offset];
 
     } break;
     }
@@ -208,8 +227,6 @@
                                     [self createDiscussionOrInvokeMemberWithSelectedUsers:selectedUsers];
                 
                                 }];
-
-                
             }
             
             [selectPersonViewController.navigationController popViewControllerAnimated:YES];
@@ -268,7 +285,7 @@
                         chat.title                         = discussionTitle;//[NSString stringWithFormat:@"讨论组(%lu)", (unsigned long)_count];
                         
                         UITabBarController *tabbarVC = weakSelf.navigationController.viewControllers[0];
-                        [weakSelf.navigationController popToViewController:tabbarVC animated:YES];
+                        [weakSelf.navigationController popToViewController:tabbarVC animated:NO];
                         [tabbarVC.navigationController  pushViewController:chat animated:YES];
                     });
                 } error:^(RCErrorCode status) {

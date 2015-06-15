@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rRv-S9-5w8">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -733,7 +734,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iwW-Jw-Bzm">
-                                                    <rect key="frame" x="13" y="72" width="574" height="42"/>
+                                                    <rect key="frame" x="13" y="100" width="574" height="42"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="42" id="jNI-d1-SAY"/>
                                                     </constraints>
@@ -741,11 +742,26 @@
                                                         <action selector="joinOrQuitGroup:" destination="x4h-9W-Ksv" eventType="touchUpInside" id="lfo-CO-mVn"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Kk-bh-fXm">
+                                                    <rect key="frame" x="13" y="33" width="574" height="42"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="beginGroupChat:" destination="x4h-9W-Ksv" eventType="touchUpInside" id="9mV-xB-cHR"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="iwW-Jw-Bzm" firstAttribute="top" secondItem="GfU-Ct-tqi" secondAttribute="topMargin" constant="64" id="Z82-v9-QcA"/>
+                                                <constraint firstItem="iwW-Jw-Bzm" firstAttribute="height" secondItem="0Kk-bh-fXm" secondAttribute="height" id="0oB-vo-3IU"/>
+                                                <constraint firstItem="iwW-Jw-Bzm" firstAttribute="width" secondItem="0Kk-bh-fXm" secondAttribute="width" id="Bgb-AP-y2b"/>
+                                                <constraint firstItem="0Kk-bh-fXm" firstAttribute="leading" secondItem="GfU-Ct-tqi" secondAttribute="leadingMargin" constant="5" id="KJl-E3-jWi"/>
+                                                <constraint firstItem="iwW-Jw-Bzm" firstAttribute="top" secondItem="GfU-Ct-tqi" secondAttribute="topMargin" constant="92" id="Z82-v9-QcA"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="iwW-Jw-Bzm" secondAttribute="trailing" constant="5" id="eCR-bv-1gS"/>
                                                 <constraint firstItem="iwW-Jw-Bzm" firstAttribute="leading" secondItem="GfU-Ct-tqi" secondAttribute="leadingMargin" constant="5" id="fLQ-Z9-nSI"/>
+                                                <constraint firstItem="iwW-Jw-Bzm" firstAttribute="top" secondItem="0Kk-bh-fXm" secondAttribute="bottom" constant="25" id="o4G-WP-klg"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <inset key="separatorInset" minX="2000" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -760,6 +776,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="详细资料" id="WfM-Kp-vlF"/>
                     <connections>
+                        <outlet property="btChat" destination="0Kk-bh-fXm" id="wrS-e8-60D"/>
                         <outlet property="btJoinOrQuitGroup" destination="iwW-Jw-Bzm" id="r3i-Ma-MT8"/>
                         <outlet property="imgGroupPortait" destination="qvy-8A-4zW" id="clc-aA-TCu"/>
                         <outlet property="lbGroupName" destination="YCR-BV-rK9" id="a25-xO-wwL"/>

@@ -61,6 +61,26 @@ FOUNDATION_EXPORT NSString
  @param left    剩余消息数.
  */
 - (void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left;
+
+@optional
+/**
+ *  收到消息Notifiction处理。用户可以自定义通知，不实现SDK会处理。
+ *
+ *  @param message    收到的消息实体。
+ *  @param senderName 发送者的名字
+ *
+ *  @return 返回NO，SDK处理通知；返回YES，App自定义通知栏，SDK不再展现通知。
+ */
+-(BOOL)onRCIMCustomLocalNotification:(RCMessage*)message withSenderName:(NSString *)senderName;
+
+/**
+ *  收到消息铃声处理。用户可以自定义新消息铃声，不实现SDK会处理。
+ *
+ *  @param message 收到的消息实体。
+ *
+ *  @return 返回NO，SDK处理铃声；返回YES，App自定义通知音，SDK不再播放铃音。
+ */
+-(BOOL)onRCIMCustomAlertSound:(RCMessage*)message;
 @end
 
 /**

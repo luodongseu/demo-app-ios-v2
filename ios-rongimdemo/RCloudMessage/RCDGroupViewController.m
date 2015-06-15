@@ -132,7 +132,7 @@
 }
 
 
-- (void)joinGroupCallback:(BOOL *) result withGroupId:(NSString *)groupId
+- (void)joinGroupCallback:(BOOL) result withGroupId:(NSString *)groupId
 {
     if (result) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
@@ -143,8 +143,16 @@
         [alertView show];
     }else
     {
+        NSString *msg=@"加入失败";
+        for (RCDGroupInfo *group in _groups) {
+            if ([group.groupId isEqualToString:groupId]) {
+                if(group.number==group.maxNumber)
+                    msg=@"群组人数已满";
+            }
+        }
+
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil
-                                                            message:@"加入失败！"
+                                                            message:msg
                                                            delegate:nil
                                                   cancelButtonTitle:@"确定"
                                                   otherButtonTitles:nil, nil];
@@ -182,7 +190,7 @@
     
 }
 
--(void) quitGroupCallback:(BOOL *) result withGroupId:(NSString *)groupId
+-(void) quitGroupCallback:(BOOL) result withGroupId:(NSString *)groupId
 {
     if (result) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil

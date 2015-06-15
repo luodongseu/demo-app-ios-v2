@@ -92,7 +92,7 @@
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
     [rightBtn setTintColor:[UIColor whiteColor]];
     self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
-    [self updateBadgeValueForTabBarItem];
+    [self notifyUpdateUnreadMessageCount];
 
 }
 - (void)updateBadgeValueForTabBarItem
@@ -230,7 +230,7 @@
             //跳转到会话页面
             dispatch_async(dispatch_get_main_queue(), ^{
                 UITabBarController *tabbarVC = weakSelf.navigationController.viewControllers[0];
-                [weakSelf.navigationController popToViewController:tabbarVC animated:YES];
+                [weakSelf.navigationController popToViewController:tabbarVC animated:NO];
                 [tabbarVC.navigationController  pushViewController:chat animated:YES];
             });
 
@@ -258,7 +258,7 @@
                     
                     
                     UITabBarController *tabbarVC = weakSelf.navigationController.viewControllers[0];
-                    [weakSelf.navigationController popToViewController:tabbarVC animated:YES];
+                    [weakSelf.navigationController popViewControllerAnimated:NO];
                     [tabbarVC.navigationController  pushViewController:chat animated:YES];
                 });
             } error:^(RCErrorCode status) {
@@ -268,7 +268,7 @@
         }
     };
 
-    [self.navigationController showViewController:selectPersonVC sender:self.navigationController];
+    [self.navigationController pushViewController :selectPersonVC animated:YES];
 }
 
 /**
@@ -422,7 +422,14 @@
               [blockSelf_ refreshConversationTableViewWithConversationModel:customModel];
               //[super didReceiveMessageNotification:notification];
               [blockSelf_ resetConversationListBackgroundViewIfNeeded];
-              [blockSelf_ updateBadgeValueForTabBarItem];
+              [self notifyUpdateUnreadMessageCount];
+              
+              //当消息为RCContactNotificationMessage时，没有调用super，如果是最后一条消息，可能需要刷新一下整个列表。
+              //原因请查看super didReceiveMessageNotification的注释。
+              NSNumber *left = [notification.userInfo objectForKey:@"left"];
+              if (0 == left.integerValue) {
+                  [super refreshConversationTableViewIfNeeded];
+              }
           });
         }];
     }else{
@@ -430,9 +437,13 @@
             //调用父类刷新未读消息数
             [super didReceiveMessageNotification:notification];
             [blockSelf_ resetConversationListBackgroundViewIfNeeded];
-            [blockSelf_ updateBadgeValueForTabBarItem];
+//            [self notifyUpdateUnreadMessageCount]; super会调用notifyUpdateUnreadMessageCount
         });
     }
 }
 
+- (void)notifyUpdateUnreadMessageCount
+{
+    [self updateBadgeValueForTabBarItem];
+}
 @end

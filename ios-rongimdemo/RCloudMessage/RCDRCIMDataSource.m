@@ -106,21 +106,21 @@
 {
     if ([userId length] == 0)
         return;
-    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
-    if (userInfo==nil) {
+//    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
+//    if (userInfo==nil) {
         //开发者调自己的服务器接口根据groupID异步请求数据
         [RCDHTTPTOOL getUserInfoByUserID:userId
                               completion:^(RCUserInfo *user) {
                                   if (user) {
-                                      [[RCDataBaseManager shareInstance] insertUserToDB:user];
+                                      //[[RCDataBaseManager shareInstance] insertUserToDB:user];
                                       completion(user);
                                   }
                               }];
-    }else
-    {
-        completion(userInfo);
-    }
-    
+//    }else
+//    {
+//        completion(userInfo);
+//    }
+//    
 }
 - (void)cacheAllUserInfo:(void (^)())completion
 {

@@ -66,36 +66,48 @@
 -(void) getUserInfoByUserID:(NSString *) userID
                          completion:(void (^)(RCUserInfo *user)) completion
 {
-    [AFHttpTool getUserById:userID success:^(id response) {
-        if (response) {
-            NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
-            
-            if ([code isEqualToString:@"200"]) {
+    
+    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userID];
+    if (userInfo==nil) {
+        [AFHttpTool getUserById:userID success:^(id response) {
+            if (response) {
+                NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
                 
-                NSDictionary *dic = response[@"result"];
-                // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
-                RCUserInfo *userInfo = [RCUserInfo new];
-                NSNumber *idNum = [dic objectForKey:@"id"];
-                userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
-                userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                userInfo.name = [dic objectForKey:@"username"];
-                [[RCDataBaseManager shareInstance] insertUserToDB:userInfo];
-                
-                if (completion) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(userInfo);
-                    });
+                if ([code isEqualToString:@"200"]) {
+                    
+                    NSDictionary *dic = response[@"result"];
+                    // NSLog(@"isMainThread > %d", [NSThread isMainThread]);
+                    RCUserInfo *user = [RCUserInfo new];
+                    NSNumber *idNum = [dic objectForKey:@"id"];
+                    user.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                    user.portraitUri = [dic objectForKey:@"portrait"];
+                    user.name = [dic objectForKey:@"username"];
+                    [[RCDataBaseManager shareInstance] insertUserToDB:user];
+                    
+                    if (completion) {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            completion(user);
+                        });
+                    }
+                    
+                    
                 }
-
                 
             }
             
+        } failure:^(NSError *err) {
+            NSLog(@"getUserInfoByUserID error");
+        }];
+    
+    }else
+    {
+        if (completion) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(userInfo);
+            });
         }
 
-    } failure:^(NSError *err) {
-        NSLog(@"getUserInfoByUserID error");
-    }];
-    
+    }
 //    __block NSArray * regDataArray;
 //    [AFHttpTool getFriendsSuccess:^(id response) {
 //        if (response) {

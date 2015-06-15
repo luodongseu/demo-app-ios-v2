@@ -72,6 +72,12 @@
 @property(nonatomic, assign) BOOL enableSaveNewPhotoToLocalSystem;
 
 /**
+ * 用于查询会话列表未读消息数目显示在返回按钮之上。调用notifyUpdateUnreadMessageCount更新返回图标和设置Target
+ * 值为想要统计未读数的会话类型Array。
+ */
+@property(nonatomic, strong) NSArray *displayConversationTypeArray;
+
+/**
  *  init method
  *
  *  @param conversationType conversationType
@@ -157,6 +163,21 @@
  */
 - (void)didTapMessageCell:(RCMessageModel *)model;
 
+/**
+ *  点击消息内容中的链接，此事件不会再触发didTapMessageCell
+ *
+ *  @param url   Url String
+ *  @param model 数据
+ */
+- (void)didTapUrlInMessageCell:(NSString *)url model:(RCMessageModel *)model;
+
+/**
+ *  点击消息内容中的电话号码，此事件不会再触发didTapMessageCell
+ *
+ *  @param phoneNumber Phone number
+ *  @param model       数据
+ */
+- (void)didTapPhoneNumberInMessageCell:(NSString *)phoneNumber model:(RCMessageModel *)model;
 #pragma mark override
 /**
  *  点击头像事件

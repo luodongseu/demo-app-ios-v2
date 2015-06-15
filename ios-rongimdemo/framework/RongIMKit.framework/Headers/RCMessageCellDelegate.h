@@ -24,6 +24,22 @@
 - (void)didTapMessageCell:(RCMessageModel *)model;
 
 /**
+ *  点击消息内容中的链接，此事件不会再触发didTapMessageCell
+ *
+ *  @param url   Url String
+ *  @param model 数据
+ */
+- (void)didTapUrlInMessageCell:(NSString *)url model:(RCMessageModel *)model;
+
+/**
+ *  点击消息内容中的电话号码，此事件不会再触发didTapMessageCell
+ *
+ *  @param phoneNumber Phone number
+ *  @param model       数据
+ */
+- (void)didTapPhoneNumberInMessageCell:(NSString *) phoneNumber model:(RCMessageModel *)model;
+
+/**
  *  点击头像事件
  *
  *  @param userId 用户的ID

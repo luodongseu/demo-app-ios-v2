@@ -53,6 +53,11 @@
 @property(nonatomic, assign) BOOL isAllowedDeleteMember;
 
 /**
+ *  isAllowedInviteMember
+ */
+@property(nonatomic, assign) BOOL isAllowedInviteMember;
+
+/**
  *  call back
  */
 @property(weak, nonatomic) id<RCConversationSettingTableViewHeaderDelegate> settingTableViewHeaderDelegate;

@@ -50,6 +50,12 @@
 - (void)disableDeleteMemberEvent:(BOOL)disable;
 
 /**
+ *  禁用邀请成员事件
+ *
+ *  @param disable disable description
+ */
+- (void)disableInviteMemberEvent:(BOOL)disable;
+/**
  *  重写以下方法，自定义点击事件
  *
  */

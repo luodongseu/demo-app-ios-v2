@@ -25,7 +25,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbMyNickNameInGroup;
 @property (weak, nonatomic) IBOutlet UILabel *lbNumberInGroup;
 
+@property (weak, nonatomic) IBOutlet UIButton *btChat;
 @property (weak, nonatomic) IBOutlet UIButton *btJoinOrQuitGroup;
 - (IBAction)joinOrQuitGroup:(id)sender;
+- (IBAction)beginGroupChat:(id)sender;
 
 @end

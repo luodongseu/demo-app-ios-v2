@@ -431,6 +431,11 @@
                                            RCUserInfo *_currentUserInfo = [[RCUserInfo alloc]initWithUserId:userId name:userName portrait:nil];
                                            [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
                                            
+                                           [RCDHTTPTOOL getUserInfoByUserID:userId
+                                                                 completion:^(RCUserInfo* user) {
+                                                                     [[RCIM sharedRCIM]refreshUserInfoCache:_currentUserInfo withUserId:userId];
+                                                                     
+                                                                 }];
                                            //同步群组
                                            [RCDDataSource syncGroups];
                                            
@@ -451,17 +456,29 @@
 
                                            
                                        } error:^(RCConnectErrorCode status) {
-                                           // [hud setHidden:YES];
+                                           //关闭HUD
+                                           [hud hide:YES];
                                            NSLog(@"RCConnectErrorCode is %ld",(long)status);
+                                           _errorMsgLb.text=@"服务器错误！";
+                                           [_pwdTextField shake];
+
                                        } tokenIncorrect:^{
                                            NSLog(@"IncorrectToken");
+                                           [hud hide:YES];
+                                           _errorMsgLb.text=@"Token无效";
+                                           [_pwdTextField shake];
                                        }];
                                        
 
                                        
                                        
                                    } failure:^(NSError *err) {
+                                       //关闭HUD
+                                       [hud hide:YES];
+                                       NSLog(@"NSError is %@",err);
                                        
+                                       _errorMsgLb.text=@"APP服务器错误！";
+                                       [_pwdTextField shake];
                                    }];
                                }else{
                                    //关闭HUD

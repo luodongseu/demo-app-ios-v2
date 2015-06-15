@@ -54,6 +54,7 @@
         userInfo.userId = user.userId;
         userInfo.name = user.userName;
         userInfo.portraitUri = user.portraitUri;
+        [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userInfo.userId];
         [seletedUsers addObject:userInfo];
     }
     

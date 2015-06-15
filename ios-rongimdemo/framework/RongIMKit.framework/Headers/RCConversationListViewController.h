@@ -175,10 +175,16 @@
 
 /**
  *  收到新消息,用于刷新会话列表，如果派生类调用了父类方法，请不要再次调用refreshConversationTableViewIfNeeded，避免多次刷新
+ *  当收到多条消息时，会在最后一条消息时在内部调用refreshConversationTableViewIfNeeded
  *
  *  @param notification notification
  */
 - (void)didReceiveMessageNotification:(NSNotification *)notification;
 
+#pragma mark override
+/**
+ *  重写方法，通知更新未读消息数目，用于显示未读消息，当收到会话消息的时候，会触发一次。
+ */
+- (void)notifyUpdateUnreadMessageCount;
 @end
 #endif
