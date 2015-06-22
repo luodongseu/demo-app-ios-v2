@@ -66,6 +66,7 @@
            dispatch_async(dispatch_get_main_queue(), ^{
              if (isOk) {
                _groupInfo.isJoin = YES;
+               [RCDDataSource syncGroups];
                UIImage *image = [UIImage imageNamed:@"group_quit"];
                image = [image
                    stretchableImageWithLeftCapWidth:floorf(image.size.width / 2)

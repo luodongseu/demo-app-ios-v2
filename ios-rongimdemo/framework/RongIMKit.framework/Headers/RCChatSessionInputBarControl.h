@@ -174,6 +174,10 @@ typedef NS_ENUM(NSInteger, RCChatSessionInputBarControlType) {
  */
 - (void)setInputBarType:(RCChatSessionInputBarControlType)type style:(RCChatSessionInputBarControlStyle)style;
 
+/**
+ *  dismiss公众账号弹出菜单
+ */
+- (void)dismissPublicServiceMenuPopupView;
 @end
 
 /**

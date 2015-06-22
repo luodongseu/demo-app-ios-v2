@@ -82,12 +82,13 @@
 
   //登录
   NSString *token =[[NSUserDefaults standardUserDefaults] objectForKey:@"userToken"];
-  if (token.length) {
+  NSString *userId=[DEFAULTS objectForKey:@"userId"];
+  NSString *userName = [DEFAULTS objectForKey:@"userName"];
+  NSString *password = [DEFAULTS objectForKey:@"userPwd"];
+    
+  if (token.length && userId.length && password.length) {
     [[RCIM sharedRCIM] connectWithToken:token
         success:^(NSString *userId) {
-
-          NSString *userName = [DEFAULTS objectForKey:@"userName"];
-          NSString *password = [DEFAULTS objectForKey:@"userPwd"];
           RCUserInfo *_currentUserInfo =
               [[RCUserInfo alloc] initWithUserId:userId
                                             name:userName
@@ -120,8 +121,6 @@
           });
         }
         error:^(RCConnectErrorCode status) {
-            NSString *userId=[DEFAULTS objectForKey:@"userId"];
-            NSString *userName = [DEFAULTS objectForKey:@"userName"];
             RCUserInfo *_currentUserInfo =[[RCUserInfo alloc] initWithUserId:userId
                                                                         name:userName
                                                                     portrait:nil];

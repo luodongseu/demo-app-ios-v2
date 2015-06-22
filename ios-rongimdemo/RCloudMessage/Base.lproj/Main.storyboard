@@ -975,10 +975,10 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前版本" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L9I-GL-bJ4">
-                                                    <rect key="frame" x="40" y="13" width="120" height="21"/>
+                                                    <rect key="frame" x="40" y="13" width="542" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="bmH-0y-6Hs"/>
-                                                        <constraint firstAttribute="width" constant="120" id="rwA-ii-dp5"/>
+                                                        <constraint firstAttribute="width" constant="542" id="rwA-ii-dp5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1002,7 +1002,7 @@
                             <outlet property="delegate" destination="og0-6I-bGN" id="RNU-6Q-BBB"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="我" image="about_me" id="Ofi-PU-ilJ"/>
+                    <tabBarItem key="tabBarItem" title="我" image="icon_me" id="Ofi-PU-ilJ"/>
                     <navigationItem key="navigationItem" title="我" id="rUd-3w-eIn"/>
                     <connections>
                         <outlet property="currentUserNameLabel" destination="ZNU-Xw-dTY" id="Es0-UH-iCH"/>
@@ -2030,7 +2030,6 @@
     <resources>
         <image name="Voip-calling" width="300" height="42"/>
         <image name="Voip-calling_hover" width="300" height="42"/>
-        <image name="about_me" width="22" height="22"/>
         <image name="about_rong" width="498" height="63"/>
         <image name="about_rongcloud" width="20" height="15"/>
         <image name="calling" width="300" height="42"/>
@@ -2040,12 +2039,13 @@
         <image name="group" width="31" height="21"/>
         <image name="icon_4" width="56" height="56"/>
         <image name="icon_5" width="46" height="46"/>
+        <image name="icon_me" width="22" height="22"/>
         <image name="icon_person" width="92" height="92"/>
         <image name="join" width="66" height="32"/>
         <image name="message" width="29" height="22"/>
         <image name="serve" width="23" height="22"/>
         <image name="service_icon" width="100" height="30"/>
-        <image name="services_bg" width="816" height="1088"/>
+        <image name="services_bg" width="187" height="200"/>
         <image name="setting_up" width="20" height="15"/>
         <image name="unselect" width="22" height="22"/>
         <image name="version_icon" width="40" height="31"/>

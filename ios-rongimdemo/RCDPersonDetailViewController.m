@@ -14,8 +14,7 @@
 #import "UIImageView+WebCache.h"
 
 @interface RCDPersonDetailViewController ()<UIActionSheetDelegate>
-
-
+@property (nonatomic)BOOL inBlackList;
 @end
 
 @implementation RCDPersonDetailViewController
@@ -32,7 +31,12 @@
 //    self.ivAva.layer.cornerRadius = 4.f;
     [self.ivAva sd_setImageWithURL:[NSURL URLWithString:self.userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
 
-
+    __weak RCDPersonDetailViewController *weakSelf = self;
+    [[RCIMClient sharedRCIMClient] getBlacklistStatus:self.userInfo.userId success:^(int bizStatus) {
+        weakSelf.inBlackList = (bizStatus == 0);
+    } error:^(RCErrorCode status) {
+        ;
+    }];
     
 }
 - (IBAction)btnConversation:(id)sender {
@@ -52,8 +56,13 @@
 
 -(void) rightBarButtonItemClicked:(id) sender
 {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"解除好友关系", @"加入黑名单", nil];
-    [actionSheet showInView:self.view];
+    if (self.inBlackList) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"解除好友关系", @"取消黑名单", nil];
+        [actionSheet showInView:self.view];
+    } else {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"解除好友关系", @"加入黑名单", nil];
+        [actionSheet showInView:self.view];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,6 +89,20 @@
         case 1:
         {
             //黑名单
+            __weak RCDPersonDetailViewController *weakSelf = self;
+            if (!self.inBlackList) {
+                [[RCIMClient sharedRCIMClient] addToBlacklist:self.userInfo.userId success:^{
+                    weakSelf.inBlackList = YES;
+                } error:^(RCErrorCode status) {
+                    weakSelf.inBlackList = NO;
+                }];
+            } else {
+                [[RCIMClient sharedRCIMClient] removeFromBlacklist:self.userInfo.userId success:^{
+                    weakSelf.inBlackList = NO;
+                } error:^(RCErrorCode status) {
+                    weakSelf.inBlackList = YES;
+                }];
+            }
 
         }
             break;

@@ -1651,8 +1651,8 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "融云 Demo WatchKit Extension/融云 Demo WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1669,7 +1669,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "c14d949d-96b6-40e2-9ac5-30647206d205";
+				PROVISIONING_PROFILE = "c321013f-58a3-4688-a239-1bb9b6fb375e";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1704,8 +1704,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1716,7 +1716,7 @@
 				INFOPLIST_FILE = "融云 Demo WatchKit App/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "6024b7a5-571d-40b4-8d9c-f5cb42b78975";
+				PROVISIONING_PROFILE = "b207ece9-7356-4c38-b6ee-ca121311b56f";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -1761,8 +1761,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: tom lee (7CARY648RD)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1839,8 +1839,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = NO;
 				CODE_SIGN_ENTITLEMENTS = RCloudMessage/RCloudMessage.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: peter miao (5TLKDFLPD2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: peter miao (5TLKDFLPD2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Beijing Rong Cloud Network Technology CO., LTD";
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/framework";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
@@ -1856,7 +1856,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				OTHER_LIBTOOLFLAGS = "$(OTHER_LDFLAGS)";
 				PRODUCT_NAME = RCloudMessage;
-				PROVISIONING_PROFILE = "74d43786-aad0-4c5d-a7bf-628a5ed4ce81";
+				PROVISIONING_PROFILE = "5deb5121-c59f-40e3-b198-2bc54229be06";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
