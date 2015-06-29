@@ -1,1 +1,5 @@
 build/
+autobuild.sh
+bin/
+.DS_Store
+

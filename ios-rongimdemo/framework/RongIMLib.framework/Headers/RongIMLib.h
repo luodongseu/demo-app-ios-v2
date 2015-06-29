@@ -55,6 +55,7 @@ FOUNDATION_EXPORT const unsigned char RongIMLibVersionString[];
 #import <RongIMLib/RCPublicServiceMenu.h>
 #import <RongIMLib/RCPublicServiceMultiRichContentMessage.h>
 #import <RongIMLib/RCPublicServiceRichContentMessage.h>
+#import <RongIMLib/RCPublicServiceCommondMessage.h>
 #import <RongIMLib/RCMessageContentView.h>
 #import <RongIMLib/RCHandShakeMessage.h>
 #import <RongIMLib/RCSuspendMessage.h>

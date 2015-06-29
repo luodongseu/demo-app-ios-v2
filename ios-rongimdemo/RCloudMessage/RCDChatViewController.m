@@ -12,6 +12,9 @@
 #import "RCDDiscussGroupSettingViewController.h"
 #import "RCDRoomSettingViewController.h"
 #import "RCDPrivateSettingViewController.h"
+#import "RCDGroupDetailViewController.h"
+#import "RCDRCIMDataSource.h"
+#import "RCDHttpTool.h"
 
 @interface RCDChatViewController ()
 
@@ -138,20 +141,52 @@
 
   //群组设置
   else if (self.conversationType == ConversationType_GROUP) {
-    RCSettingViewController *settingVC = [[RCSettingViewController alloc] init];
-    settingVC.conversationType = self.conversationType;
-    settingVC.targetId = self.targetId;
-    //清除聊天记录之后reload data
-    __weak RCDChatViewController *weakSelf = self;
-    settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
-      if (isSuccess) {
-        [weakSelf.conversationDataRepository removeAllObjects];
-        dispatch_async(dispatch_get_main_queue(), ^{
-          [weakSelf.conversationMessageCollectionView reloadData];
-        });
+//    RCSettingViewController *settingVC = [[RCSettingViewController alloc] init];
+//    settingVC.conversationType = self.conversationType;
+//    settingVC.targetId = self.targetId;
+//    //清除聊天记录之后reload data
+//    __weak RCDChatViewController *weakSelf = self;
+//    settingVC.clearHistoryCompletion = ^(BOOL isSuccess) {
+//      if (isSuccess) {
+//        [weakSelf.conversationDataRepository removeAllObjects];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//          [weakSelf.conversationMessageCollectionView reloadData];
+//        });
+//      }
+//    };
+//    [self.navigationController pushViewController:settingVC animated:YES];
+      UIStoryboard *secondStroyBoard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+      RCDGroupDetailViewController *detail=[secondStroyBoard instantiateViewControllerWithIdentifier:@"RCDGroupDetailViewController"];
+      NSMutableArray *groups=RCDHTTPTOOL.allGroups ;
+      __weak RCDChatViewController *weakSelf = self;
+      detail.clearHistoryCompletion = ^(BOOL isSuccess) {
+          if (isSuccess) {
+              [weakSelf.conversationDataRepository removeAllObjects];
+              dispatch_async(dispatch_get_main_queue(), ^{
+                  [weakSelf.conversationMessageCollectionView reloadData];
+              });
+          }
+      };
+      if (groups) {
+          for (RCDGroupInfo *group in groups) {
+              if ([group.groupId isEqualToString: self.targetId]) {
+                  detail.groupInfo=group;
+                  [self.navigationController pushViewController:detail animated:NO];
+                  return;
+              }
+          }
       }
-    };
-    [self.navigationController pushViewController:settingVC animated:YES];
+//      [RCDDataSource getGroupInfoWithGroupId:self.targetId completion:^(RCGroup *groupInfo) {
+//          detail.groupInfo=[[RCDGroupInfo alloc]init];
+//          detail.groupInfo.groupId=groupInfo.groupId;
+//          detail.groupInfo.groupName=groupInfo.groupName;
+//          dispatch_async(dispatch_get_main_queue(), ^{
+//              [self.navigationController pushViewController:detail animated:NO];
+//          });
+//          
+//      }];
+      
+      
   }
   //客服设置
   else if (self.conversationType == ConversationType_CUSTOMERSERVICE) {

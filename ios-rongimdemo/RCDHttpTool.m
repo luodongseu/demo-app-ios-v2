@@ -43,6 +43,9 @@
 -(void) getGroupByID:(NSString *) groupID
    successCompletion:(void (^)(RCGroup *group)) completion
 {
+    RCGroup *groupInfo=[[RCDataBaseManager shareInstance] getGroupByGroupId:groupID];
+    if(groupInfo==nil)
+    {
     [AFHttpTool getAllGroupsSuccess:^(id response) {
         NSArray *allGroups = response[@"result"];
         if (allGroups) {
@@ -51,7 +54,7 @@
                 group.groupId = [dic objectForKey:@"id"];
                 group.groupName = [dic objectForKey:@"name"];
                 group.portraitUri = (NSNull *)[dic objectForKey:@"portrait"] == [NSNull null] ? nil: [dic objectForKey:@"portrait"];
-                
+                [[RCDataBaseManager shareInstance]insertGroupToDB:group];
                 if ([group.groupId isEqualToString:groupID] && completion) {
                     completion(group);
                 }
@@ -61,8 +64,14 @@
         
     } failure:^(NSError* err){
         
-    }];}
+    }];
+    }else{
+        if (completion) {
+            completion(groupInfo);
+        }
 
+    }
+}
 -(void) getUserInfoByUserID:(NSString *) userID
                          completion:(void (^)(RCUserInfo *user)) completion
 {
@@ -199,10 +208,13 @@
                     }
                 }
                 if (completion) {
+                    [_allGroups removeAllObjects];
+                    [_allGroups addObjectsFromArray:tempArr];
                     completion(tempArr);
                 }
 
             }];
+            
 
             
         }
@@ -236,6 +248,7 @@
                 group.maxNumber = [dic objectForKey:@"max_number"];
                 group.creatorTime = [dic objectForKey:@"creat_datetime"];
                 [tempArr addObject:group];
+                //[_allGroups addObject:group];
             }
             
             if (block) {
@@ -254,7 +267,13 @@
         NSString *code = [NSString stringWithFormat:@"%@",response[@"code"]];
         if (joinResult) {
             if ([code isEqualToString:@"200"]) {
-                                
+                for (RCDGroupInfo *group in _allGroups) {
+                    if ([group.groupId isEqualToString:[NSString stringWithFormat:@"%d",groupID]]) {
+                        group.isJoin=YES;
+                        
+                    }
+                }
+        
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     joinResult(YES);
                 });
@@ -278,6 +297,12 @@
         
         if (result) {
             if ([code isEqualToString:@"200"]) {
+                for (RCDGroupInfo *group in _allGroups) {
+                    if ([group.groupId isEqualToString:[NSString stringWithFormat:@"%d",groupID]]) {
+                        group.isJoin=NO;
+                        
+                    }
+                }
                 result(YES);
             }else{
                 result(NO);

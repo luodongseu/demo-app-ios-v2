@@ -10,33 +10,31 @@
 //  RCPublicServiceMenu.h
 //  Created by litao on 15/4/14.
 
-/* Menu -> MenuGroup -> MenuItem
- *                   -> MenuItem
+/* Menu -> MenuItem
  *
- *         MenuGroup -> MenuItem
- *                   -> MenuItem
- *                   -> MenuItem
+ *         MenuItem  -> MenuItem
+ *                      MenuItem
+ *
+ *         MenuItem  -> MenuItem
+ *                      MenuItem
+ *                      MenuItem
  */
 #import <Foundation/Foundation.h>
-#import "RCPublicServiceMenuGroup.h"
 #import "RCPublicServiceMenuItem.h"
 
 /**
  * 公众服务账号菜单类
  */
 @interface RCPublicServiceMenu : NSObject
+
 /**
- * 菜单名称
+ * 菜单项Array
+ * 类型为RCPublicServiceMenuItem
  */
-@property(nonatomic, strong) NSString *title;
-/**
- * 菜单组
- * 类型为RCPublicServiceMenuGroup
- */
-@property(nonatomic, strong) NSArray *menuGroups;
+@property(nonatomic, strong) NSArray *menuItems;
 /**
  * 根据JSON 字典初始化Menu
  * @param  data    存储菜单属性的字典
  */
-- (void)decodeWithData:(NSData *)data;
+- (void)decodeWithJsonDictionaryArray:(NSArray *)jsonDictionary;
 @end

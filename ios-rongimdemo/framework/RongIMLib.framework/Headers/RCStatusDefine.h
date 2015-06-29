@@ -447,4 +447,23 @@ typedef NS_ENUM(NSUInteger, RCPublicServiceType) {
     
 };
 
+/**
+ *  公众服务号菜单项类型
+ */
+typedef NS_ENUM(NSUInteger, RCPublicServiceMenuItemType) {
+    /**
+     *  公众账号菜单组，内含有子菜单
+     */
+    RC_PUBLIC_SERVICE_MENU_ITEM_GROUP = 0,
+    /**
+     *  公众账号菜单项, 响应查看事件
+     */
+    RC_PUBLIC_SERVICE_MENU_ITEM_VIEW = 1,
+    /**
+     *  公众账号菜单项, 响应点击事件
+     */
+    RC_PUBLIC_SERVICE_MENU_ITEM_CLICK = 2,
+
+};
+
 #endif

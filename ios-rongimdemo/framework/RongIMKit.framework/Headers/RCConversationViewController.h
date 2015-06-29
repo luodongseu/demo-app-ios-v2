@@ -73,6 +73,7 @@
 
 /**
  * 用于查询会话列表未读消息数目显示在返回按钮之上。调用notifyUpdateUnreadMessageCount更新返回图标和设置Target
+ * 设置了此值需要在继承会话VC，并重写leftBarButtonItemPressed函数，参考demo中RCDChatViewController
  * 值为想要统计未读数的会话类型Array。
  */
 @property(nonatomic, strong) NSArray *displayConversationTypeArray;

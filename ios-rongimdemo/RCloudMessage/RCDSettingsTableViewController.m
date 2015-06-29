@@ -121,8 +121,8 @@
     RCDLoginViewController *loginVC = [storyboard instantiateViewControllerWithIdentifier:@"loginVC"];
     UINavigationController *navi = [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.view.window.rootViewController = navi;
-    
-    [[RCIMClient sharedRCIMClient]disconnect:NO];
+    [[RCIMClient sharedRCIMClient]logout];
+    //[[RCIMClient sharedRCIMClient]disconnect:NO];
 }
 
 @end

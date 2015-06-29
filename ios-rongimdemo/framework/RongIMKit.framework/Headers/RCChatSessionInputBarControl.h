@@ -147,9 +147,9 @@ typedef NS_ENUM(NSInteger, RCChatSessionInputBarControlType) {
 @property(assign, nonatomic) float inputTextview_height;
 
 /**
- *  pubMenu
+ *  public service menu
  */
-@property(strong, nonatomic) RCPublicServiceMenu *pubMenu;
+@property(strong, nonatomic) RCPublicServiceMenu *publicServiceMenu;
 
 /**
  *  初始化
@@ -259,6 +259,14 @@ typedef NS_ENUM(NSInteger, RCChatSessionInputBarControlType) {
 - (void)inputTextView:(UITextView *)inputTextView
     shouldChangeTextInRange:(NSRange)range
             replacementText:(NSString *)text;
+
+/**
+ *  选择公众账号菜单项
+ *
+ *  @param selectedMenuItem 被选择的菜单项
+ */
+- (void)onPublicServiceMenuItemSelected:(RCPublicServiceMenuItem *)selectedMenuItem;
+
 @end
 
 #endif

@@ -14,8 +14,8 @@
 #import "RCMessageCellNotificationModel.h"
 #import "RCMessageCellDelegate.h"
 #import "RCContentView.h"
-#define PORTRAIT_WIDTH 45
-#define PORTRAIT_HEIGHT 45
+//#define PORTRAIT_WIDTH 45
+//#define PORTRAIT_HEIGHT 45
 
 @class RCloudImageView;
 

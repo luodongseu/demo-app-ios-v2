@@ -35,7 +35,7 @@
     return self;
 }
 #if DEBUG
-#define DEMO_VERSION_BOARD @"http://bj.rongcloud.net/list.php"
+#define DEMO_VERSION_BOARD @""
 #else
 #define DEMO_VERSION_BOARD @"http://rongcloud.cn/demo"
 #endif

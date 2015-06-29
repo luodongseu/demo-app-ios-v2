@@ -84,6 +84,10 @@
             }];
         }
     }];
+    
+    [RCDHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
+        
+    }];
 
 }
 
