@@ -3,7 +3,7 @@
 //  RCloud_liv_demo
 //
 //  Created by Liv on 14-10-22.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 
 
@@ -35,6 +35,7 @@ typedef NS_ENUM(NSInteger, RequestMethodType){
 //login
 +(void) loginWithEmail:(NSString *) email
               password:(NSString *) password
+                   env:(int) env
                success:(void (^)(id response))success
                failure:(void (^)(NSError* err))failure;
 

@@ -3,7 +3,7 @@
 //  RongCloud
 //
 //  Created by Liv on 14/10/31.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 
 #import "RCDChatListViewController.h"
@@ -328,10 +328,14 @@
 -(NSMutableArray *)willReloadTableData:(NSMutableArray *)dataSource
 {
 
-//    for (int i=0; i<_myDataSource.count; i++) {
-//        RCConversationModel *customModel =[_myDataSource objectAtIndex:i];
-//        [dataSource insertObject:customModel atIndex:0];
-//    }
+    for (int i=0; i<dataSource.count; i++) {
+        RCConversationModel *model = dataSource[i];
+        //筛选请求添加好友的系统消息，用于生成自定义会话类型的cell
+        if(model.conversationType == ConversationType_SYSTEM && [model.lastestMessage isMemberOfClass:[RCContactNotificationMessage class]])
+        {
+            model.conversationModelType = RC_CONVERSATION_MODEL_TYPE_CUSTOMIZATION;
+        }
+    }
 
     return dataSource;
 }
@@ -340,8 +344,9 @@
 -(void)rcConversationListTableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    //RCConversationModel *model = self.conversationListDataSource[indexPath.row];
+    RCConversationModel *model = self.conversationListDataSource[indexPath.row];
     //[_myDataSource removeObject:model];
+    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_SYSTEM targetId:model.targetId];
     [self.conversationListDataSource removeObjectAtIndex:indexPath.row];
     
     [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -393,6 +398,12 @@
     //处理好友请求
     RCMessage *message = notification.object;
     if ([message.content isMemberOfClass:[RCContactNotificationMessage class]]) {
+        if (message.conversationType != ConversationType_SYSTEM) {
+            NSLog(@"好友消息要发系统消息！！！");
+#if DEBUG
+                @throw  [[NSException alloc] initWithName:@"error" reason:@"好友消息要发系统消息！！！" userInfo:nil];
+#endif
+        }
         RCContactNotificationMessage *_contactNotificationMsg = (RCContactNotificationMessage *)message.content;
         
         //该接口需要替换为从消息体获取好友请求的用户信息
@@ -441,7 +452,10 @@
         });
     }
 }
-
+-(void)didTapCellPortrait:(RCConversationModel *)model
+{
+    
+}
 - (void)notifyUpdateUnreadMessageCount
 {
     [self updateBadgeValueForTabBarItem];

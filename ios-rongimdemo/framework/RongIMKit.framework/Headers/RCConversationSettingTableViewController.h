@@ -106,4 +106,10 @@
  */
 - (void)deleteTipButtonClicked:(NSIndexPath *)indexPath;
 
+/**
+ *  点击上面头像列表的头像
+ *
+ *  @param userId 用户id
+ */
+- (void)didTipHeaderClicked:(NSString*)userId;
 @end

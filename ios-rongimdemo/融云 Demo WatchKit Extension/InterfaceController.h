@@ -3,7 +3,7 @@
 //  融云 Demo WatchKit Extension
 //
 //  Created by litao on 15/6/2.
-//  Copyright (c) 2015年 胡利武. All rights reserved.
+//  Copyright (c) 2015年 RongCloud. All rights reserved.
 //
 
 #import <WatchKit/WatchKit.h>

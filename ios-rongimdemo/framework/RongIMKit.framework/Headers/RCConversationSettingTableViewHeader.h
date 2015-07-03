@@ -34,6 +34,13 @@
  */
 - (void)deleteTipButtonClicked:(NSIndexPath *)indexPath;
 
+/**
+ *  点击头像的回调
+ *
+ *  @param userId 用户id
+ */
+- (void)didTipHeaderClicked:(NSString *)userId;
+
 @end
 
 /**

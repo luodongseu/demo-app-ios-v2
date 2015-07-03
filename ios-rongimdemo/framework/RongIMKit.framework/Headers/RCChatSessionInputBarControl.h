@@ -69,6 +69,20 @@ typedef NS_ENUM(NSInteger, RCChatSessionInputBarControlType) {
     RCChatSessionInputBarControlPubType = 1
 };
 
+/**
+ *  RCChatSessionInputBarInputType
+ */
+typedef NS_ENUM(NSInteger, RCChatSessionInputBarInputType) {
+    /**
+     *  文本输入类型
+     */
+    RCChatSessionInputBarInputText = 0,
+    /**
+     *  语音输入类型
+     */
+    RCChatSessionInputBarInputVoice = 1
+};
+
 @protocol RCChatSessionInputBarControlDelegate;
 
 /**

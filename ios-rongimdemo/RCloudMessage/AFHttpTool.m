@@ -3,7 +3,7 @@
 //  RCloud_liv_demo
 //
 //  Created by Liv on 14-10-22.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 
 
@@ -74,10 +74,11 @@
 //login
 +(void) loginWithEmail:(NSString *) email
               password:(NSString *) password
+                   env:(int) env
                 success:(void (^)(id response))success
                 failure:(void (^)(NSError* err))failure
 {
-    NSDictionary *params = @{@"email":email,@"password":password};
+    NSDictionary *params = @{@"email":email,@"password":password,@"env":[NSString stringWithFormat:@"%d", env]};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost
                               url:@"email_login"
                            params:params

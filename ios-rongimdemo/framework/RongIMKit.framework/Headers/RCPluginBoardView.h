@@ -3,7 +3,7 @@
 //  CollectionViewTest
 //
 //  Created by Liv on 15/3/15.
-//  Copyright (c) 2015年 胡利武. All rights reserved.
+//  Copyright (c) 2015年 RongCloud. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

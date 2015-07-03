@@ -3,7 +3,7 @@
 //  RongCloud
 //  字段验证类
 //  Created by Liv on 14/11/7.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

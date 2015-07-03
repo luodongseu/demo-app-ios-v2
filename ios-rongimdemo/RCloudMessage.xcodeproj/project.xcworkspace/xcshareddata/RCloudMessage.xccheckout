@@ -10,31 +10,31 @@
 	<string>RCloudMessage</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>02C4DCF1A906BC527E6EE089DB938322563BE50D</key>
-		<string>gitlab.rongcloud.net:ios-team/ios-rongimdemo.git</string>
+		<key>824D03F5D265E78A7A21B83EAD4AA60F81410FB4</key>
+		<string>https://github.com/rongcloud/demo-app-ios-v2.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>RCloudMessage.xcodeproj</string>
+	<string>ios-rongimdemo/RCloudMessage.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>02C4DCF1A906BC527E6EE089DB938322563BE50D</key>
-		<string>../..</string>
+		<key>824D03F5D265E78A7A21B83EAD4AA60F81410FB4</key>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>gitlab.rongcloud.net:ios-team/ios-rongimdemo.git</string>
+	<string>https://github.com/rongcloud/demo-app-ios-v2.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>02C4DCF1A906BC527E6EE089DB938322563BE50D</string>
+	<string>824D03F5D265E78A7A21B83EAD4AA60F81410FB4</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>02C4DCF1A906BC527E6EE089DB938322563BE50D</string>
+			<string>824D03F5D265E78A7A21B83EAD4AA60F81410FB4</string>
 			<key>IDESourceControlWCCName</key>
-			<string>ios-rongimdemo</string>
+			<string>demo-app-ios-v2</string>
 		</dict>
 	</array>
 </dict>

@@ -169,9 +169,9 @@
 /**
  *  点击头像事件
  *
- *  @param userId 用户的ID
+ *  @param model 会话model
  */
-- (void)didTapCellPortrait:(NSString *)userId;
+- (void)didTapCellPortrait:(RCConversationModel *)model;
 
 /**
  *  收到新消息,用于刷新会话列表，如果派生类调用了父类方法，请不要再次调用refreshConversationTableViewIfNeeded，避免多次刷新

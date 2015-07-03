@@ -97,9 +97,9 @@
 /**
  *  点击会话头像事件
  *
- *  @param userId userId
+ *  @param model 会话的model
  */
-- (void)didTapCellPortrait:(NSString *)userId;
+- (void)didTapCellPortrait:(RCConversationModel *)model;
 
 @end
 

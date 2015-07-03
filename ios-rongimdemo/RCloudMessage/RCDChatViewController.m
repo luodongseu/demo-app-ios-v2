@@ -3,7 +3,7 @@
 //  RCloudMessage
 //
 //  Created by Liv on 15/3/13.
-//  Copyright (c) 2015年 胡利武. All rights reserved.
+//  Copyright (c) 2015年 RongCloud. All rights reserved.
 //
 
 #import "RCDChatViewController.h"
@@ -37,6 +37,12 @@
     }
 
     [self notifyUpdateUnreadMessageCount];
+    
+    //如果是单聊，不显示发送方昵称
+    if (self.conversationType == ConversationType_PRIVATE) {
+        self.displayUserNameInCell = NO;
+    }
+    
 /***********如何自定义面板功能***********************
  自定义面板功能首先要继承RCConversationViewController，如现在所在的这个文件。
  然后在viewDidLoad函数的super函数之后去编辑按钮：
@@ -66,7 +72,9 @@
  在super之后加上自己的处理。
  
  */
-
+  
+  //默认输入类型为语音
+  //self.defaultInputType = RCChatSessionInputBarInputVoice;
 }
 
 - (void)leftBarButtonItemPressed:(id)sender {

@@ -3,7 +3,7 @@
 //  RongCloud
 //
 //  Created by Liv on 14/10/31.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 
 #import <RongIMKit/RongIMKit.h>
@@ -58,12 +58,15 @@
   //初始化友盟配置
   [self umengTrack];
 
-  NSString *_deviceTokenCache =
-      [[NSUserDefaults standardUserDefaults] objectForKey:kDeviceToken];
+  BOOL debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"rongcloud appkey debug"];
+  //debugMode是为了切换appkey测试用的，请应用忽略关于debugMode的信息，这里直接调用init。
+  if (!debugMode) {
+    NSString *_deviceTokenCache = [[NSUserDefaults standardUserDefaults] objectForKey:kDeviceToken];
+        
+    //初始化融云SDK
+    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY deviceToken:_deviceTokenCache];
+  }
 
-  //初始化融云SDK
-  [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY
-                        deviceToken:_deviceTokenCache];
   //设置会话列表头像和会话界面头像
 
   [[RCIM sharedRCIM] setConnectionStatusDelegate:self];
@@ -86,7 +89,7 @@
   NSString *userName = [DEFAULTS objectForKey:@"userName"];
   NSString *password = [DEFAULTS objectForKey:@"userPwd"];
     
-  if (token.length && userId.length && password.length) {
+  if (token.length && userId.length && password.length && !debugMode) {
     [[RCIM sharedRCIM] connectWithToken:token
         success:^(NSString *userId) {
           RCUserInfo *_currentUserInfo =
@@ -95,8 +98,9 @@
                                         portrait:nil];
           [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
           [AFHttpTool loginWithEmail:userName
-              password:password
-              success:^(id response) {
+                            password:password
+                                 env:1
+                             success:^(id response) {
                 if ([response[@"code"] intValue] == 200) {
                   [RCDHTTPTOOL getUserInfoByUserID:userId
                                         completion:^(RCUserInfo *user) {

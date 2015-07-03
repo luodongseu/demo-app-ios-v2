@@ -79,6 +79,17 @@
 @property(nonatomic, strong) NSArray *displayConversationTypeArray;
 
 /**
+ * 是否显示发送者的名字，YES显示，NO不显示，默认是YES。
+ * 有些场景可能用得到，比如单聊时，不需要显示发送者的名字。
+ */
+@property(nonatomic, getter=isDisplayUserNameInCell) BOOL displayUserNameInCell;
+
+/**
+ * 默认输入框类型，值为文本或者语言，默认为文本。
+ */
+@property(nonatomic) RCChatSessionInputBarInputType defaultInputType;
+
+/**
  *  init method
  *
  *  @param conversationType conversationType

@@ -104,6 +104,11 @@ FOUNDATION_EXPORT NSString
  *  默认45*45
  */
 @property(nonatomic) CGSize globalMessagePortraitSize;
+
+/**
+ *   导航按钮字体颜色
+ */
+@property(nonatomic) UIColor *globalNavigationBarTintColor;
 /**
  *  默认45*45
  */

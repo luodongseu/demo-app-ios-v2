@@ -3,7 +3,7 @@
 //  RongCloud
 //
 //  Created by Liv on 14/11/5.
-//  Copyright (c) 2014年 胡利武. All rights reserved.
+//  Copyright (c) 2014年 RongCloud. All rights reserved.
 //
 #import <RongIMKit/RongIMKit.h>
 #import "RCDLoginViewController.h"
@@ -19,6 +19,10 @@
 #import "UITextFiled+Shake.h"
 #import "RCDFindPswViewController.h"
 #import "RCDHttpTool.h"
+#import "AppkeyModel.h"
+#import "SelectAppKeyViewController.h"
+
+#define kDeviceToken @"RongCloud_SDK_DeviceToken"
 
 @interface RCDLoginViewController ()<UITextFieldDelegate>
 
@@ -34,18 +38,49 @@
 @property (nonatomic, strong) UIView* statusBarView;
 @property (nonatomic, strong) UILabel* errorMsgLb;
 @property (nonatomic, strong) UITextField *passwordTextField;
+
+@property (nonatomic, strong) AppkeyModel *currentModel;
+
+@property (nonatomic, strong) UILabel *appKeyLabel;
+@property (nonatomic, strong) UIButton *changeKeyButton;
+@property (nonatomic)BOOL rcDebug;
 @end
+
 
 @implementation RCDLoginViewController
 #define UserTextFieldTag 1000
 #define PassWordFieldTag 1001
 @synthesize animatedImagesView = _animatedImagesView;
 @synthesize inputBackground = _inputBackground;
+
+
+- (void)onChangeKey:(id)sender
+{
+    if (sender == self.changeKeyButton) {
+        SelectAppKeyViewController *selectAppkeyVC = [[SelectAppKeyViewController alloc] init];
+        selectAppkeyVC.result = ^(AppkeyModel *selectedModel) {
+            if (selectedModel) {
+                self.currentModel = selectedModel;
+                self.appKeyLabel.text = selectedModel.appKey;
+            }
+        };
+        
+        [self.navigationController pushViewController:selectAppkeyVC animated:YES];
+    }
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.rcDebug = [[NSUserDefaults standardUserDefaults] boolForKey:@"rongcloud appkey debug"];
+    if (self.rcDebug) {//测试切换appkey使用
+        NSDictionary *defaultValues = [NSDictionary dictionaryWithObjectsAndKeys:@[@"z3v5yqkbv8v30", @"lmxuhwagxrxmd", @"e0x9wycfx7flq"], @"keys", @[@1, @2, @0], @"envs", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:defaultValues];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
     
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
 //    self.view.translatesAutoresizingMaskIntoConstraints = YES;
     //添加动态图
     self.animatedImagesView = [[RCAnimatedImagesView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
@@ -58,6 +93,20 @@
     _headBackground.backgroundColor = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.2];
     [self.view addSubview:_headBackground];
 
+    if (self.rcDebug) {
+        self.appKeyLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 20, 150, 40)];
+        self.appKeyLabel.text = @"请选择AppKey";
+        
+        self.changeKeyButton = [[UIButton alloc] initWithFrame:CGRectMake(150, 20, 120, 40)];
+        [self.changeKeyButton setTitle:@"选择" forState:UIControlStateNormal];
+        [self.changeKeyButton  addTarget:self action:@selector(onChangeKey:) forControlEvents:UIControlEventTouchUpInside];
+        [self.changeKeyButton setBackgroundColor:[UIColor redColor]];
+        self.changeKeyButton .imageView.contentMode = UIViewContentModeCenter;
+        
+        [self.view addSubview:self.appKeyLabel];
+        [self.view addSubview:self.changeKeyButton];
+    }
+    
     UIButton* registerHeadButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 50)];
     [registerHeadButton setTitle:@"找回密码" forState:UIControlStateNormal];
     [registerHeadButton setTitleColor:[[UIColor alloc] initWithRed:153 green:153 blue:153 alpha:0.5] forState:UIControlStateNormal];
@@ -230,6 +279,20 @@
     else {
         [textField setFont:[UIFont fontWithName:@"Heiti SC" size:25.0]];
     }
+    
+    if ([textField.text isEqualToString:@"appkeydebug"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:!self.rcDebug forKey:@"rongcloud appkey debug"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Alert"
+                                                        message:(!self.rcDebug ? @"进入debug模式，请重新启动应用！":@"退出debug模式，请重新启动应用")
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:nil,nil];
+        [alert show];
+        self.rcDebug = !self.rcDebug;
+                    exit(0);
+        return;
+    }
 }
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event
 {
@@ -301,6 +364,10 @@
 {
     [super viewWillAppear:animated];
     [self.animatedImagesView startAnimating];
+    if (self.rcDebug) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -405,10 +472,16 @@
     }
 
     if ([self validateUserName:userName userPwd:password]) {
+        
+        if (self.rcDebug) {
+            NSString *_deviceTokenCache = [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken];
+            [[RCIM sharedRCIM] initWithAppKey:self.currentModel.appKey deviceToken:_deviceTokenCache];
+        }
+        
         MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"登录中...";
 
-        [AFHttpTool loginWithEmail:userName password:password
+        [AFHttpTool loginWithEmail:userName password:password env:(self.currentModel == nil ? 1 : self.currentModel.env)
             success:^(id response) {
                                
                                if ([response[@"code"] intValue] == 200) {
@@ -485,8 +558,14 @@
                                    [hud hide:YES];
                                    int _errCode = [response[@"code"] intValue];
                                    NSLog(@"NSError is %d",_errCode);
-
-                                   _errorMsgLb.text=@"用户名或密码错误！";
+                                   if(_errCode==500)
+                                   {
+                                       _errorMsgLb.text=@"服务器错误！";
+                                       
+                                   }else
+                                   {
+                                       _errorMsgLb.text=@"用户名或密码错误！";
+                                   }
                                    [_pwdTextField shake];
                                    
                                }
@@ -518,7 +597,12 @@
     else if (userPwd.length == 0) {
         alertMessage = @"密码不能为空!";
     }
-
+    if (self.rcDebug) {
+        if (self.currentModel == nil) {
+            alertMessage = @"请选择AppKey";
+        }
+    }
+    
     if (alertMessage) {
         _errorMsgLb.text = alertMessage;
         [_pwdTextField shake];
