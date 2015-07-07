@@ -343,13 +343,12 @@
 //左滑删除
 -(void)rcConversationListTableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    RCConversationModel *model = self.conversationListDataSource[indexPath.row];
+    //可以从数据库删除数据
+    //RCConversationModel *model = self.conversationListDataSource[indexPath.row];
     //[_myDataSource removeObject:model];
-    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_SYSTEM targetId:model.targetId];
+    //[[RCIMClient sharedRCIMClient] removeConversation:ConversationType_SYSTEM targetId:model.targetId];
     [self.conversationListDataSource removeObjectAtIndex:indexPath.row];
-    
-    [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.conversationListTableView reloadData];
 }
 
 //高度
