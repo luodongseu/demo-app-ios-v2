@@ -149,7 +149,7 @@
         
         NSDictionary *_cache_userinfo = [[NSUserDefaults standardUserDefaults]objectForKey:_contactNotificationMsg.sourceUserId];
         if (_cache_userinfo) {
-            userinfo.userName       = _cache_userinfo[@"username"];
+            userinfo.name       = _cache_userinfo[@"username"];
             userinfo.portraitUri    = _cache_userinfo[@"portraitUri"];
             userinfo.userId         = _contactNotificationMsg.sourceUserId;
         }
@@ -344,9 +344,8 @@
 -(void)rcConversationListTableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     //可以从数据库删除数据
-    //RCConversationModel *model = self.conversationListDataSource[indexPath.row];
-    //[_myDataSource removeObject:model];
-    //[[RCIMClient sharedRCIMClient] removeConversation:ConversationType_SYSTEM targetId:model.targetId];
+    RCConversationModel *model = self.conversationListDataSource[indexPath.row];
+    [[RCIMClient sharedRCIMClient] removeConversation:ConversationType_SYSTEM targetId:model.targetId];
     [self.conversationListDataSource removeObjectAtIndex:indexPath.row];
     [self.conversationListTableView reloadData];
 }
@@ -377,7 +376,7 @@
         
     }else{
         RCDUserInfo *user = (RCDUserInfo *)model.extend;
-        userName    = user.userName;
+        userName    = user.name;
         portraitUri = user.portraitUri;
     }
     
@@ -409,7 +408,7 @@
         [RCDHTTPTOOL getUserInfoByUserID:_contactNotificationMsg.sourceUserId
                               completion:^(RCUserInfo *user) {
                                   RCDUserInfo *rcduserinfo_ = [RCDUserInfo new];
-                                  rcduserinfo_.userName = user.name;
+                                  rcduserinfo_.name = user.name;
                                   rcduserinfo_.userId = user.userId;
                                   rcduserinfo_.portraitUri = user.portraitUri;
                                   
@@ -421,7 +420,7 @@
             //[_myDataSource insertObject:customModel atIndex:0];
                                   
                                   //local cache for userInfo
-                                  NSDictionary *userinfoDic = @{@"username": rcduserinfo_.userName,
+                                  NSDictionary *userinfoDic = @{@"username": rcduserinfo_.name,
                                                                 @"portraitUri":rcduserinfo_.portraitUri
                                                                 };
                                   [[NSUserDefaults standardUserDefaults]setObject:userinfoDic forKey:_contactNotificationMsg.sourceUserId];

@@ -27,7 +27,7 @@
 "whiteSpaceMessage"="不能发送空白消息";
 "OK"="确定";
 "Cancel"="取消";
-"speakerAccessRight"="您没有麦克风访问权限，请前往设置!";
+"speakerAccessRight"="您没有麦克风访问权限，请前往“设置-隐私-麦克风”选项中，允许访问您的手机麦克风!";
 "VoIP_Mute"="静音";
 "VoIP_Speaker"="免提";
 "VoIP_End"="结束";
@@ -57,7 +57,7 @@
 "Latitude"="纬度";
 "LocationInformation"="位置信息";
 "LocalNotificationShow"="显示";
-"PhotoAccessRight"="没有访问权限，请从设置中开启";
+"PhotoAccessRight"="没有访问权限，请前往“设置-隐私-照片”选项中，允许访问您的照片";
 "MaxNumSelectPhoto"="最多选择9张";
 "AllPhoto"="全部照片";
 "NoPhotoTitle"="无照片或视频";
@@ -92,3 +92,4 @@
 "NOT_IN_GROUP"="您当前不在此群组";
 "NOT_IN_CHATROOM"="您当前不在此聊天室";
 "Message rejected"="您的消息已发出，但被对方拒绝";
+"AccessRightTitle"="无法访问";

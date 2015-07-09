@@ -7,15 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RongIMLib/RCGroup.h>
 
-@interface RCDGroupInfo : NSObject
-/** 群ID */
-@property(nonatomic, strong) NSString* groupId;
-/** 群名称 */
-@property(nonatomic, strong) NSString* groupName;
-/** 群头像URL */
-@property(nonatomic, strong) NSString* portraitUri;
-
+@interface RCDGroupInfo : RCGroup
 /** 人数 */
 @property(nonatomic, strong) NSString* number;
 /** 最大人数 */

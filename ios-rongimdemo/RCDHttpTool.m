@@ -54,7 +54,6 @@
                 group.groupId = [dic objectForKey:@"id"];
                 group.groupName = [dic objectForKey:@"name"];
                 group.portraitUri = (NSNull *)[dic objectForKey:@"portrait"] == [NSNull null] ? nil: [dic objectForKey:@"portrait"];
-                [[RCDataBaseManager shareInstance]insertGroupToDB:group];
                 if ([group.groupId isEqualToString:groupID] && completion) {
                     completion(group);
                 }
@@ -179,6 +178,7 @@
         NSMutableArray *tempArr = [NSMutableArray new];
         NSArray *allGroups = response[@"result"];
         if (allGroups) {
+            [[RCDataBaseManager shareInstance] clearGroupsData];
             for (NSDictionary *dic in allGroups) {
                 RCDGroupInfo *group = [[RCDGroupInfo alloc] init];
                 group.groupId = [dic objectForKey:@"id"];
@@ -195,6 +195,7 @@
                 group.number = [dic objectForKey:@"number"];
                 group.maxNumber = [dic objectForKey:@"max_number"];
                 group.creatorTime = [dic objectForKey:@"creat_datetime"];
+                [[RCDataBaseManager shareInstance] insertGroupToDB:group];
                 [tempArr addObject:group];
             }
             
@@ -204,23 +205,24 @@
                     for (RCDGroupInfo *groupInfo in tempArr) {
                         if ([group.groupId isEqualToString:groupInfo.groupId]) {
                             groupInfo.isJoin = YES;
+                           [[RCDataBaseManager shareInstance] insertGroupToDB:groupInfo];
                         }
+                        
                     }
                 }
                 if (completion) {
                     [_allGroups removeAllObjects];
                     [_allGroups addObjectsFromArray:tempArr];
+                    
                     completion(tempArr);
                 }
 
             }];
-            
-
-            
         }
 
     } failure:^(NSError* err){
-
+        NSMutableArray *cacheGroups=[[NSMutableArray alloc]initWithArray:[[RCDataBaseManager shareInstance] getAllGroup]];
+        completion(cacheGroups);
     }];
 }
 
@@ -359,7 +361,7 @@
             if ([code isEqualToString:@"200"]) {
                 [_allFriends removeAllObjects];
                 NSArray * regDataArray = response[@"result"];
-
+                [[RCDataBaseManager shareInstance] clearFriendsData];
                 for(int i = 0;i < regDataArray.count;i++){
                     NSDictionary *dic = [regDataArray objectAtIndex:i];
                     if([[dic objectForKey:@"status"] intValue] != 1)
@@ -369,11 +371,17 @@
                     NSNumber *idNum = [dic objectForKey:@"id"];
                     userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
                     userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.userName = [dic objectForKey:@"username"];
+                    userInfo.name = [dic objectForKey:@"username"];
                     userInfo.email = [dic objectForKey:@"email"];
                     userInfo.status = [dic objectForKey:@"status"];
                     [list addObject:userInfo];
                     [_allFriends addObject:userInfo];
+                    RCUserInfo *user = [RCUserInfo new];
+                    user.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
+                    user.portraitUri = [dic objectForKey:@"portrait"];
+                    user.name = [dic objectForKey:@"username"];
+                    [[RCDataBaseManager shareInstance] insertUserToDB:user];
+                    [[RCDataBaseManager shareInstance] insertFriendToDB:user];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     friendList(list);
@@ -386,7 +394,8 @@
         }
     } failure:^(id response) {
         if (friendList) {
-            friendList(list);
+            NSMutableArray *cacheList=[[NSMutableArray alloc]initWithArray:[[RCDataBaseManager shareInstance] getAllFriends]];
+            friendList(cacheList);
         }
     }];
 }
@@ -408,7 +417,7 @@
                     NSNumber *idNum = [result objectForKey:@"id"];
                     userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
                     userInfo.portraitUri = [result objectForKey:@"portrait"];
-                    userInfo.userName = [result objectForKey:@"username"];
+                    userInfo.name = [result objectForKey:@"username"];
                     [list addObject:userInfo];
                     
                 }
@@ -423,7 +432,7 @@
                         NSNumber *idNum = [dic objectForKey:@"id"];
                         userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
                         userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                        userInfo.userName = [dic objectForKey:@"username"];
+                        userInfo.name = [dic objectForKey:@"username"];
                         [list addObject:userInfo];
                     }
 
@@ -462,7 +471,7 @@
                     NSNumber *idNum = [dic objectForKey:@"id"];
                     userInfo.userId = [NSString stringWithFormat:@"%d",idNum.intValue];
                     userInfo.portraitUri = [dic objectForKey:@"portrait"];
-                    userInfo.userName = [dic objectForKey:@"username"];
+                    userInfo.name = [dic objectForKey:@"username"];
                     [list addObject:userInfo];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^(void) {

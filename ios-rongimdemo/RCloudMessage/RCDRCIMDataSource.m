@@ -48,25 +48,6 @@
     return instance;
 }
 
--(void) startServiceWithAppKey:(NSString *) appKey
-                     userToken:(NSString *) userToken
-{
-    //初始化RongCloud SDK
-    [[RCIM sharedRCIM] initWithAppKey:appKey deviceToken:nil];
-    
-    //登陆RongCloud Server
-    [[RCIM sharedRCIM] connectWithToken:userToken
-    
-       success:^(NSString *userId) {
-           NSAssert(userId, @"connect success!");
-      } error:^(RCConnectErrorCode status) {
-        
-    }
-     tokenIncorrect:^{
-         
-     }];
-}
-
 
 -(void) syncGroups
 {
@@ -110,6 +91,12 @@
 {
     if ([userId length] == 0)
         return;
+    if([userId isEqualToString:@"kefu114"])
+    {
+        RCUserInfo *user=[[RCUserInfo alloc]initWithUserId:@"kefu114" name:@"客服" portrait:@""];
+        completion(user);
+        return;
+    }
 //    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
 //    if (userInfo==nil) {
         //开发者调自己的服务器接口根据groupID异步请求数据
@@ -158,6 +145,7 @@
 - (void)cacheAllGroup:(void (^)())completion
 {
     [RCDHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
+        [[RCDataBaseManager shareInstance] clearGroupsData];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             for(int i = 0;i < result.count;i++){
                 RCGroup *userInfo =[result objectAtIndex:i];
@@ -172,8 +160,9 @@
 {
     [RCDHTTPTOOL getFriends:^(NSMutableArray *result) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [[RCDataBaseManager shareInstance] clearFriendsData];
             [result enumerateObjectsUsingBlock:^(RCDUserInfo *userInfo, NSUInteger idx, BOOL *stop) {
-                RCUserInfo *friend = [[RCUserInfo alloc] initWithUserId:userInfo.userId name:userInfo.userName portrait:userInfo.portraitUri];
+                RCUserInfo *friend = [[RCUserInfo alloc] initWithUserId:userInfo.userId name:userInfo.name portrait:userInfo.portraitUri];
                 [[RCDataBaseManager shareInstance] insertFriendToDB:friend];
             }];
             completion();

@@ -235,6 +235,16 @@
 
 #pragma mark override
 /**
+ *  重写方法，消息发送之后需要append到datasource中，并显示。在这之前调用，可以修改要显示的消息。
+ *
+ *  @param message 消息
+ *
+ *  @return 返回消息
+ */
+- (RCMessage *)willAppendAndDisplayMessage:(RCMessage *)message;
+
+#pragma mark override
+/**
  *  重写方法，消息发送完成触发
  *
  *  @param stauts        0,成功，非0失败

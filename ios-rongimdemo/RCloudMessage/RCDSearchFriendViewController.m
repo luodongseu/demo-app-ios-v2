@@ -77,7 +77,7 @@
         cell = [[RCDSearchResultTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reusableCellWithIdentifier];
         RCDUserInfo *user =_searchResult[indexPath.row];
         if(user){
-            cell.lblName.text = user.userName;
+            cell.lblName.text = user.name;
             [cell.ivAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
         }
     }
@@ -93,7 +93,7 @@
     RCDUserInfo *user = _searchResult[indexPath.row];
     RCUserInfo *userInfo = [RCUserInfo new];
     userInfo.userId = user.userId;
-    userInfo.name = user.userName;
+    userInfo.name = user.name;
     userInfo.portraitUri = user.portraitUri;
     
     if(user && tableView == self.searchDisplayController.searchResultsTableView){

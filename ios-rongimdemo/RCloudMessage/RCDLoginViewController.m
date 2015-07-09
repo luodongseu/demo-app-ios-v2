@@ -22,8 +22,6 @@
 #import "AppkeyModel.h"
 #import "SelectAppKeyViewController.h"
 
-#define kDeviceToken @"RongCloud_SDK_DeviceToken"
-
 @interface RCDLoginViewController ()<UITextFieldDelegate>
 
 @property (retain, nonatomic) IBOutlet RCAnimatedImagesView* animatedImagesView;
@@ -474,8 +472,7 @@
     if ([self validateUserName:userName userPwd:password]) {
         
         if (self.rcDebug) {
-            NSString *_deviceTokenCache = [[NSUserDefaults standardUserDefaults]objectForKey:kDeviceToken];
-            [[RCIM sharedRCIM] initWithAppKey:self.currentModel.appKey deviceToken:_deviceTokenCache];
+            [[RCIM sharedRCIM] initWithAppKey:self.currentModel.appKey];
         }
         
         MBProgressHUD* hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

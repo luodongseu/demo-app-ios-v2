@@ -26,7 +26,6 @@
 #define RONGCLOUD_IM_APPKEY @"z3v5yqkbv8v30" // online key
 
 #define UMENG_APPKEY @"551ce859fd98c57cdf000678"
-#define kDeviceToken @"RongCloud_SDK_DeviceToken"
 
 #define iPhone6                                                                \
   ([UIScreen instancesRespondToSelector:@selector(currentMode)]                \
@@ -61,10 +60,9 @@
   BOOL debugMode = [[NSUserDefaults standardUserDefaults] boolForKey:@"rongcloud appkey debug"];
   //debugMode是为了切换appkey测试用的，请应用忽略关于debugMode的信息，这里直接调用init。
   if (!debugMode) {
-    NSString *_deviceTokenCache = [[NSUserDefaults standardUserDefaults] objectForKey:kDeviceToken];
-        
+
     //初始化融云SDK
-    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY deviceToken:_deviceTokenCache];
+    [[RCIM sharedRCIM] initWithAppKey:RONGCLOUD_IM_APPKEY];
   }
 
   //设置会话列表头像和会话界面头像
@@ -223,9 +221,6 @@
                                     withString:@""]
           stringByReplacingOccurrencesOfString:@" "
                                     withString:@""];
-
-  [[NSUserDefaults standardUserDefaults] setObject:token forKey:kDeviceToken];
-  [[NSUserDefaults standardUserDefaults] synchronize];
 
   [[RCIMClient sharedRCIMClient] setDeviceToken:token];
 }

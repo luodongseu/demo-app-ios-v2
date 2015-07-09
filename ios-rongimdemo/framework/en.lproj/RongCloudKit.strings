@@ -94,3 +94,4 @@
 "NOT_IN_GROUP"="You are not in current group";
 "NOT_IN_CHATROOM"="You are not in current chat room";
 "Message rejected"="Your message have sent out, but rejected by the receiver";
+"AccessRightTitle"="no access right";

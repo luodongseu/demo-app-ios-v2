@@ -130,9 +130,8 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  * 在整个应用程序全局，只需要调用一次 init 方法。传入您从开发者平台申请的 appKey 即可。
  *
  * @param appKey      从开发者平台申请的应用 appKey。
- * @param deviceToken 用于 APNS 的设备唯一标识。该参数已经弃用，请用 setDeviceToken 方法传入 deviceToken。
  */
-- (void)init:(NSString *)appKey deviceToken:(NSString *)deviceToken;
+- (void)init:(NSString *)appKey;
 
 /**
  * 注册消息类型。
@@ -144,7 +143,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
 - (void)registerMessageType:(Class)messageClass;
 
 /**
- * 设置 DeviceToken，用于 APNS 的设备唯一标识。请在调用 connectWithToken 之前调用该方法。
+ * 设置 DeviceToken，用于 APNS 的设备唯一标识。请在获取到Device Token之后立即调用该方法。
  * @param deviceToken 从苹果服务器获取的设备唯一标识
  */
 - (void)setDeviceToken:(NSString *)deviceToken;
@@ -231,7 +230,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  *  @param targetId         目标 Id。根据不同的 conversationType，可能是聊天 Id、讨论组 Id、群组 Id 或聊天室 Id。
  *  @param content          消息内容。
  *  @param pushContent      推送消息内容
- *  @param pushExtra        推送消息附加信息
+ *  @param pushData         推送消息附加信息
  *  @param successBlock     调用完成的处理。
  *  @param errorBlock       调用返回的错误信息。
  *
@@ -241,7 +240,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
                   targetId:(NSString *)targetId
                    content:(RCMessageContent *)content
                pushContent:(NSString *)pushContent
-                 pushExtra:(NSString *)pushExtra
+                  pushData:(NSString *)pushData
                    success:(void (^)(long messageId))successBlock
                      error:(void (^)(RCErrorCode nErrorCode, long messageId))errorBlock;
 /**
@@ -274,7 +273,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  *  @param targetId         目标 Id。根据不同的 conversationType，可能是聊天 Id、讨论组 Id、群组 Id 或聊天室 Id。
  *  @param content          消息内容
  *  @param pushContent      推送消息内容
- *  @param pushExtra        推送消息附加信息
+ *  @param pushData         推送消息附加信息
  *  @param progressBlock    进度块
  *  @param successBlock     成功处理块
  *  @param errorBlock       失败处理块
@@ -285,7 +284,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
                        targetId:(NSString *)targetId
                         content:(RCMessageContent *)content
                     pushContent:(NSString *)pushContent
-                      pushExtra:(NSString *)pushExtra
+                       pushData:(NSString *)pushData
                        progress:(void (^)(int progress, long messageId))progressBlock
                         success:(void (^)(long messageId))successBlock
                           error:(void (^)(RCErrorCode errorCode, long messageId))errorBlock;

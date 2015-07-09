@@ -114,7 +114,7 @@
 
     RCDUserInfo *user = arrayForKey[indexPath.row];
     if(user){
-        cell.lblName.text = user.userName;
+        cell.lblName.text = user.name;
         [cell.imgvAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"contact"]];
     }
     
@@ -211,7 +211,7 @@
         NSMutableArray *tempArr = [NSMutableArray new];
         for (RCDUserInfo *user in friends) {
             
-            NSString *pyResult = [self hanZiToPinYinWithString:user.userName];
+            NSString *pyResult = [self hanZiToPinYinWithString:user.name];
             NSString *firstLetter = [pyResult substringToIndex:1];
             if ([firstLetter isEqualToString:key]){
                 [tempArr addObject:user];
@@ -249,7 +249,7 @@
     RCUserInfo *userInfo = [RCUserInfo new];
     userInfo.userId = user.userId;
     userInfo.portraitUri = user.portraitUri;
-    userInfo.name = user.userName;
+    userInfo.name = user.name;
 
     
     RCDPersonDetailViewController *detailViewController = [segue destinationViewController];

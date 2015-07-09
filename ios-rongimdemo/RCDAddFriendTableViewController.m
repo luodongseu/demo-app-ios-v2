@@ -28,7 +28,7 @@
     
     //设置默认隐藏
     [_lblAgreeTip setHidden:YES];
-    _lblUserName.text = _userInfo.userName;
+    _lblUserName.text = _userInfo.name;
 
     [_ivAva sd_setImageWithURL:[NSURL URLWithString:_userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
     //根据userId获取是否好友
@@ -56,7 +56,9 @@
     
 }
 - (IBAction)actionAgree:(id)sender {
-    
+    if (self.userInfo.userId==nil) {
+        return;
+    }
     [AFHttpTool processRequestFriend:self.userInfo.userId withIsAccess:YES success:^(id response) {
         
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"已添加好友！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];;

@@ -167,9 +167,8 @@ FOUNDATION_EXPORT NSString
  初始化 SDK。如果使用IMKit，使用此方法，不再使用RongIMLib的同名方法。
 
  @param appKey   从开发者平台申请的应用 appKey。
- @param deviceToken 用于 Apple Push Notification Service 的设备唯一标识。
  */
-- (void)initWithAppKey:(NSString *)appKey deviceToken:(NSString *)deviceToken;
+- (void)initWithAppKey:(NSString *)appKey;
 
 /**
  *  注册消息类型，如果使用IMKit，使用此方法，不再使用RongIMLib的同名方法。如果对消息类型进行扩展，可以忽略此方法。

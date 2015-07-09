@@ -30,6 +30,10 @@
         _ivAva = [UIImageView new];
         _ivAva.clipsToBounds = YES;
         _ivAva.layer.cornerRadius = 6.0f;
+        if ([[RCIM sharedRCIM]globalConversationAvatarStyle]==RC_USER_AVATAR_CYCLE) {
+            _ivAva.layer.cornerRadius=[[RCIM sharedRCIM]globalConversationPortraitSize].height/2;
+        }
+        
         [_ivAva setBackgroundColor:[UIColor blackColor]];
         
         _lblDetail = [UILabel new];

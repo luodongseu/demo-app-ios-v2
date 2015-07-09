@@ -1370,7 +1370,7 @@
         <!--个人信息-->
         <scene sceneID="IL5-XK-SsU">
             <objects>
-                <tableViewController id="Dt9-mf-GBf" sceneMemberID="viewController">
+                <tableViewController id="Dt9-mf-GBf" customClass="RCDMeTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="GfN-u1-oPL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1438,6 +1438,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="个人信息" id="eOT-bE-fV8"/>
+                    <connections>
+                        <outlet property="currentUserNameLabel" destination="4HU-Y0-SpS" id="6f0-EA-aaA"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sij-s9-ePH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

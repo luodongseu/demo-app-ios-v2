@@ -10,5 +10,5 @@
 
 @implementation RCDUserInfo
 
-@synthesize userName;
+@synthesize name;
 @end

@@ -52,7 +52,7 @@
         //转成RCDUserInfo
         RCUserInfo *userInfo = [RCUserInfo new];
         userInfo.userId = user.userId;
-        userInfo.name = user.userName;
+        userInfo.name = user.name;
         userInfo.portraitUri = user.portraitUri;
         [[RCIM sharedRCIM]refreshUserInfoCache:userInfo withUserId:userInfo.userId];
         [seletedUsers addObject:userInfo];
@@ -90,7 +90,7 @@
     
     RCDUserInfo *user = arrayForKey[indexPath.row];
     if(user){
-        cell.lblName.text = user.userName;
+        cell.lblName.text = user.name;
         [cell.ivAva sd_setImageWithURL:[NSURL URLWithString:user.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_person"]];
     }
     

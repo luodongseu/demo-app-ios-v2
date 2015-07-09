@@ -7,14 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <RongIMLib/RCUserInfo.h>
 
-@interface RCDUserInfo : NSObject
-/** 用户ID */
-@property(nonatomic, strong) NSString* userId;
-/** 用户名*/
-@property(nonatomic, strong) NSString* userName;
-/** 头像URL*/
-@property(nonatomic, strong) NSString* portraitUri;
+@interface RCDUserInfo : RCUserInfo
+
 /** 全拼*/
 @property(nonatomic, strong) NSString* quanPin;
 /** email*/
