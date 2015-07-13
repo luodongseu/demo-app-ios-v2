@@ -155,8 +155,10 @@
             NSString *name = [receiveStr substringWithRange:NSMakeRange(endRange.location+2, nameEndRange.location - endRange.location - 2)];
 
             NSString *model= @"debug";
-            if ([name containsString:model]) {
-                if (![name containsString:version]) {
+            NSRange range = [name rangeOfString:model];
+            if (range.location != NSNotFound) {
+                range = [name rangeOfString:version];
+                if (range.location == NSNotFound) {
                     self.hasNewVersion = YES;
                     self.versionUrl = url;
                     break;
@@ -193,9 +195,11 @@
             NSString *name = [receiveStr substringWithRange:NSMakeRange(nameStartRange.location+1, nameEndRange.location - nameStartRange.location - 1)];
 
             NSString *model = @"稳定";
-
-            if ([name containsString:model]) {
-                if (![name containsString:version]) {
+            
+            NSRange range = [name rangeOfString:model];
+            if (range.location != NSNotFound) {
+                range = [name rangeOfString:version];
+                if (range.location == NSNotFound) {
                     self.hasNewVersion = YES;
                     self.versionUrl = url;
                     break;

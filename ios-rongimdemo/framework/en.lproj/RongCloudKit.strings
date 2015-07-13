@@ -95,3 +95,4 @@
 "NOT_IN_CHATROOM"="You are not in current chat room";
 "Message rejected"="Your message have sent out, but rejected by the receiver";
 "AccessRightTitle"="no access right";
+"JoinChatRoomFailed"="Join chat room failed";

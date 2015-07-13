@@ -88,13 +88,13 @@
   NSString *password = [DEFAULTS objectForKey:@"userPwd"];
     
   if (token.length && userId.length && password.length && !debugMode) {
+    RCUserInfo *_currentUserInfo =
+    [[RCUserInfo alloc] initWithUserId:userId
+                                    name:userName
+                                portrait:nil];
+      [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
     [[RCIM sharedRCIM] connectWithToken:token
         success:^(NSString *userId) {
-          RCUserInfo *_currentUserInfo =
-              [[RCUserInfo alloc] initWithUserId:userId
-                                            name:userName
-                                        portrait:nil];
-          [RCIMClient sharedRCIMClient].currentUserInfo = _currentUserInfo;
           [AFHttpTool loginWithEmail:userName
                             password:password
                                  env:1

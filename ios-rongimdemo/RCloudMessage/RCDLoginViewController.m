@@ -529,7 +529,7 @@
                                            //关闭HUD
                                            [hud hide:YES];
                                            NSLog(@"RCConnectErrorCode is %ld",(long)status);
-                                           _errorMsgLb.text=@"服务器错误！";
+                                           _errorMsgLb.text=@"Token无效！";
                                            [_pwdTextField shake];
 
                                        } tokenIncorrect:^{
@@ -557,7 +557,7 @@
                                    NSLog(@"NSError is %d",_errCode);
                                    if(_errCode==500)
                                    {
-                                       _errorMsgLb.text=@"服务器错误！";
+                                       _errorMsgLb.text=@"APP服务器错误！";
                                        
                                    }else
                                    {

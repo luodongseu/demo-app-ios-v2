@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <RongIMLib/RCGroup.h>
 
-@interface RCDGroupInfo : RCGroup
+@interface RCDGroupInfo : RCGroup <NSCoding>
 /** 人数 */
 @property(nonatomic, strong) NSString* number;
 /** 最大人数 */

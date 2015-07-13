@@ -57,15 +57,15 @@
 - (void)loadDataFromApp
 {
     NSLog(@"loadDataFromApp");
-    [RCAppQueryHelper queryParentAppConnectionStatus:^(BOOL isConnected) {
-        if (isConnected) {
+//    [RCAppQueryHelper queryParentAppConnectionStatus:^(BOOL isConnected) {
+//        if (isConnected) {
             [RCAppQueryHelper queryParentAppUnreadMessageCount:^(int count) {
                 [self.newmsgcount setText:[NSString  stringWithFormat:@"%d条未读消息", count]];
             }];
-        } else {
-            [self.newmsgcount setText:@"客户端未登录"];
-        }
-    }];
+//        } else {
+//            [self.newmsgcount setText:@"客户端未登录"];
+//        }
+//    }];
 }
 - (void)loadContactFromApp
 {

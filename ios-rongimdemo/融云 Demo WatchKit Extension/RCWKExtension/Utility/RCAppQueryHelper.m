@@ -45,22 +45,36 @@ static int rcWKNotificationCount = 0;
                              }];
 }
 + (void)queryParentAppName:(void (^)(NSString *appName))reply {
+    NSString *appName = [[NSUserDefaults standardUserDefaults] objectForKey:@"appName"];
+    if (appName.length) {
+        reply(appName);
+        return;
+    }
   [RCAppQueryHelper queryParentApp:WK_APP_COMMUNICATE_QUERY_APP_NAME
                          parameter:nil
                              reply:^(id replyObject) {
                                if (replyObject) {
                                  reply(replyObject);
+                                   [[NSUserDefaults standardUserDefaults] setObject:replyObject forKey:@"appName"];
+                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                } else {
                                  reply(nil);
                                }
                              }];
 }
 + (void)queryParentAppGroups:(void (^)(NSString *appGroups))reply {
+   NSString *appGroups = [[NSUserDefaults standardUserDefaults] objectForKey:@"appGroups"];
+    if (appGroups.length) {
+        reply(appGroups);
+        return;
+    }
   [RCAppQueryHelper queryParentApp:WK_APP_COMMUNICATE_QUERY_APP_GROUPS
                          parameter:nil
                              reply:^(id replyObject) {
                                if (replyObject) {
                                  reply(replyObject);
+                                   [[NSUserDefaults standardUserDefaults] setObject:replyObject forKey:@"appGroups"];
+                                   [[NSUserDefaults standardUserDefaults] synchronize];
                                } else {
                                  reply(nil);
                                }
@@ -183,6 +197,7 @@ static int rcWKNotificationCount = 0;
 }
 
 + (void)requestParentAppOpen {
+    return;
     [RCAppQueryHelper queryParentApp:WK_APP_COMMUNICATE_REQUEST_OPEN_APP
                            parameter:nil
                                reply:^(id replyObject){

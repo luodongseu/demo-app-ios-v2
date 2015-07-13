@@ -62,11 +62,12 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertUserToDB:(RCUserInfo*)user
 {
     NSString *insertSql = @"REPLACE INTO USERTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:insertSql,user.userId,user.name,user.portraitUri];
     }];
-    
+    });
 }
 //从表中获取用户信息
 -(RCUserInfo*) getUserByUserId:(NSString*)userId
@@ -109,10 +110,13 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertGroupToDB:(RCDGroupInfo *)group
 {
     NSString *insertSql = @"REPLACE INTO GROUPTABLEV2 (groupId, name,portraitUri,inNumber,maxNumber,introduce,creatorId,creatorTime,isJoin) VALUES (?,?,?,?,?,?,?,?,?)";
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:insertSql,group.groupId, group.groupName,group.portraitUri,group.number,group.maxNumber,group.introduce,group.creatorId,group.creatorTime,[NSString stringWithFormat:@"%d",group.isJoin]];
     }];
+    });
     
 }
 //从表中获取群组信息
@@ -121,7 +125,7 @@ static NSString * const friendTableName = @"FRIENDTABLE";
     __block RCDGroupInfo *model = nil;
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
     [queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLEV2 where userid = ?",groupId];
+        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLEV2 where groupId = ?",groupId];
         while ([rs next]) {
             model = [[RCDGroupInfo alloc] init];
             model.groupId = [rs stringForColumn:@"groupId"];
@@ -170,10 +174,13 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertFriendToDB:(RCUserInfo *)friend
 {
     NSString *insertSql = @"REPLACE INTO FRIENDTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
-    FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
-    [queue inDatabase:^(FMDatabase *db) {
-        [db executeUpdate:insertSql,friend.userId, friend.name, friend.portraitUri];
-    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+        [queue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:insertSql,friend.userId, friend.name, friend.portraitUri];
+        }];
+    });
+    
     
 }
 

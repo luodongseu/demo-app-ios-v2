@@ -677,7 +677,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  *  加入聊天室。
  *
  *  @param targetId         聊天室ID。
- *  @param messageCount     进入聊天室获取获取多少条历史信息。
+ *  @param messageCount     进入聊天室获取获取多少条历史信息，小于等于0为不获取
  *  @param successBlock     调用完成的处理。
  *  @param errorBlock       调用返回的错误信息。
  */
