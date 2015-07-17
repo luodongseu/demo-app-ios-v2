@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rRv-S9-5w8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rRv-S9-5w8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -1344,7 +1344,7 @@
         <!--黑名单-->
         <scene sceneID="UVd-HF-4EH">
             <objects>
-                <tableViewController title="黑名单" id="7iR-Rd-RMP" sceneMemberID="viewController">
+                <tableViewController title="黑名单" id="7iR-Rd-RMP" customClass="RCDBlackListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lof-x7-nVM">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1440,6 +1440,7 @@
                     <navigationItem key="navigationItem" title="个人信息" id="eOT-bE-fV8"/>
                     <connections>
                         <outlet property="currentUserNameLabel" destination="4HU-Y0-SpS" id="6f0-EA-aaA"/>
+                        <outlet property="currentUserNickNameLabel" destination="4HU-Y0-SpS" id="j7R-eQ-WMQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sij-s9-ePH" userLabel="First Responder" sceneMemberID="firstResponder"/>

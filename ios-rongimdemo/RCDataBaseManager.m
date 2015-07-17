@@ -34,6 +34,9 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)CreateUserTable
 {
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    if (queue==nil) {
+        return;
+    }
     [queue inDatabase:^(FMDatabase *db) {
         if (![DBHelper isTableOK: userTableName withDB:db]) {
             NSString *createTableSQL = @"CREATE TABLE USERTABLE (id integer PRIMARY KEY autoincrement, userid text,name text, portraitUri text)";
@@ -62,18 +65,20 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertUserToDB:(RCUserInfo*)user
 {
     NSString *insertSql = @"REPLACE INTO USERTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:insertSql,user.userId,user.name,user.portraitUri];
     }];
-    });
 }
 //从表中获取用户信息
 -(RCUserInfo*) getUserByUserId:(NSString*)userId
 {
     __block RCUserInfo *model = nil;
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    if (queue==nil) {
+        return nil;
+    }
     [queue inDatabase:^(FMDatabase *db) {
         FMResultSet *rs = [db executeQuery:@"SELECT * FROM USERTABLE where userid = ?",userId];
         while ([rs next]) {
@@ -110,13 +115,13 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertGroupToDB:(RCDGroupInfo *)group
 {
     NSString *insertSql = @"REPLACE INTO GROUPTABLEV2 (groupId, name,portraitUri,inNumber,maxNumber,introduce,creatorId,creatorTime,isJoin) VALUES (?,?,?,?,?,?,?,?,?)";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+        if (queue==nil) {
+            return;
+        }
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:insertSql,group.groupId, group.groupName,group.portraitUri,group.number,group.maxNumber,group.introduce,group.creatorId,group.creatorTime,[NSString stringWithFormat:@"%d",group.isJoin]];
     }];
-    });
     
 }
 //从表中获取群组信息
@@ -150,7 +155,7 @@ static NSString * const friendTableName = @"FRIENDTABLE";
     NSMutableArray *allUsers = [NSMutableArray new];
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
     [queue inDatabase:^(FMDatabase *db) {
-        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLEV2"];
+        FMResultSet *rs = [db executeQuery:@"SELECT * FROM GROUPTABLEV2 ORDER BY groupId"];
         while ([rs next]) {
             RCDGroupInfo *model;
             model = [[RCDGroupInfo alloc] init];
@@ -174,14 +179,10 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 -(void)insertFriendToDB:(RCUserInfo *)friend
 {
     NSString *insertSql = @"REPLACE INTO FRIENDTABLE (userid, name, portraitUri) VALUES (?, ?, ?)";
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
         [queue inDatabase:^(FMDatabase *db) {
             [db executeUpdate:insertSql,friend.userId, friend.name, friend.portraitUri];
         }];
-    });
-    
-    
 }
 
 //从表中获取所有好友信息 //RCUserInfo
@@ -209,6 +210,9 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 {
     NSString *deleteSql = @"DELETE FROM GROUPTABLEV2";
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    if (queue==nil) {
+        return ;
+    }
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:deleteSql];
     }];
@@ -219,8 +223,25 @@ static NSString * const friendTableName = @"FRIENDTABLE";
 {
     NSString *deleteSql = @"DELETE FROM FRIENDTABLE";
     FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+    if (queue==nil) {
+        return ;
+    }
     [queue inDatabase:^(FMDatabase *db) {
         [db executeUpdate:deleteSql];
     }];
 }
+
+
+-(void)deleteFriendFromDB:(NSString *)userId;
+{
+    NSString *deleteSql =[NSString stringWithFormat: @"DELETE FROM FRIENDTABLE WHERE userid=%@",userId];
+        FMDatabaseQueue *queue = [DBHelper getDatabaseQueue];
+        if (queue==nil) {
+            return ;
+        }
+        [queue inDatabase:^(FMDatabase *db) {
+            [db executeUpdate:deleteSql];
+        }];
+}
+
 @end

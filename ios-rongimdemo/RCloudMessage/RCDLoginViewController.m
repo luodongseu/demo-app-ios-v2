@@ -508,7 +508,7 @@
                                                                  }];
                                            //同步群组
                                            [RCDDataSource syncGroups];
-                                           
+                                           [RCDDataSource syncFriendList:^(NSMutableArray *friends) {}];
                                            BOOL notFirstTimeLogin = [DEFAULTS boolForKey:@"notFirstTimeLogin"];
                                            if (!notFirstTimeLogin) {
                                                [RCDDataSource cacheAllData:^{ //auto saved after completion.

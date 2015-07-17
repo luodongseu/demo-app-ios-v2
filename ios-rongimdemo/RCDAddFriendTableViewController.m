@@ -10,6 +10,7 @@
 #import "AFHttpTool.h"
 #import "UIImageView+WebCache.h"
 #import "RCDHttpTool.h"
+#import "RCDataBaseManager.h"
 
 @interface RCDAddFriendTableViewController ()
 
@@ -59,9 +60,11 @@
     if (self.userInfo.userId==nil) {
         return;
     }
-    [AFHttpTool processRequestFriend:self.userInfo.userId withIsAccess:YES success:^(id response) {
-        
+    __weak __typeof(self)weakSelf = self;
+    [AFHttpTool processRequestFriend:weakSelf.userInfo.userId withIsAccess:YES success:^(id response) {
+        [[RCDataBaseManager shareInstance]insertFriendToDB:weakSelf.userInfo];
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"已添加好友！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];;
+        
         [alertView show];
     } failure:^(NSError *err) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"添加失败！" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];;

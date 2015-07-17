@@ -100,6 +100,17 @@
                     
                     
                 }
+                else
+                {
+                    RCUserInfo *user = [RCUserInfo new];
+
+                    user.userId = userID;
+                    user.portraitUri = @"";
+                    user.name = [NSString stringWithFormat:@"name%@", userID];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(user);
+                    });
+                }
                 
             }
             
@@ -272,7 +283,7 @@
                 for (RCDGroupInfo *group in _allGroups) {
                     if ([group.groupId isEqualToString:[NSString stringWithFormat:@"%d",groupID]]) {
                         group.isJoin=YES;
-                        
+                        [[RCDataBaseManager shareInstance] insertGroupToDB:group];
                     }
                 }
         
@@ -302,7 +313,7 @@
                 for (RCDGroupInfo *group in _allGroups) {
                     if ([group.groupId isEqualToString:[NSString stringWithFormat:@"%d",groupID]]) {
                         group.isJoin=NO;
-                        
+                        [[RCDataBaseManager shareInstance] insertGroupToDB:group];
                     }
                 }
                 result(YES);
@@ -543,6 +554,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     result(YES);
                 });
+                [[RCDataBaseManager shareInstance]deleteFriendFromDB:userId];
                 
             }else{
                 result(NO);

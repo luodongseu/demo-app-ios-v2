@@ -14,7 +14,7 @@
 /**
  *  文本消息Cell
  */
-@interface RCTextMessageCell : RCMessageCell
+@interface RCTextMessageCell : RCMessageCell<RCAttributedLabelDelegate>
 
 /**
  *  消息显示Label

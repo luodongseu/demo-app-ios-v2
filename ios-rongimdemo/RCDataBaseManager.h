@@ -44,4 +44,8 @@
 
 //从表中获取所有好友信息 //RCUserInfo
 -(NSArray *) getAllFriends;
+
+//删除好友信息
+-(void)deleteFriendFromDB:(NSString *)userId;
+
 @end

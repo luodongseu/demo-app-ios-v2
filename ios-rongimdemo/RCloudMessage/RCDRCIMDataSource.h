@@ -18,12 +18,18 @@
  */
 @interface RCDRCIMDataSource : NSObject<RCIMUserInfoDataSource,RCIMGroupInfoDataSource>
 
+
 +(RCDRCIMDataSource *) shareInstance;
 
 /**
  *  同步自己的所属群组到融云服务器,修改群组信息后都需要调用同步
  */
 -(void) syncGroups;
+
+/**
+ *  从服务器同步好友列表
+ */
+-(void) syncFriendList:(void (^)(NSMutableArray* friends))completion;
 
 /*
  * 当客户端第一次运行时，调用此接口初始化所有用户数据。
@@ -41,4 +47,5 @@
  * 获取所有好友信息
  */
 - (NSArray *)getAllFriends:(void (^)())completion;
+
 @end

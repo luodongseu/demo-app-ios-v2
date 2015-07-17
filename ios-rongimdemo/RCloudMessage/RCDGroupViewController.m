@@ -19,6 +19,7 @@
 #import "RCDChatViewController.h"
 #import "UIColor+RCColor.h"
 #import "RCDRCIMDataSource.h"
+#import "RCDataBaseManager.h"
 
 @interface RCDGroupViewController ()<UITableViewDataSource,UITableViewDelegate,JoinQuitGroupDelegate>
 
@@ -76,14 +77,24 @@
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     
     __weak RCDGroupViewController *weakSelf = self;
-    [RCDHTTPTOOL getAllGroupsWithCompletion:^(NSMutableArray *result) {
+    _groups=[NSMutableArray arrayWithArray:[[RCDataBaseManager shareInstance]getAllGroup]];
+    
 
-        _groups = result;
+    if (_groups==nil||_groups.count<1) {
+        [RCDDataSource getAllGroupInfo:^(NSArray *result) {
+            _groups =[NSMutableArray arrayWithArray: result];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+            });
+            
+        }];
+    }else
+    {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.tableView reloadData];
+            [self.tableView reloadData];
         });
-        
-    }];
+    }
+    
 
 }
 

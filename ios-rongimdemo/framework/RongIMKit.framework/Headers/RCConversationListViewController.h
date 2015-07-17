@@ -47,6 +47,10 @@
 @property(nonatomic, assign) BOOL isEnteredToCollectionViewController;
 
 /**
+ *  会话列表为空时的视图
+ */
+@property(nonatomic, strong) UIView *emptyConversationView;
+/**
  *  init
  *
  *  @param conversationTypeArray1 会话类型，NSNumber类型。
@@ -186,5 +190,10 @@
  *  重写方法，通知更新未读消息数目，用于显示未读消息，当收到会话消息的时候，会触发一次。
  */
 - (void)notifyUpdateUnreadMessageCount;
+
+/**
+ *  重写方法，设置会话列表emptyConversationView的视图。
+ */
+- (void)showEmptyConversationView;
 @end
 #endif

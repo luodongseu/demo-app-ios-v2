@@ -10,9 +10,11 @@
 #import "UIColor+RCColor.h"
 #import <RongIMLib/RongIMLib.h>
 #import "RCDChatViewController.h"
+#import "RCDRCIMDataSource.h"
 
 @interface RCDMeTableViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *currentUserNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentUserNickNameLabel;
 @property (nonatomic)BOOL hasNewVersion;
 @property (nonatomic)NSString *versionUrl;
 @property (nonatomic, strong)NSURLConnection *connection;
@@ -60,7 +62,11 @@
     //设置分割线颜色
     self.tableView.separatorColor = [UIColor colorWithHexString:@"dfdfdf" alpha:1.0f];
     self.currentUserNameLabel.text = [RCIMClient sharedRCIMClient].currentUserInfo.name;
-    
+    [[RCDRCIMDataSource shareInstance]getUserInfoWithUserId:[RCIMClient sharedRCIMClient].currentUserInfo.userId completion:^(RCUserInfo *userInfo) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.currentUserNickNameLabel.text=userInfo.name;
+        });
+    }];
     self.tabBarController.navigationItem.rightBarButtonItem = nil;
     self.tabBarController.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }

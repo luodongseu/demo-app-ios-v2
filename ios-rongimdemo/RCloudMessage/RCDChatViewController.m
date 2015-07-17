@@ -298,4 +298,9 @@
 //    }
 //}
 
+- (RCMessage *)willAppendAndDisplayMessage:(RCMessage *)message
+{
+    return message;
+}
+
 @end

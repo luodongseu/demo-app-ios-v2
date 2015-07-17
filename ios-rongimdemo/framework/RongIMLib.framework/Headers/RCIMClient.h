@@ -161,14 +161,16 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
                  success:(void (^)(NSString *userId))successBlock
                    error:(void (^)(RCConnectErrorCode status))errorBlock
           tokenIncorrect:(void (^)())tokenIncorrectBlock ;
-/**
- *  重新连接服务器。
- *  将重用您的 Token 进行重连，请注意当 Token 错误或过期失效时您需要重新获取 Token。
- *
- *  @param successBlock 重连成功回调
- *  @param errorBlock   重连失败回调
- */
-- (void)reconnect:(void (^)(NSString *userId))successBlock error:(void (^)(RCConnectErrorCode status))errorBlock;
+
+//从2.2.3版本之后，所有的重连操作都由lib库自动处理，上层不需要干预。
+///**
+// *  重新连接服务器。
+// *  将重用您的 Token 进行重连，请注意当 Token 错误或过期失效时您需要重新获取 Token。
+// *
+// *  @param successBlock 重连成功回调
+// *  @param errorBlock   重连失败回调
+// */
+//- (void)reconnect:(void (^)(NSString *userId))successBlock error:(void (^)(RCConnectErrorCode status))errorBlock;
 
 /**
  *  断开连接。
@@ -677,7 +679,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  *  加入聊天室。
  *
  *  @param targetId         聊天室ID。
- *  @param messageCount     进入聊天室获取获取多少条历史信息，小于等于0为不获取
+ *  @param messageCount     进入聊天室获取获取多少条历史信息，-1表示不获取，0表示系统默认数目(现在默认值为10条)，正数表示获取的具体数目
  *  @param successBlock     调用完成的处理。
  *  @param errorBlock       调用返回的错误信息。
  */

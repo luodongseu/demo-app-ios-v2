@@ -31,8 +31,7 @@
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
         [[RCIM sharedRCIM] setGroupInfoDataSource:self];
         
-        //同步群组
-        [self syncGroups];
+
     }
     return self;
 }
@@ -72,6 +71,13 @@
 
 }
 
+-(void) syncFriendList:(void (^)(NSMutableArray* friends))completion
+{
+    [RCDHTTPTOOL getFriends:^(NSMutableArray *result) {
+        completion(result);
+    }];
+}
+
 #pragma mark - GroupInfoFetcherDelegate
 - (void)getGroupInfoWithGroupId:(NSString*)groupId completion:(void (^)(RCGroup*))completion
 {
@@ -97,21 +103,13 @@
         completion(user);
         return;
     }
-//    RCUserInfo *userInfo=[[RCDataBaseManager shareInstance] getUserByUserId:userId];
-//    if (userInfo==nil) {
-        //开发者调自己的服务器接口根据groupID异步请求数据
+        //开发者调自己的服务器接口根据userID异步请求数据
         [RCDHTTPTOOL getUserInfoByUserID:userId
                               completion:^(RCUserInfo *user) {
                                   if (user) {
-                                      //[[RCDataBaseManager shareInstance] insertUserToDB:user];
                                       completion(user);
                                   }
                               }];
-//    }else
-//    {
-//        completion(userInfo);
-//    }
-//    
 }
 - (void)cacheAllUserInfo:(void (^)())completion
 {

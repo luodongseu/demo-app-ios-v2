@@ -29,6 +29,9 @@ static FMDatabaseQueue *databaseQueue = nil;
 
 +(FMDatabaseQueue *) getDatabaseQueue
 {
+    if ([RCIMClient sharedRCIMClient].currentUserInfo==nil) {
+        return nil;
+    }
     if (!databaseQueue) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentDirectory = [paths objectAtIndex:0];

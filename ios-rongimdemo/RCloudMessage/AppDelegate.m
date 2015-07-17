@@ -78,7 +78,7 @@
   //设置用户信息源和群组信息源
   [RCIM sharedRCIM].userInfoDataSource = RCDDataSource;
   [RCIM sharedRCIM].groupInfoDataSource = RCDDataSource;
-    
+    [RCIM sharedRCIM].receiveMessageDelegate=self;
   //    [RCIM sharedRCIM].globalMessagePortraitSize = CGSizeMake(46, 46);
 
   //登录
@@ -106,6 +106,9 @@
                                               refreshUserInfoCache:user
                                                         withUserId:userId];
                                         }];
+                    //登陆demoserver成功之后才能调demo 的接口
+                    [RCDDataSource syncGroups];
+                    [RCDDataSource syncFriendList:^(NSMutableArray * result) {}];
                 }
               }
               failure:^(NSError *err){
@@ -113,7 +116,7 @@
           //设置当前的用户信息
 
           //同步群组
-          [RCDDataSource syncGroups];
+          
           dispatch_async(dispatch_get_main_queue(), ^{
             UIStoryboard *storyboard =
                 [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -357,7 +360,7 @@
 }
 
 - (NSArray *)getAllUserInfo {
-  return [RCDDataSource getAllUserInfo:^{
+  return [RCDDataSource getAllUserInfo:^ {
     [[RCWKNotifier sharedWKNotifier] notifyWatchKitUserInfoChanged];
   }];
 }
@@ -367,7 +370,7 @@
   }];
 }
 - (NSArray *)getAllFriends {
-  return [RCDDataSource getAllFriends:^{
+  return [RCDDataSource getAllFriends:^ {
     [[RCWKNotifier sharedWKNotifier] notifyWatchKitFriendChanged];
   }];
 }
@@ -431,6 +434,17 @@
         [[UINavigationController alloc] initWithRootViewController:loginVC];
     self.window.rootViewController = _navi;
   }
+}
+
+-(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
+{
+    if ([message.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
+        RCInformationNotificationMessage *msg=(RCInformationNotificationMessage *)message.content;
+        if ([msg.message containsString:@"你已添加了"]) {
+            [RCDDataSource syncFriendList:^(NSMutableArray *friends) {
+            }];
+        }
+    }
 }
 
 - (void)dealloc {

@@ -458,4 +458,21 @@
 {
     [self updateBadgeValueForTabBarItem];
 }
+//重写展示空列表的方法，展示自定义的view
+//- (void)showEmptyConversationView
+//{
+//    UIView *blankView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+//    blankView.backgroundColor=[UIColor redColor];
+//    UITapGestureRecognizer *pictureTap =
+//    [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPicture:)];
+//    pictureTap.numberOfTapsRequired = 1;
+//    pictureTap.numberOfTouchesRequired = 1;
+//    [blankView addGestureRecognizer:pictureTap];
+//    self.emptyConversationView=blankView;
+//    [self.view addSubview:self.emptyConversationView];
+//}
+//
+//- (void)tapPicture:(UIGestureRecognizer *)gestureRecognizer {
+//  
+//}
 @end

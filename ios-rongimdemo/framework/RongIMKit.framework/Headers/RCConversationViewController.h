@@ -90,6 +90,12 @@
 @property(nonatomic) RCChatSessionInputBarInputType defaultInputType;
 
 /**
+ * 当会话为聊天室时获取的历史信息数目，默认值为10，在viewDidLoad之前设置
+ * -1表示不获取，0表示系统默认数目(现在默认值为10条)，正数表示获取的具体数目
+ */
+@property(nonatomic, assign) int defaultHistoryMessageCountOfChatRoom;
+
+/**
  *  init method
  *
  *  @param conversationType conversationType

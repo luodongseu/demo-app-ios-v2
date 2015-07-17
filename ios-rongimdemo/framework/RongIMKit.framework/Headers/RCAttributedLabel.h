@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
+
+
 /**
  *  RCAttributedLabelClickedTextInfo
  */
@@ -43,14 +46,25 @@
 - (NSDictionary *)highlightedAttributeDictionaryForTextType:(NSTextCheckingType)textType;
 
 @end
+
+@protocol RCAttributedLabelDelegate;
+
+// Override UILabel @property to accept both NSString and NSAttributedString
+@protocol RCAttributedLabel <NSObject>
+@property (nonatomic, copy) id text;
+@end
 /**
  *  RCAttributedLabel
  */
-@interface RCAttributedLabel : UILabel <RCAttributedDataSource>
+@interface RCAttributedLabel : UILabel <RCAttributedDataSource,UIGestureRecognizerDelegate>
 /**
  * 可以通过设置attributeDataSource或者attributeDictionary、highlightedAttributeDictionary来自定义不同文本的字体颜色
  */
 @property(nonatomic, strong) id<RCAttributedDataSource> attributeDataSource;
+/**
+ * 设置点击事件，比如打开超链接等等
+ */
+@property (nonatomic, assign) id <RCAttributedLabelDelegate> delegate;
 /**
  *  attributeDictionary
  */
@@ -91,3 +105,31 @@
 - (void)setTextHighlighted:(BOOL)highlighted atPoint:(CGPoint)point;
 
 @end
+
+
+/**
+ *  RCAttributedLabelDelegate
+ */
+@protocol RCAttributedLabelDelegate <NSObject>
+
+///-----------------------------------
+/// @name Responding to Link Selection
+///-----------------------------------
+@optional
+
+/**
+ *  打开超链接
+ *  @param label The label whose link was selected.
+ *  @param url The URL for the selected link.
+ */
+- (void)attributedLabel:(RCAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url;
+
+/**
+ *  打开电话类型
+ *  @param label The label whose link was selected.
+ *  @param phoneNumber The phone number for the selected link.
+ */
+- (void)attributedLabel:(RCAttributedLabel *)label didSelectLinkWithPhoneNumber:(NSString *)phoneNumber;
+
+@end
+

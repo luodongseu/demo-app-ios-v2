@@ -105,7 +105,7 @@
                                                            2)];
                [_btJoinOrQuitGroup setTitle:@"删除并退出"
                                    forState:UIControlStateNormal];
-
+                 
                [_btChat setHidden:NO];
                [self.messageDisTrubleCell setHidden:NO];
                [self.clearMessageCell setHidden:NO];
