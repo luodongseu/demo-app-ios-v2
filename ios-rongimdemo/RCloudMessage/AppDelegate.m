@@ -440,7 +440,8 @@
 {
     if ([message.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *msg=(RCInformationNotificationMessage *)message.content;
-        if ([msg.message containsString:@"你已添加了"]) {
+        //NSString *str = [NSString stringWithFormat:@"%@",msg.message];
+        if ([msg.message rangeOfString:@"你已添加了"].location!=NSNotFound) {
             [RCDDataSource syncFriendList:^(NSMutableArray *friends) {
             }];
         }

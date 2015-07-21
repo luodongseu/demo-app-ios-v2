@@ -27,7 +27,7 @@
         [_label setTranslatesAutoresizingMaskIntoConstraints:NO];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_swich(33)]" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_swich)]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_swich(35)]-30-|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_swich)]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:_swich attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0f constant:-20]];
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_swich attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_label(30)]" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(_label)]];

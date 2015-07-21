@@ -374,13 +374,21 @@
 
 - (void)didTipHeaderClicked:(NSString*)userId
 {
-    [[RCDRCIMDataSource shareInstance]getUserInfoWithUserId:userId completion:^(RCUserInfo *userInfo) {
-        RCDChatViewController *_conversationVC = [[RCDChatViewController alloc]init];
-        _conversationVC.conversationType = ConversationType_PRIVATE;
-        _conversationVC.targetId = userId;
-        _conversationVC.userName=userInfo.name;
-        _conversationVC.title=userInfo.name;
-        [self.navigationController pushViewController:_conversationVC animated:YES];
+    [[RCDRCIMDataSource shareInstance]getUserInfoWithUserId:userId completion:^(RCUserInfo *userInfo)
+    {
+        if (userInfo) {
+            RCDChatViewController *_conversationVC = [[RCDChatViewController alloc]init];
+            _conversationVC.conversationType = ConversationType_PRIVATE;
+            _conversationVC.targetId = userId;
+            _conversationVC.userName=userInfo.name;
+            _conversationVC.title=userInfo.name;
+            [self.navigationController pushViewController:_conversationVC animated:YES];
+
+        }
+        else
+        {
+            NSLog(@"无效的userInfo");
+        }
     }];
 }
 

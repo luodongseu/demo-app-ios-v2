@@ -47,10 +47,17 @@
 
 @end
 
+
 @protocol RCAttributedLabelDelegate;
 
-// Override UILabel @property to accept both NSString and NSAttributedString
+/**
+ *  Override UILabel @property to accept both NSString and NSAttributedString
+ */
 @protocol RCAttributedLabel <NSObject>
+
+/**
+ *  text
+ */
 @property (nonatomic, copy) id text;
 @end
 /**

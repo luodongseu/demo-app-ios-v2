@@ -95,8 +95,13 @@
 #pragma mark - RCIMUserInfoDataSource
 - (void)getUserInfoWithUserId:(NSString*)userId completion:(void (^)(RCUserInfo*))completion
 {
-    if ([userId length] == 0)
-        return;
+    NSLog(@"getUserInfoWithUserId ----- %@", userId);
+    
+    if (userId == nil || [userId length] == 0 )
+    {
+        completion(nil);
+        return ;
+    }
     if([userId isEqualToString:@"kefu114"])
     {
         RCUserInfo *user=[[RCUserInfo alloc]initWithUserId:@"kefu114" name:@"客服" portrait:@""];
@@ -108,6 +113,10 @@
                               completion:^(RCUserInfo *user) {
                                   if (user) {
                                       completion(user);
+                                  }
+                                  else
+                                  {
+                                      completion(nil);
                                   }
                               }];
 }
