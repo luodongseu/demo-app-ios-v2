@@ -96,3 +96,4 @@
 "Message rejected"="Your message have sent out, but rejected by the receiver";
 "AccessRightTitle"="no access right";
 "JoinChatRoomFailed"="Join chat room failed";
+"Connecting..."="Connecting...";

@@ -49,17 +49,17 @@
     //添加讨论组成员
     if (self.conversationType == ConversationType_DISCUSSION) {
 
-        __weak RCSettingViewController* weakSelf = self;
+        __weak RCDSettingBaseViewController* weakSelf = self;
         [[RCIMClient sharedRCIMClient] getDiscussion:self.targetId success:^(RCDiscussion* discussion) {
             if (discussion) {
                 
                 if([[RCIMClient sharedRCIMClient].currentUserInfo.userId isEqualToString:discussion.creatorId])
                 {
-                    [self disableDeleteMemberEvent:NO];
+                    [weakSelf disableDeleteMemberEvent:NO];
                     self.isOwner = YES;
                     
                 }else{
-                    [self disableDeleteMemberEvent:YES];
+                    [weakSelf disableDeleteMemberEvent:YES];
                     self.isOwner = NO;
                     if (discussion.inviteStatus == 1) {
                         [self disableInviteMemberEvent:YES];

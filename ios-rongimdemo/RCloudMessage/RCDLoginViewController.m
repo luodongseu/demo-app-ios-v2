@@ -467,6 +467,9 @@
     
     if (RC_NotReachable == stauts) {
         _errorMsgLb.text=@"当前网络不可用，请检查！";
+        return;
+    } else {
+        _errorMsgLb.text=@"";
     }
 
     if ([self validateUserName:userName userPwd:password]) {
@@ -574,6 +577,9 @@
                                NSLog(@"NSError is %ld",(long)err.code);
                                if (err.code == 3840) {
                                    _errorMsgLb.text=@"用户名或密码错误！";
+                                   [_pwdTextField shake];
+                               }else{
+                                   _errorMsgLb.text=@"DemoServer错误！";
                                    [_pwdTextField shake];
                                }
 

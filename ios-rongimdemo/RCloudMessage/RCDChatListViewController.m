@@ -77,13 +77,7 @@
 {
     [super viewWillAppear:animated];
     
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.font = [UIFont boldSystemFontOfSize:19];
-    titleView.textColor = [UIColor whiteColor];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.text = @"会话";
-    self.tabBarController.navigationItem.titleView = titleView;
+    [self setNavigationItemTitleView];
     
     //自定义rightBarButtonItem
     UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 17, 17)];
@@ -94,7 +88,33 @@
     self.tabBarController.navigationItem.rightBarButtonItem = rightButton;
     [self notifyUpdateUnreadMessageCount];
 
+
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //showConnectingStatusOnNavigatorBar设置为YES时，需要重写setNavigationItemTitleView函数来显示已连接时的标题。
+    self.showConnectingStatusOnNavigatorBar = YES;
+    [super updateConnectionStatusOnNavigatorBar];
+}
+//由于demo使用了tabbarcontroller，当切换到其它tab时，不能更改tabbarcontroller的标题。
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.showConnectingStatusOnNavigatorBar = NO;
+}
+
+- (void)setNavigationItemTitleView {
+    if (self.isEnteredToCollectionViewController) {
+        return;
+    }
+    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 44)];
+    titleView.backgroundColor = [UIColor clearColor];
+    titleView.font = [UIFont boldSystemFontOfSize:19];
+    titleView.textColor = [UIColor whiteColor];
+    titleView.textAlignment = NSTextAlignmentCenter;
+    titleView.text = @"会话";
+    self.tabBarController.navigationItem.titleView = titleView;
+}
+
 - (void)updateBadgeValueForTabBarItem
 {
     __weak typeof(self) __weakSelf = self;

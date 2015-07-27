@@ -198,7 +198,7 @@
   }
   //客服设置
   else if (self.conversationType == ConversationType_CUSTOMERSERVICE) {
-    RCSettingViewController *settingVC = [[RCSettingViewController alloc] init];
+    RCDSettingBaseViewController *settingVC = [[RCDSettingBaseViewController alloc] init];
     settingVC.conversationType = self.conversationType;
     settingVC.targetId = self.targetId;
     //清除聊天记录之后reload data

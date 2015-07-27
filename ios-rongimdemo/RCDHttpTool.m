@@ -116,6 +116,11 @@
             
         } failure:^(NSError *err) {
             NSLog(@"getUserInfoByUserID error");
+            if (completion) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil);
+                });
+            }
         }];
     
     }else

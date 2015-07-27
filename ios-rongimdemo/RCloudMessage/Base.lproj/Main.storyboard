@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rRv-S9-5w8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rRv-S9-5w8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
@@ -385,7 +385,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="63t-DF-sz8" id="r02-wd-n0e">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-nD-jt3">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RTv-nD-jt3">
                                             <rect key="frame" x="14" y="17" width="36" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="54.5" id="Nre-ol-X9D"/>
@@ -838,9 +838,24 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uib-6Q-vMb" id="Vzq-UA-mIJ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH7-jc-YxR">
-                                                    <rect key="frame" x="22" y="9" width="560" height="40"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6YG-nB-KTJ">
+                                                    <rect key="frame" x="22" y="69" width="560" height="40"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="height" constant="40" id="2U8-3f-tcg"/>
+                                                        <constraint firstAttribute="width" constant="560" id="7mF-Pb-Yfn"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="joinOrQuitGroup:" destination="x4h-9W-Ksv" eventType="touchUpInside" id="MSk-fg-o1K"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH7-jc-YxR">
+                                                    <rect key="frame" x="22" y="8" width="560" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="560" id="e8M-4L-mi8"/>
                                                         <constraint firstAttribute="height" constant="40" id="yJQ-ze-O4M"/>
                                                     </constraints>
                                                     <state key="normal" title="Button">
@@ -849,19 +864,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="beginGroupChat:" destination="x4h-9W-Ksv" eventType="touchUpInside" id="QG2-QC-GQg"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6YG-nB-KTJ">
-                                                    <rect key="frame" x="22" y="69" width="560" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="2U8-3f-tcg"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Button">
-                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="joinOrQuitGroup:" destination="x4h-9W-Ksv" eventType="touchUpInside" id="MSk-fg-o1K"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1556,24 +1558,47 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接收到新消息通知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="34" translatesAutoresizingMaskIntoConstraints="NO" id="KTv-6J-gl7">
-                                                    <rect key="frame" x="17" y="12" width="136" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Aw4-xG-tbF">
                                                     <rect key="frame" x="543" y="7" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="onSwitch:" destination="EPa-dL-Qno" eventType="valueChanged" id="L9H-5u-OSR"/>
                                                     </connections>
                                                 </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="接收到新消息通知" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="34" translatesAutoresizingMaskIntoConstraints="NO" id="KTv-6J-gl7">
+                                                    <rect key="frame" x="17" y="12" width="136" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="KTv-6J-gl7" firstAttribute="leading" secondItem="zCl-5z-Lw4" secondAttribute="leadingMargin" constant="9" id="SSV-Dr-AIZ"/>
                                                 <constraint firstItem="KTv-6J-gl7" firstAttribute="top" secondItem="zCl-5z-Lw4" secondAttribute="topMargin" constant="4" id="Uah-Gv-cp4"/>
                                                 <constraint firstItem="Aw4-xG-tbF" firstAttribute="trailing" secondItem="zCl-5z-Lw4" secondAttribute="trailingMargin" id="ldj-Kq-i6T"/>
                                                 <constraint firstItem="Aw4-xG-tbF" firstAttribute="top" secondItem="zCl-5z-Lw4" secondAttribute="topMargin" constant="-1" id="rwi-Bc-JUC"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="9BV-ql-ovG">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="bottom" tableViewCell="9BV-ql-ovG" id="VcW-vd-hrF">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="消息免打扰" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KY8-W3-ITw">
+                                                    <rect key="frame" x="17" y="8" width="85" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20.5" id="a5R-ET-Gl5"/>
+                                                        <constraint firstAttribute="width" constant="85" id="peJ-2Q-r2J"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KY8-W3-ITw" firstAttribute="leading" secondItem="VcW-vd-hrF" secondAttribute="leadingMargin" constant="9" id="fyh-E2-p5b"/>
+                                                <constraint firstItem="KY8-W3-ITw" firstAttribute="top" secondItem="VcW-vd-hrF" secondAttribute="topMargin" id="m7X-Pn-5KJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1666,12 +1691,13 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="notifySwitch" destination="Aw4-xG-tbF" id="fXK-B5-1dP"/>
+                        <outlet property="noDisturbLabel" destination="KY8-W3-ITw" id="9AI-Hh-P6x"/>
+                        <outlet property="notifySwitch" destination="Aw4-xG-tbF" id="EB6-W5-a1h"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3zm-hW-Dx6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="311" y="3215"/>
+            <point key="canvasLocation" x="375" y="3215"/>
         </scene>
         <!--好友申请-->
         <scene sceneID="key-b3-xSr">

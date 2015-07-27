@@ -138,7 +138,7 @@
     cell.delegate=self;
     cell.isJoin = group.isJoin;
     cell.lblPersonNumber.text=[NSString stringWithFormat:@"%@/%@",group.number,group.maxNumber];
-
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     return cell;
 }
 

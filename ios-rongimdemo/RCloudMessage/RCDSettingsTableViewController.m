@@ -25,7 +25,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     //self.automaticallyAdjustsScrollViewInsets = false;
-    self.tableView.contentInset=UIEdgeInsetsMake(-24, 0, 0, 0);
+    self.tableView.contentInset=UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.tableFooterView=[UIView new];
 }
 

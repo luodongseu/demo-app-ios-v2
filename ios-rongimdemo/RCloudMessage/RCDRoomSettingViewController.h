@@ -7,7 +7,8 @@
 //
 
 #import <RongIMKit/RongIMKit.h>
+#import "RCDSettingBaseViewController.h"
 
-@interface RCDRoomSettingViewController : RCSettingViewController
+@interface RCDRoomSettingViewController : RCDSettingBaseViewController
 
 @end

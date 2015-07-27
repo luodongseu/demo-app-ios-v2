@@ -55,15 +55,15 @@
         
         NSDictionary *_bindingViews = NSDictionaryOfVariableBindings(_ivAva,_lblName,_lblDetail);
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_ivAva(46)]" options:kNilOptions metrics:nil views:_bindingViews]];
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_ivAva(46)]" options:kNilOptions metrics:nil views:_bindingViews]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0f constant:0]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-13-[_ivAva(width)]" options:0 metrics:@{@"width" :@([RCIM sharedRCIM].globalConversationPortraitSize.width)} views:NSDictionaryOfVariableBindings(_ivAva)]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[_ivAva(height)]" options:0 metrics:@{@"height" :@([RCIM sharedRCIM].globalConversationPortraitSize.height)} views:NSDictionaryOfVariableBindings(_ivAva)]];
+    
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[_lblName(18)]-[_lblDetail(18)]" options:kNilOptions metrics:kNilOptions views:_bindingViews]];
         
-        //[self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_lblDetail]-10-|" options:kNilOptions metrics:kNilOptions views:_bindingViews]];
-//        [self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_ivAva attribute:NSLayoutAttributeWidth multiplier:1.0 constant:46.f]];
-        [self addConstraint:[NSLayoutConstraint constraintWithItem:_ivAva attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:11.f]];
+        
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_lblName attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_ivAva attribute:NSLayoutAttributeTop multiplier:1.0 constant:2.f]];
         
         [self addConstraint:[NSLayoutConstraint constraintWithItem:_lblName attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:_ivAva attribute:NSLayoutAttributeRight multiplier:1.0 constant:8]];

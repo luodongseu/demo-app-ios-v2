@@ -47,9 +47,30 @@
 @property(nonatomic, assign) BOOL isEnteredToCollectionViewController;
 
 /**
+ *  是否显示网络断开时提示
+ */
+@property(nonatomic, assign) BOOL isShowNetworkIndicatorView;
+
+/**
  *  会话列表为空时的视图
  */
 @property(nonatomic, strong) UIView *emptyConversationView;
+
+/**
+ *  是否在navigatorBar上显示连接中的状态。默认是关闭。
+ *  如果开启，请实现setNavigationItemTitleView，当已连接时，用来更新标题.
+ */
+@property(nonatomic) BOOL showConnectingStatusOnNavigatorBar;
+
+/**
+ *  在navigationbar上更新连接状态
+ */
+- (void)updateConnectionStatusOnNavigatorBar;
+
+/**
+ *  在navigationbar上更标题View。如果showConnectingStatusOnNavigatorBar为YES，请实现该方法来设置title
+ */
+- (void)setNavigationItemTitleView;
 /**
  *  init
  *

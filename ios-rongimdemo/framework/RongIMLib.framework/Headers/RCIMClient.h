@@ -207,6 +207,22 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
 - (void)setRCConnectionStatusChangeDelegate:(id<RCConnectionStatusChangeDelegate>)delegate;
 
 /**
+ *  发送状态消息。可以发送任何类型的消息。但建议您发送自定义的消息类型
+ *  注：如果通过该接口发送图片消息，需要自己实现上传图片，把imageUrl传入content（注意它将是一个RCImageMessage）。
+ *  @param conversationType 会话类型。
+ *  @param targetId         目标 Id。根据不同的 conversationType，可能是聊天 Id、讨论组 Id、群组 Id 或聊天室 Id。
+ *  @param content          消息内容。
+ *  @param successBlock     调用完成的处理。
+ *  @param errorBlock       调用返回的错误信息。
+ *
+ *  @return 发送的状态消息实体。
+ */
+- (RCMessage *)sendStatusMessage:(RCConversationType)conversationType
+                        targetId:(NSString *)targetId
+                         content:(RCMessageContent *)content
+                         success:(void (^)(long messageId))successBlock
+                           error:(void (^)(RCErrorCode nErrorCode, long messageId))errorBlock;
+/**
  *  发送消息。可以发送任何类型的消息。
  *  注：如果通过该接口发送图片消息，需要自己实现上传图片，把imageUrl传入content（注意它将是一个RCImageMessage）。
  *  @param conversationType 会话类型。
@@ -679,7 +695,7 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
  *  加入聊天室。
  *
  *  @param targetId         聊天室ID。
- *  @param messageCount     进入聊天室获取获取多少条历史信息，-1表示不获取，0表示系统默认数目(现在默认值为10条)，正数表示获取的具体数目
+ *  @param messageCount     进入聊天室获取获取多少条历史信息， -1表示不获取，0表示系统默认数目(现在默认值为10条)，正数表示获取的具体数目，最大值为50
  *  @param successBlock     调用完成的处理。
  *  @param errorBlock       调用返回的错误信息。
  */
@@ -859,6 +875,11 @@ typedef NS_ENUM(NSUInteger, RCNetworkStatus) {
 - (void)syncUserData:(RCUserData *)userData
    success:(void (^)())successBlock
      error:(void (^)(RCErrorCode status))errorBlock;
-
+/**
+ *  查询当前连接状态
+ *
+ *  @return 连接状态
+ */
+- (RCConnectionStatus)getConnectionStatus;
 @end
 #endif

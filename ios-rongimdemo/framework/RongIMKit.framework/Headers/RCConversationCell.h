@@ -74,6 +74,16 @@
 @property(nonatomic) BOOL enableNotification;
 
 /**
+ *  cell 背景颜色
+ */
+@property(nonatomic) UIColor *cellBackgroundColor;
+
+/**
+ *  置顶cell 背景颜色
+ */
+@property(nonatomic) UIColor *topCellBackgroundColor;
+
+/**
  *  设置用户头像样式
  *
  *  @param portraitStyle portraitStyle
