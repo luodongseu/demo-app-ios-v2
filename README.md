@@ -1,6 +1,8 @@
 # demo-app-ios-v2
 App for demonstration of Rong IMKit v2.0 component.
-
+```obj
+asdasdas
+```
 
 # iOS SDK 2.0 升级文档
 
